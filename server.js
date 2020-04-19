@@ -5,11 +5,42 @@ const express = require('express')
 const app = express();
 const bodyParser = require('body-parser');
 const path = require('path');
+const mssql = require('mssql')
+const dbConfig = require('./backend/config/dbConfig');
 const {PORT} = process.env || 3000
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+// Authentication:
+app.use(require('./backend/middleware/auth.middleware'));
+// Routes:
+app.use(require('./backend/routes/index'));
 
+// connect to database:
+
+mssql.connect(dbConfig, err => {
+    if(err) {
+        console.log("*******************************************");
+        console.log("*******************************************");
+        console.log("************Faild to connect DB************");
+        console.log("*******************************************");
+        console.log("*******************************************");
+    } else {
+        console.log("Connected to DB");
+    }
+})
+// const pool = new mssql.ConnectionPool(dbConfig);
+// pool.connect( err => {
+//     if(err) {
+//         console.log("*******************************************");
+//         console.log("*******************************************");
+//         console.log("************Faild to connect DB************");
+//         console.log("*******************************************");
+//         console.log("*******************************************");
+//     } else {
+//         console.log("Connected to DB");
+//     }
+// })
 // Disable caching of scripts for easier testing
 app.use(function noCache(req, res, next) {
     if (req.url.indexOf('/scripts/') === 0) {

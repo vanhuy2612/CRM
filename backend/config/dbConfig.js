@@ -6,5 +6,6 @@ module.exports = {
     user: DB_USER || 'root',
     password: DB_PASS || '',
     server: DB_HOST || 'localhost',
-    database: DB_NAME || ''
+    database: DB_NAME || '',
+    //port: DB_PORT || 1433
 }
