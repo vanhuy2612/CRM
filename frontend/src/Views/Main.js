@@ -1,15 +1,15 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Grid from '@material-ui/core/Grid';
-import Container from '@material-ui/core/Container';
-import GitHubIcon from '@material-ui/icons/GitHub';
-import FacebookIcon from '@material-ui/icons/Facebook';
-import TwitterIcon from '@material-ui/icons/Twitter';
-import Header from '../Components/Header';
-import MainFeaturedPost from '../Components/MainFeaturedPost';
-import Sidebar from '../Components/Sidebar';
-import Footer from '../Components/Footer';
+import React from 'react'
+import { makeStyles } from '@material-ui/core/styles'
+import CssBaseline from '@material-ui/core/CssBaseline'
+import Grid from '@material-ui/core/Grid'
+import Container from '@material-ui/core/Container'
+import GitHubIcon from '@material-ui/icons/GitHub'
+import FacebookIcon from '@material-ui/icons/Facebook'
+import TwitterIcon from '@material-ui/icons/Twitter'
+import Header from '../Components/Header'
+import MainFeaturedPost from '../Components/MainFeaturedPost'
+import Sidebar from '../Components/Sidebar'
+import Footer from '../Components/Footer'
 import img from '../bgr.jpg'
 
 const useStyles = makeStyles((theme) => ({

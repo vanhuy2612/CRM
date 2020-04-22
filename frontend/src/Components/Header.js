@@ -57,8 +57,8 @@ export default function PersistentDrawerRight(props) {
         })}
       >
         <Toolbar>
-          <Typography variant="h4" noWrap className={classes.title}>
-            CRM
+          <Typography variant="h5" noWrap className={classes.title}>
+            BiTrix24h
           </Typography>
           <Typography variant="h6" noWrap className={classes.title}>
             {sections.map((element, index) => {
