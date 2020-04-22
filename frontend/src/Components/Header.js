@@ -1,74 +1,87 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
+import clsx from 'clsx';
+import { makeStyles, useTheme, withTheme } from '@material-ui/core/styles';
+import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import SearchIcon from '@material-ui/icons/Search';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
+import { IconButton } from '@material-ui/core';
+import AccountCircle from '@material-ui/icons/AccountCircle'
+
+const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
-  toolbar: {
-    borderBottom: `1px solid ${theme.palette.divider}`,
+  root: {
+    height: 100,
+    display: 'flex',
   },
-  toolbarTitle: {
-    flex: 1,
+  appBar: {
+    transition: theme.transitions.create(['margin', 'width'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
   },
-  toolbarSecondary: {
-    justifyContent: 'space-between',
-    overflowX: 'auto',
+  appBarShift: {
+    width: `calc(100% - ${drawerWidth}px)`,
+    transition: theme.transitions.create(['margin', 'width'], {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+    marginRight: drawerWidth,
   },
-  toolbarLink: {
-    padding: theme.spacing(1),
+  title: {
+    flexGrow: 1,
+  },
+  hide: {
+    display: 'none',
+  },
+  drawer: {
+    width: drawerWidth,
     flexShrink: 0,
   },
 }));
 
-export default function Header(props) {
+export default function PersistentDrawerRight(props) {
   const classes = useStyles();
-  const { sections, title } = props;
-
+  const theme = useTheme();
+  const [open, setOpen] = React.useState(false);
+  const { sections } = props;
+  const preventDefault = (event) => event.preventDefault();
   return (
-    <React.Fragment>
-      <Toolbar className={classes.toolbar}>
-        <Button size="small">Subscribe</Button>
-        <Typography
-          component="h2"
-          variant="h5"
-          color="inherit"
-          align="center"
-          noWrap
-          className={classes.toolbarTitle}
-        >
-          {title}
-        </Typography>
-        <IconButton>
-          <SearchIcon />
-        </IconButton>
-        <Button variant="outlined" size="small">
-          Sign up
-        </Button>
-      </Toolbar>
-      <Toolbar component="nav" variant="dense" className={classes.toolbarSecondary}>
-        {sections.map((section) => (
-          <Link
+    <div className={classes.root}>
+      {/* <CssBaseline /> */}
+      <AppBar
+        position="fixed"
+        className={clsx(classes.appBar, {
+          [classes.appBarShift]: open,
+        })}
+      >
+        <Toolbar>
+          <Typography variant="h4" noWrap className={classes.title}>
+            CRM
+          </Typography>
+          <Typography variant="h6" noWrap className={classes.title}>
+            {sections.map((element, index) => {
+              return (
+                <span style={{ textAlign: 'center', padding: 30, fontFamily: 'auto' }}>
+                  <Link href="#" onClick={preventDefault} color='inherit'>
+                    {element.title}
+                  </Link>
+                </span>
+              )
+            })}
+          </Typography>
+          <IconButton
             color="inherit"
-            noWrap
-            key={section.title}
-            variant="body2"
-            href={section.url}
-            className={classes.toolbarLink}
+            aria-label="đăng nhập"
+            edge="end"
+            // onClick={handleDrawerOpen}
+            className={clsx(open && classes.hide)}
           >
-            {section.title}
-          </Link>
-        ))}
-      </Toolbar>
-    </React.Fragment>
+            <AccountCircle />
+          </IconButton>
+        </Toolbar>
+      </AppBar>
+    </div>
   );
 }
-
-Header.propTypes = {
-  sections: PropTypes.array,
-  title: PropTypes.string,
-};
