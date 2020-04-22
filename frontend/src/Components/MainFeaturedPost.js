@@ -52,7 +52,7 @@ export default function MainFeaturedPost(props) {
             <Typography variant="h5" color="inherit" paragraph style={{marginTop: 20, fontFamily: 'auto'}}>
               {post.description}
             </Typography>
-            <Button variant="outlined" color="secondary" style={{borderRadius: 15,marginTop: 20,fontFamily: 'auto'}} >
+            <Button variant="outlined" color="secondary" style={{borderRadius: 30,marginTop: 20,fontFamily: 'auto'}} >
               Đăng ký miễn phí
             </Button>
           </div>

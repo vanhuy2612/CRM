@@ -7,11 +7,19 @@ import Header from '../Components/Header'
 import MainFeaturedPost from '../Components/MainFeaturedPost'
 import Footer from '../Components/Footer'
 import img from '../bgr.jpg'
+import Slider from '../Components/Slider'
+import { Button } from '@material-ui/core';
+import BxInPlace from '../bgr.jpg'
 
 const useStyles = makeStyles((theme) => ({
   mainGrid: {
     marginTop: theme.spacing(3),
   },
+  BxInPlace: {
+    marginTop: 30,
+    marginbutton: 30,
+    fontFamily: 'auto'
+  }
 }));
 
 const sections = [
@@ -22,6 +30,8 @@ const sections = [
   { title: 'Blog', url: '#' },
   { title: 'Hỗ Trợ', url: '#' },
 ];
+
+
 
 const mainFeaturedPost = {
   title: 'Your Company. United.',
@@ -41,8 +51,34 @@ export default function Blog() {
       <Container maxWidth="lg">
         <Header sections={sections} />
         <main>
-        <MainFeaturedPost post={mainFeaturedPost} />
-          <Grid container spacing={4}>
+          <MainFeaturedPost post={mainFeaturedPost} />
+          <Grid item md={12}>
+            <span>
+              <Slider />
+            </span>
+          </Grid>
+          <Grid container spacing={0} className={classes.BxInPlace}>
+            <Grid item md={4}>
+              <h1>BiTrix tại chỗ</h1>
+              <span>
+                Bạn có thể sử dụng phiên bản Bitrix24 tự lưu trữ để chạy trên máy chủ của bạn.
+                Bạn sẽ có kiểm soát toàn diện đối với dữ liệu,
+                truy cập mã nguồn và các công cụ bổ sung như bộ phận hỗ trợ và học tập điện tử,
+                cũng như các tùy chọn tích hợp và tùy chỉnh.
+              </span> <br />
+              <Button variant="contained" color="primary" style={{ borderRadius: 30, marginTop: 20, fontFamily: 'auto' }} >
+                Tìm hiểu thêm
+            </Button>
+            </Grid>
+            <Grid item md={8}>
+              // thêm ảnh vô đây 
+            </Grid>
+          </Grid>
+          <Grid item md={12} style={{ textAlign: 'center', fontFamily: 'auto', marginBottom: 40 }}>
+            <p style={{fontSize: 50}}>Bạn muốn thử ?</p>
+            <Button variant="outlined" color="secondary" size='large' style={{ borderRadius: 30, fontFamily: 'auto' }} >
+              Đăng ký miễn phí
+            </Button>
           </Grid>
         </main>
       </Container>
