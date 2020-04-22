@@ -9,10 +9,11 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const {SALT_ROUNDS} = require('../config/bcryptConfig');
 const MemberController = require('../app/controller/MemberController');
+const UserController = require('../app/controller/UserController')
 
 
 Router.post('/api/login', MemberController.login)
-Router.post('/api/register', MemberController.register)
+Router.post('/api/register', UserController.register)
 
 module.exports = Router;
 /*

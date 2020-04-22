@@ -39,6 +39,7 @@ const sequelize = new Sequelize(
         dialect: 'mssql'
     }
 )
+
 testConnection(sequelize);
 async function testConnection(sequelize){
     try {
