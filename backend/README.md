@@ -6,3 +6,5 @@ Hệ thống quản trị quan hệ khách hàng (Customer Relationship Manageme
 + kho dữ liệu và khai phá dữ liệu
 
 git anh Tuan: trantuan94
+
+CSDL : varchar(MAX) not nvarchar(..) because Sequelize.STRING = varchar(...)
