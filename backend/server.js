@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const mssql = require('mssql')
 const dbConfig = require('./config/dbConfig');
+const {Sequelize} = require('sequelize');
 const {PORT} = process.env || 3000
 
 app.use(bodyParser.json());
@@ -26,9 +27,27 @@ mssql.connect(dbConfig, err => {
         console.log("*******************************************");
         console.log("*******************************************");
     } else {
-        console.log("Connected to DB");
+        console.log("Mssql connected to DB");
     }
 })
+const sequelize = new Sequelize(
+    dbConfig.database,
+    dbConfig.user,
+    dbConfig.password,
+    {
+        host: dbConfig.server,
+        dialect: 'mssql'
+    }
+)
+testConnection(sequelize);
+async function testConnection(sequelize){
+    try {
+        await sequelize.authenticate();
+        console.log('Sequelize\'s connection has been established successfully.');
+    } catch (error) {
+        console.error('Unable to connect to the database:', error);
+    }
+}
 // const pool = new mssql.ConnectionPool(dbConfig);
 // pool.connect( err => {
 //     if(err) {
