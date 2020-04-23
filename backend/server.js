@@ -19,17 +19,6 @@ app.use(require('./routes/index'));
 
 // connect to database:
 
-mssql.connect(dbConfig, err => {
-    if(err) {
-        console.log("*******************************************");
-        console.log("*******************************************");
-        console.log("************Faild to connect DB************");
-        console.log("*******************************************");
-        console.log("*******************************************");
-    } else {
-        console.log("Mssql connected to DB");
-    }
-})
 const sequelize = new Sequelize(
     dbConfig.database,
     dbConfig.user,
@@ -39,6 +28,7 @@ const sequelize = new Sequelize(
         dialect: 'mssql'
     }
 )
+
 testConnection(sequelize);
 async function testConnection(sequelize){
     try {
@@ -48,18 +38,6 @@ async function testConnection(sequelize){
         console.error('Unable to connect to the database:', error);
     }
 }
-// const pool = new mssql.ConnectionPool(dbConfig);
-// pool.connect( err => {
-//     if(err) {
-//         console.log("*******************************************");
-//         console.log("*******************************************");
-//         console.log("************Faild to connect DB************");
-//         console.log("*******************************************");
-//         console.log("*******************************************");
-//     } else {
-//         console.log("Connected to DB");
-//     }
-// })
 // Disable caching of scripts for easier testing
 app.use(function noCache(req, res, next) {
     if (req.url.indexOf('/scripts/') === 0) {
