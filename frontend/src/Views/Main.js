@@ -42,14 +42,21 @@ const mainFeaturedPost = {
 };
 
 
-export default function Blog() {
+export default function Blog(props) {
   const classes = useStyles();
+
+  function handleChangeRegister(){
+    props.history.push('/Register/12')
+  }
 
   return (
     <React.Fragment>
       <CssBaseline />
       <Container maxWidth="lg">
-        <Header sections={sections} />
+        <Header 
+            sections={sections} 
+            link = {props}
+        />
         <main>
           <MainFeaturedPost post={mainFeaturedPost} />
           <Grid item md={12}>
@@ -76,7 +83,7 @@ export default function Blog() {
           </Grid>
           <Grid item md={12} style={{ textAlign: 'center', fontFamily: 'auto', marginBottom: 40 }}>
             <p style={{fontSize: 50}}>Bạn muốn thử ?</p>
-            <Button variant="outlined" color="secondary" size='large' style={{ borderRadius: 30, fontFamily: 'auto' }} >
+            <Button variant="outlined" color="secondary" size='large' onClick={handleChangeRegister} style={{ borderRadius: 30, fontFamily: 'auto' }} >
               Đăng ký miễn phí
             </Button>
           </Grid>
