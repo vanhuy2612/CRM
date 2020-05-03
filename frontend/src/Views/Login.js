@@ -59,9 +59,19 @@ const useStyles = makeStyles(theme => ({
 
 export default function SignInSide(props) {
   const classes = useStyles();
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
   
   function handleLogin() {
+    console.log('email',email)
+    console.log('password', password)
     props.history.push('/Drawer/13')
+  }
+  function handleCheckEmail(element){
+    setEmail(element.currentTarget.value);
+  }
+  function handleCheckPassword(e){
+   setPassword(e.currentTarget.value)
   }
 
   return (
@@ -87,6 +97,8 @@ export default function SignInSide(props) {
               name="email"
               autoComplete="email"
               autoFocus
+              value={email}
+              onChange={handleCheckEmail}
             />
             <TextField
               variant="outlined"
@@ -98,6 +110,8 @@ export default function SignInSide(props) {
               type="password"
               id="password"
               autoComplete="current-password"
+              value={password}
+              onChange={handleCheckPassword}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
