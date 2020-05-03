@@ -47,6 +47,11 @@ export default function PersistentDrawerRight(props) {
   const [open, setOpen] = React.useState(false);
   const { sections } = props;
   const preventDefault = (event) => event.preventDefault();
+
+  function handleDrawerOpen() {
+    props.link.history.push('/login/11')
+  }
+
   return (
     <div className={classes.root}>
       {/* <CssBaseline /> */}
@@ -75,7 +80,7 @@ export default function PersistentDrawerRight(props) {
             color="inherit"
             aria-label="đăng nhập"
             edge="end"
-            // onClick={handleDrawerOpen}
+            onClick={handleDrawerOpen}
             className={clsx(open && classes.hide)}
           >
             <AccountCircle />

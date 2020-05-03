@@ -59,8 +59,9 @@ const useStyles = makeStyles(theme => ({
 
 export default function SignInSide(props) {
   const classes = useStyles();
-  const handleLogin = event => {
-    props.link.history.push('/')
+  
+  function handleLogin() {
+    props.history.push('/Drawer/13')
   }
 
   return (
@@ -103,7 +104,7 @@ export default function SignInSide(props) {
               label="Remember me"
             />
             <Button
-              type="submit"
+              type="button"
               fullWidth
               variant="contained"
               color="primary"
