@@ -12,6 +12,7 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import axios from 'axios';
 
 function Copyright() {
   return (
@@ -73,6 +74,16 @@ export default function SignInSide(props) {
   function handleCheckPassword(e){
    setPassword(e.currentTarget.value)
   }
+  // lấy data thông qua axios
+  // function componentDidMount(){
+  //   axios.get('/api/news')
+  //   .then(res => {
+  //      const news = res.data;
+  //      console.log('news', news)
+  //      this.setState({ news });
+  //    })
+  //   .catch(error => console.log(error));
+  // }
 
   return (
     <Grid container component="main" className={classes.root}>

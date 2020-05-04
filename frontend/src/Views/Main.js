@@ -61,8 +61,11 @@ export default function Blog(props) {
             link = {props}
         />
         <main>
-          <MainFeaturedPost post={mainFeaturedPost} />
-          <Grid item md={12} className={classes.grid}>
+          <MainFeaturedPost 
+            post={mainFeaturedPost} 
+            link={props}
+            />
+          <Grid item md={12} className={classes.grid} spacing={10}>
            <h2>Why should you use CRM?</h2>
            <ul>
              <li>
@@ -112,11 +115,11 @@ export default function Blog(props) {
                 Tìm hiểu thêm
             </Button>
             </Grid>
-            <Grid item md={8}>
+            <Grid item md={8} spacing={8}>
               // thêm ảnh vô đây 
             </Grid>
           </Grid>
-          <Grid item md={12} style={{ textAlign: 'center', fontFamily: 'auto', marginBottom: 40 }}>
+          <Grid item md={12} style={{ textAlign: 'center', fontFamily: 'auto', marginBottom: 40 }} >
             <p style={{fontSize: 50}}>Bạn muốn thử ?</p>
             <Button variant="outlined" color="secondary" size='large' onClick={handleChangeRegister} style={{ borderRadius: 30, fontFamily: 'auto' }} >
               Đăng ký miễn phí
