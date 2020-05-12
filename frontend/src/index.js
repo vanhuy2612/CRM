@@ -1,14 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import Main from './Views/Login';
+import { BrowserRouter } from "react-router-dom";
+import { Route, Router, browserHistory } from '../node_modules/react-router';
+
+
+
+import './index.css'
+import Main from './Views/Main'
+import Login from './Views/Login'
+import Register from './Views/Register'
+import Drawer from './Components/Drawer'
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Main />
-  </React.StrictMode>,
-  document.getElementById('root')
+  <BrowserRouter>
+        <Route exact path="/" component={Main} />
+        <Route exact path="/Login/:id" component={Login} />
+        <Route exact path="/Register/:id" component={Register} />
+        <Route exact path="/Drawer/:id" component={Drawer} />
+    </BrowserRouter>, document.getElementById('root')
 );
 
 // If you want your app to work offline and load faster, you can change

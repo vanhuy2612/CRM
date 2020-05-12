@@ -12,6 +12,7 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import axios from 'axios';
 
 function Copyright() {
   return (
@@ -59,9 +60,30 @@ const useStyles = makeStyles(theme => ({
 
 export default function SignInSide(props) {
   const classes = useStyles();
-  const handleLogin = event => {
-    props.link.history.push('/')
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
+  
+  function handleLogin() {
+    console.log('email',email)
+    console.log('password', password)
+    props.history.push('/Drawer/13')
   }
+  function handleCheckEmail(element){
+    setEmail(element.currentTarget.value);
+  }
+  function handleCheckPassword(e){
+   setPassword(e.currentTarget.value)
+  }
+  // lấy data thông qua axios
+  // function componentDidMount(){
+  //   axios.get('/api/news')
+  //   .then(res => {
+  //      const news = res.data;
+  //      console.log('news', news)
+  //      this.setState({ news });
+  //    })
+  //   .catch(error => console.log(error));
+  // }
 
   return (
     <Grid container component="main" className={classes.root}>
@@ -86,6 +108,8 @@ export default function SignInSide(props) {
               name="email"
               autoComplete="email"
               autoFocus
+              value={email}
+              onChange={handleCheckEmail}
             />
             <TextField
               variant="outlined"
@@ -97,13 +121,15 @@ export default function SignInSide(props) {
               type="password"
               id="password"
               autoComplete="current-password"
+              value={password}
+              onChange={handleCheckPassword}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             />
             <Button
-              type="submit"
+              type="button"
               fullWidth
               variant="contained"
               color="primary"
