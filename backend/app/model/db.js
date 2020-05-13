@@ -1,5 +1,5 @@
 'use strict'
-const dbConfig = require('./dbConfig');
+const dbConfig = require('../../config/dbConfig');
 const {Sequelize} = require('sequelize');
 const sequelize = new Sequelize(
     dbConfig.database,
@@ -15,4 +15,20 @@ const sequelize = new Sequelize(
     }
 )
 
-module.exports = sequelize;
+const db = {};
+
+db.Sequelize = Sequelize;
+db.sequelize = sequelize;
+
+// Model, table:
+db.users = require('./UserModel')(sequelize, Sequelize);
+db.branchs = require('./BranchModel')(sequelize, Sequelize);
+
+// Relations:
+
+
+
+module.exports = db;
+
+
+

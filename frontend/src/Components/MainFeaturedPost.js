@@ -38,6 +38,10 @@ export default function MainFeaturedPost(props) {
   const classes = useStyles();
   const { post } = props;
 
+  function handleSignUp(){
+    props.link.history.push('/Register/12')
+  }
+
   return (
     <Paper className={classes.mainFeaturedPost} style={{ backgroundImage: `url(${post.image})` }}>
       {/* Increase the priority of the hero background image */}
@@ -52,7 +56,7 @@ export default function MainFeaturedPost(props) {
             <Typography variant="h5" color="inherit" paragraph style={{marginTop: 20, fontFamily: 'auto'}}>
               {post.description}
             </Typography>
-            <Button variant="outlined" color="secondary" style={{borderRadius: 30,marginTop: 20,fontFamily: 'auto'}} >
+            <Button variant="outlined" color="secondary" style={{borderRadius: 30,marginTop: 20,fontFamily: 'auto'}} onClick={handleSignUp} >
               Đăng ký miễn phí
             </Button>
           </div>

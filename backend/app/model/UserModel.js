@@ -1,13 +1,14 @@
 'use strict'
-const Sequelize = require('sequelize')
-const sequelize = require('../../config/sequelizeConfig');
 
-const User = sequelize.define('tbluser',{
-    //id: { type: Sequelize.INTEGER},
-    username: { type: Sequelize.STRING},
-    password: { type: Sequelize.STRING}
-},{
-    freezeTableName: true
-})
-
-module.exports = User;
+module.exports = (sequelize, DataTypes) => {
+    const UserModel = sequelize.define('users',{
+        id: { type: DataTypes.STRING, primaryKey: true},
+        username: { type: DataTypes.STRING},
+        password: { type: DataTypes.STRING},
+        branchId: { type: DataTypes.STRING},
+        role: { type: DataTypes.STRING }
+    },{
+        freezeTableName: true
+    })
+    return UserModel;
+}

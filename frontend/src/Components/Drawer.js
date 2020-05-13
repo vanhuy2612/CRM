@@ -15,10 +15,14 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
-import InboxIcon from '@material-ui/icons/MoveToInbox'
-import MailIcon from '@material-ui/icons/Mail'
 import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
+//icons
+import InboxIcon from '@material-ui/icons/MoveToInbox'
+import MailIcon from '@material-ui/icons/Mail'
+import AccountBox from '@material-ui/icons/AccountBox'
+import Contacts from '@material-ui/icons/Contacts'
+import Category from '@material-ui/icons/Category'
 
 const drawerWidth = 240;
 
@@ -162,18 +166,18 @@ export default function MiniDrawer() {
         </div>
         <Divider />
         <List>
-          {['Dashboard', 'Leads', 'Acconts', 'Contacts'].map((text, index) => (
+          {['Product', 'Service', 'Acconts', 'Contacts',].map((text, index) => (
             <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+              <ListItemIcon>{index % 2 === 0 ? <AccountBox /> : <Contacts />}</ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
           ))}
         </List>
         <Divider />
         <List>
-          {['Deals', 'Activities', 'Report'].map((text, index) => (
+          {['Deals', 'Activities', 'Post', 'Report'].map((text, index) => (
             <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+              <ListItemIcon>{index % 2 === 0 ? <Category /> : <MailIcon />}</ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
           ))}
