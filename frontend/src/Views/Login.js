@@ -66,7 +66,19 @@ export default function SignInSide(props) {
   function handleLogin() {
     console.log('email',email)
     console.log('password', password)
-    props.history.push('/Drawer/13')
+    //props.history.push('/Drawer/13')
+    axios.post('http://localhost:3000/api/login/', {
+      username: 'duong',
+      password: '123'
+    },{
+     
+    })
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
   }
   function handleCheckEmail(element){
     setEmail(element.currentTarget.value);

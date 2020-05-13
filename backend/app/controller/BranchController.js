@@ -1,21 +1,20 @@
 'use strict'
 
 const BaseController = require('./BaseController');
-const BranchModel = require('../model/BranchModel');
-const UserModel = require('../model/UserModel');
+const db = require('../model/db.js');
 
 class BranchController extends BaseController {
     constructor() {
-        super(BranchController, BranchModel)
+        super(BranchController, db.users)
     }
     async index(req, res, next) {
-        let branchs = await BranchModel.findAll();
+        let branchs = await db.branchs.findAll();
         res.json(branchs);
     }
     async store(req, res, next) {
         // find id for branchs
         let newIdBranch = process.env.DB_LOC + '1';
-        let lastBrach = await BranchModel.findAll({order: [ ['createdAt', 'DESC']], limit: 1, offset: 0});
+        let lastBrach = await db.branchs.findAll({order: [ ['createdAt', 'DESC']], limit: 1, offset: 0});
         if( lastBrach.length != 0) {
             lastBrach = lastBrach[0].dataValues;
             // handle Id : MB0001 => 0001
@@ -29,18 +28,18 @@ class BranchController extends BaseController {
             id: newIdBranch,
             name: req.body.name
         }
-        let BrachInserted = await BranchModel.create(data);
+        let BrachInserted = await db.branchs.create(data);
         if(BrachInserted == null) res.json({message: "Luu tai khoan that bai"});
         else res.json(BrachInserted);
     }
-    async getAllUser(req, res, next) {
+    async getAllUserOfBranch(req, res, next) {
         let branchId = req.params.branchId;
-        BranchModel.hasMany(UserModel, { foreignKey: 'branchId'});
-        UserModel.belongsTo(BranchModel, {foreignKey: "branchId"});
+        db.branchs.hasMany(db.users, { foreignKey: 'branchId'});
+        db.users.belongsTo(db.branchs, {foreignKey: "branchId"});
 
-        let data = await BranchModel.findAll({
+        let data = await db.branchs.findAll({
             where: { id: branchId},
-            include: [{ model:'users', as: 'users'}]
+            include: [{ model: db.users}]
         })
         return res.json(data);
     }

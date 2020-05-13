@@ -26,7 +26,8 @@ router.group( router => {
 router.group( router => {
     router.get('/', BranchController.index);
     router.post('/', BranchController.store);
-    router.get('/:branchId/user', BranchController.getAllUser)
+    router.get('/:branchId/user', BranchController.getAllUserOfBranch)
 }).prefix('/api/branch')
+
 let listRoutes = router.init();
 module.exports = listRoutes;

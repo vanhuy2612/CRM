@@ -3,6 +3,7 @@
 require('dotenv').config().parsed
 const express = require('express')
 const app = express();
+const cors = require('cors');
 const bodyParser = require('body-parser');
 const path = require('path');
 const mssql = require('mssql')
@@ -10,6 +11,8 @@ const dbConfig = require('./config/dbConfig');
 const {Sequelize} = require('sequelize');
 const {PORT} = process.env || 3000
 
+// turn on CORS
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 // Authentication:
@@ -32,17 +35,7 @@ const sequelize = new Sequelize(
         }
     }
 )
-// var sequelize = new Sequelize({
-//     dialect: 'mssql',
-//     dialectOptions: {
-//       instanceName: 'MQ00019/MSSQLSERVER1',
-//       trustedConnection: true
-//     },
-//     host: 'localhost',
-//     //host: 'MQ00019',
-//     //host: ' 192.168.6.194',
-//     database: 'crm'
-//   })
+
 console.log(dbConfig)
 testConnection(sequelize);
 async function testConnection(sequelize){
@@ -53,6 +46,8 @@ async function testConnection(sequelize){
         console.error('Unable to connect to the database:', error);
     }
 }
+
+
 // Disable caching of scripts for easier testing
 app.use(function noCache(req, res, next) {
     if (req.url.indexOf('/scripts/') === 0) {
