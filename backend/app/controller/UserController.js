@@ -76,7 +76,7 @@ class UserController extends BaseController{
                 let token = jwt.sign(payload, authConfig.secrectKey, authConfig.options);
                 return res.json(token);            
             } else {
-                return res.status(401).json({message: "Sai mat khau"})
+                return res.json({message: "Sai mat khau"})
             }
         }
     }

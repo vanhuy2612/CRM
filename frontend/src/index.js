@@ -9,7 +9,7 @@ import './index.css'
 import Main from './Views/Main'
 import Login from './Views/Login'
 import Register from './Views/Register'
-import Drawer from './Components/Drawer'
+import Dashboard from './Dashboard/Dashboard'
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
@@ -17,7 +17,7 @@ ReactDOM.render(
         <Route exact path="/" component={Main} />
         <Route exact path="/Login/:id" component={Login} />
         <Route exact path="/Register/:id" component={Register} />
-        <Route exact path="/Drawer/:id" component={Drawer} />
+        <Route exact path="/Dashboard/:id" component={Dashboard} />
     </BrowserRouter>, document.getElementById('root')
 );
 
