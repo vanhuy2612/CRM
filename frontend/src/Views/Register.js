@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
 import CssBaseline from '@material-ui/core/CssBaseline'
@@ -10,7 +10,7 @@ import Grid from '@material-ui/core/Grid'
 import Box from '@material-ui/core/Box'
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import Typography from '@material-ui/core/Typography'
-import { makeStyles } from '@material-ui/core/styles'
+import { withStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
 import axios from 'axios'
 
@@ -27,7 +27,7 @@ function Copyright() {
   );
 }
 
-const useStyles = makeStyles(theme => ({
+const styles = theme => ({
   paper: {
     marginTop: theme.spacing(8),
     display: 'flex',
@@ -45,137 +45,159 @@ const useStyles = makeStyles(theme => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
-}));
+});
+class Register extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      username: "",
+      password: "",
+      branchId: "",
+      role: "",
+    }
+  }
 
-export default function SignUp() {
-  const classes = useStyles();
-  const [firstName, setFirstName] = React.useState();
-  const [lastName, setLastName] = React.useState();
-  const [email, setEmail]= React.useState();
-  const [password, setPassword] = React.useState();
+  handleCheckUserName = element => {
+    this.setState({
+      username: element.currentTarget.value
+    })
+  }
+  
+  handleCheckBranchId = element => {
+    this.setState({
+      branchId: element.currentTarget.value
+    })
+  }
 
-  function handleCheckFirstName(element){
-    setFirstName(element.currentTarget.value);
+  handleCheckRole = element => {
+    this.setState({
+      role : element.currentTarget.value
+    })
   }
-  function handleCheckLastName(element){
-    setLastName(element.currentTarget.value);
-  }
-  function handleCheckEmail(element){
-    setEmail(element.currentTarget.value);
-  }
-  function handleCheckPassword(element){
-    setPassword(element.currentTarget.value)
-  }
-  function handleSignUp(){
-    console.log(firstName, lastName, email, password)
-  }
-// axios post data user
-  // function componentDidMount(){
-  //   const user = {
-  //     name: this.state.name
-  //   };
-  //   axios.post(`https://jsonplaceholder.typicode.com/users`, { user })
-  //     .then(res => {
-  //       console.log(res);
-  //       console.log(res.data);
-  //     })
-  // }
 
-  return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Sign up
+  handleCheckPassword = element => {
+    this.setState({
+      password: element.currentTarget.value
+    })
+  }
+
+  handleSignUp = element => {
+    let { username, password, branchId, role } = this.state
+    console.log(username, password, branchId, role)
+    axios.post('http://localhost:3000/api/register/',{
+      username: username,
+      password: password,
+      branchId: branchId,
+      role: role
+    })
+    .then(function (response) {
+      console.log(response.data)
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
+
+  render() {
+    const { classes } = this.props
+    const { username, password, branchId, role } = this.state
+    return (
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <div className={classes.paper}>
+          <Avatar className={classes.avatar}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Sign up
         </Typography>
-        <form className={classes.form} noValidate>
-          <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                autoComplete="fname"
-                name="firstName"
-                variant="outlined"
-                required
-                fullWidth
-                id="firstName"
-                label="First Name"
-                autoFocus
-                value={firstName}
-                onChange={handleCheckFirstName}
-              />
+          <form className={classes.form} noValidate>
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  autoComplete="fname"
+                  name="UserName"
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="UserName"
+                  label="User Name"
+                  autoFocus
+                  value={username}
+                  onChange={this.handleCheckUserName}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="Role"
+                  label="Role"
+                  name="Role"
+                  autoComplete="lname"
+                  value={role}
+                  onChange={this.handleCheckRole}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="BranchId"
+                  label="BranchId"
+                  name="email"
+                  autoComplete="BranchId"
+                  value={branchId}
+                  onChange={this.handleCheckBranchId}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type="password"
+                  id="password"
+                  autoComplete="current-password"
+                  value={password}
+                  onChange={this.handleCheckPassword}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <FormControlLabel
+                  control={<Checkbox value="allowExtraEmails" color="primary" />}
+                  label="I want to receive inspiration, marketing promotions and updates via email."
+                />
+              </Grid>
             </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="lastName"
-                label="Last Name"
-                name="lastName"
-                autoComplete="lname"
-                value={lastName}
-                onChange={handleCheckLastName}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
-                value={email}
-                onChange={handleCheckEmail}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-                value={password}
-                onChange={handleCheckPassword}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <FormControlLabel
-                control={<Checkbox value="allowExtraEmails" color="primary" />}
-                label="I want to receive inspiration, marketing promotions and updates via email."
-              />
-            </Grid>
-          </Grid>
-          <Button
-            type="button"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-            onClick={handleSignUp}
-          >
-            Sign Up
+            <Button
+              type="button"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+              onClick={this.handleSignUp}
+            >
+              Sign Up
           </Button>
-          <Grid container justify="flex-end">
-            <Grid item>
-              <Link href="#" variant="body2">
-                Already have an account? Sign in
+            <Grid container justify="flex-end">
+              <Grid item>
+                <Link href="#" variant="body2">
+                  Already have an account? Sign in
               </Link>
+              </Grid>
             </Grid>
-          </Grid>
-        </form>
-      </div>
-      <Box mt={5}>
-        <Copyright />
-      </Box>
-    </Container>
-  );
+          </form>
+        </div>
+        <Box mt={5}>
+          <Copyright />
+        </Box>
+      </Container>
+    )
+  }
 }
+export default withStyles(styles)(Register);
