@@ -27,7 +27,7 @@ const sequelize = new Sequelize(
         host: dbConfig.server,
         dialect: dbConfig.type,
         dialectOptions: {
-            instanceName: "MQ00019/MSSQLSERVER1",
+            instanceName: "MSSQLSERVER1",
             trustedConnection: true
         }
     }
