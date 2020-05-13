@@ -87,14 +87,6 @@ class Login extends Component {
     .then(function (response) {
       let message = response.data.message
       // messLogin.push(message)
-      if(message == undefined){
-        console.log('XXXX',message)
-        console.log('OK')
-        this.props.history.push('/Dashboard/13')
-      }else{
-        console.log('XXXX',message)
-        console.log('FAIL')
-      }
     })
     .catch(function (error) {
       console.log(error);
