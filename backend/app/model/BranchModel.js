@@ -10,6 +10,5 @@ const BranchModel = sequelize.define('branchs', {
 },{
     freezeTableName: true
 })
-//BranchModel.hasMany(UserModel, { foreignKey: 'branchId', sourceKey: "id"})
 
 module.exports = BranchModel;

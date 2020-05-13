@@ -12,6 +12,6 @@ const UserModel = sequelize.define('users',{
 },{
     freezeTableName: true
 })
-UserModel.belongsTo(BranchModel, {foreignKey: "branchId", as: 'Branch'});
+
 
 module.exports = UserModel;

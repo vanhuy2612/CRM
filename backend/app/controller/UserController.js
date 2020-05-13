@@ -37,7 +37,7 @@ class UserController extends BaseController{
             // find id for new user
             let newIdUser = process.env.DB_LOC + '1';
             let lastUser = await UserModel.findAll({order: [ ['createdAt', 'DESC']], limit: 1, offset: 0}, { raw: true, mapToModel: false });
-                console.log(lastUser)
+            //    console.log(lastUser)
             if ( lastUser.length != 0) {
                 lastUser = lastUser[0].dataValues;
                 // handle Id : MB0001 => 0001
