@@ -1,15 +1,16 @@
-import React from 'react';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListSubheader from '@material-ui/core/ListSubheader';
-import DashboardIcon from '@material-ui/icons/Dashboard';
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import PeopleIcon from '@material-ui/icons/People';
-import BarChartIcon from '@material-ui/icons/BarChart';
-import LayersIcon from '@material-ui/icons/Layers';
-import AssignmentIcon from '@material-ui/icons/Assignment';
+import React from 'react'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemIcon from '@material-ui/core/ListItemIcon'
+import ListItemText from '@material-ui/core/ListItemText'
+import DashboardIcon from '@material-ui/icons/Dashboard'
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
+import PeopleIcon from '@material-ui/icons/People'
+import BarChartIcon from '@material-ui/icons/BarChart'
 import ExitToApp from '@material-ui/icons/ExitToApp'
+import Settings from '@material-ui/icons/Settings'
+import AccessTime from '@material-ui/icons/AccessTime'
+import ThumbsUpDown from '@material-ui/icons/ThumbsUpDown'
+import ImportContacts from '@material-ui/icons/ImportContacts'
 
 export const Login = (
   <div >
@@ -60,28 +61,43 @@ export const Reports = (
     </ListItem>
   </div>
 );
-
-
-export const secondaryListItems = (
-  <div>
-    <ListSubheader inset>Saved reports</ListSubheader>
-    <ListItem button>
+export const Products = (
+  <div >
+   <ListItem button>
       <ListItemIcon>
-        <AssignmentIcon />
+        <Settings />
       </ListItemIcon>
-      <ListItemText primary="Current month" />
+      <ListItemText primary="Products/Services" />
     </ListItem>
-    <ListItem button>
+  </div>
+);
+export const Activity = (
+  <div >
+   <ListItem button>
       <ListItemIcon>
-        <AssignmentIcon />
+        <AccessTime />
       </ListItemIcon>
-      <ListItemText primary="Last quarter" />
+      <ListItemText primary="Activity" />
     </ListItem>
-    <ListItem button>
+  </div>
+);
+export const Deals = (
+  <div >
+  <ListItem button>
       <ListItemIcon>
-        <AssignmentIcon />
+        <ThumbsUpDown />
       </ListItemIcon>
-      <ListItemText primary="Year-end sale" />
+      <ListItemText primary="Deal" />
+    </ListItem>
+  </div>
+);
+export const Contacts = (
+  <div >
+  <ListItem button>
+      <ListItemIcon>
+        <ImportContacts />
+      </ListItemIcon>
+      <ListItemText primary="Contacts" />
     </ListItem>
   </div>
 );

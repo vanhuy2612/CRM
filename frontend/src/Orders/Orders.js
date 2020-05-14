@@ -18,7 +18,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import Avatar from '../Components/Avatar'
-import { Login, Dashboard, Order, Customers, Reports, secondaryListItems } from '../Components/ListItems';
+import { Login, Dashboard, Order, Customers, Reports, Activity, Products, Deals, Contacts } from '../Components/ListItems';
 import TblCustomers from './TblOrders'
 import axios from 'axios'
 import _ from 'lodash'
@@ -148,15 +148,19 @@ class RecentOrder extends Component {
     this.props.history.push('/Customers/15')
   }
   handleToDashboard = () => {
-    this.props.history.push('/Dashboard/15')
+    this.props.history.push('/Dashboard/13')
   }
+  handleToDashReports = () => {
+    this.props.history.push('/Reports/16')
+  }
+
   // lấy data order
   async componentDidMount() {
     let dataOrder = await (axios.get('http://192.168.6.194:3000/api/orderitem/'))
     let data = _.get(dataOrder, "data", [])
     console.log('data', data)
     this.setState({ dataOrder: data })
-}
+  }
   render() {
     const { open } = this.state
     const { classes } = this.props
@@ -203,9 +207,12 @@ class RecentOrder extends Component {
           <List onClick={this.handleToDashboard}>{Dashboard}</List>
           <List onClick={this.handleToOrders}>{Order}</List>
           <List onClick={this.handleToCustomers}>{Customers}</List>
-          <List>{Reports}</List>
+          <List onClick={this.handleToDashReports}>{Reports}</List>
           <Divider />
-          <List>{secondaryListItems}</List>
+          <List>{Activity}</List>
+          <List>{Products}</List>
+          <List>{Deals}</List>
+          <List>{Contacts}</List>
         </Drawer>
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
@@ -213,7 +220,7 @@ class RecentOrder extends Component {
             <Grid container spacing={3}>
               {/* Recent Orders */}
               <Grid item xs={12}>
-                <TblCustomers data = {this.state.dataOrder} />
+                <TblCustomers data={this.state.dataOrder} />
               </Grid>
             </Grid>
             <Box pt={4}>

@@ -17,9 +17,9 @@ import Link from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
+import Paper from '@material-ui/core/Paper';
 import Avatar from '../Components/Avatar'
 import { Login, Dashboard, Order, Customers, Reports, Activity, Products, Deals, Contacts } from '../Components/ListItems';
-import TblCustomers from './TblCustomers'
 import axios from 'axios'
 import _ from 'lodash'
 function Copyright() {
@@ -115,7 +115,7 @@ const styles = theme => ({
         height: 240,
     }
 });
-class RecentCustomers extends Component {
+class RecentReport extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -147,11 +147,12 @@ class RecentCustomers extends Component {
         this.props.history.push('/Customers/15')
     }
     handleToDashboard = () => {
-        this.props.history.push('/Dashboard/15')
+        this.props.history.push('/Dashboard/13')
     }
     handleToDashReports = () => {
         this.props.history.push('/Reports/16')
     }
+
 
     // lấy data customers
     async componentDidMount() {
@@ -178,7 +179,7 @@ class RecentCustomers extends Component {
                             <MenuIcon />
                         </IconButton>
                         <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-                            Customers
+                            Report
                   </Typography>
                         <IconButton color="inherit">
                             <Badge badgeContent={4} color="secondary">
@@ -219,7 +220,9 @@ class RecentCustomers extends Component {
                         <Grid container spacing={3}>
                             {/* Recent Orders */}
                             <Grid item xs={12}>
-                                <TblCustomers data={this.state.dataCustomer} />
+                                <Paper className={classes.paper}>
+                                    Reports
+              </Paper>
                             </Grid>
                         </Grid>
                         <Box pt={4}>
@@ -232,4 +235,4 @@ class RecentCustomers extends Component {
     }
 }
 
-export default withStyles(styles)(RecentCustomers);
+export default withStyles(styles)(RecentReport);
