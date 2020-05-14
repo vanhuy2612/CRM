@@ -20,41 +20,47 @@ export const Login = (
     </ListItem>
   </div>
 );
-
-export const mainListItems = (
-  <div>
-    <ListItem button>
+export const Dashboard = (
+  <div >
+   <ListItem button>
       <ListItemIcon>
         <DashboardIcon />
       </ListItemIcon>
       <ListItemText primary="Dashboard" />
     </ListItem>
+  </div>
+);
+export const Order = (
+  <div >
     <ListItem button>
       <ListItemIcon>
         <ShoppingCartIcon />
       </ListItemIcon>
       <ListItemText primary="Orders" />
     </ListItem>
-    <ListItem button>
+  </div>
+);
+export const Customers = (
+  <div >
+   <ListItem button>
       <ListItemIcon>
         <PeopleIcon />
       </ListItemIcon>
       <ListItemText primary="Customers" />
     </ListItem>
-    <ListItem button>
+  </div>
+);
+export const Reports = (
+  <div >
+   <ListItem button>
       <ListItemIcon>
         <BarChartIcon />
       </ListItemIcon>
       <ListItemText primary="Reports" />
     </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <LayersIcon />
-      </ListItemIcon>
-      <ListItemText primary="Integrations" />
-    </ListItem>
   </div>
 );
+
 
 export const secondaryListItems = (
   <div>

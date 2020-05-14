@@ -9,7 +9,11 @@
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "axios": "^0.19.2",
+<<<<<<< HEAD
     "reacharts": "^0.4.5",
+=======
+    "material-table": "^1.57.2",
+>>>>>>> abcf2ddec6f430e981eb8785be7eaf5a2a24b2a5
     "react": "^16.13.1",
     "react-animated-slider": "^2.0.0",
     "react-dom": "^16.13.1",

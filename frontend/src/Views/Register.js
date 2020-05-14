@@ -84,7 +84,7 @@ class Register extends Component {
   handleSignUp = element => {
     let { username, password, branchId, role } = this.state
     console.log(username, password, branchId, role)
-    axios.post('http://localhost:3000/api/register/',{
+    axios.post('http://192.168.6.194:3000/api/register/',{
       username: username,
       password: password,
       branchId: branchId,

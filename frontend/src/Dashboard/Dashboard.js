@@ -19,7 +19,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import Avatar from '../Components/Avatar'
-import { Login,mainListItems, secondaryListItems } from './ListItems';
+import { Login,Dashboard,Order, Customers, Reports, secondaryListItems } from '../Components/ListItems';
 import Chart from './Chart';
 import Deposits from './Deposits';
 import Orders from './Orders';
@@ -78,6 +78,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   drawerPaper: {
+    backgroundColor: '#D6E2F3',
     position: 'relative',
     whiteSpace: 'nowrap',
     width: drawerWidth,
@@ -118,7 +119,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function Dashboard() {
+export default function RecentDashboard(props) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
   const handleDrawerOpen = () => {
@@ -127,8 +128,16 @@ export default function Dashboard() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+  // login 
   function handleLogOut(){
-    console.log('log out')
+    props.history.push('/')
+  }
+  // rent to order or customer or ...
+  function handleToOrders(){
+    props.history.push('/Orders/14')
+  }
+  function handleToCustomers(){
+    props.history.push('/Customers/15')
   }
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
@@ -172,7 +181,10 @@ export default function Dashboard() {
         <Divider />
         <List  style={{marginLeft: '80px', marginRight: '90px',}} onClick={handleLogOut}>{Login}</List>
         <Divider />
-        <List>{mainListItems}</List>
+        <List>{Dashboard}</List>
+        <List onClick={handleToOrders}>{Order}</List>
+        <List onClick={handleToCustomers}>{Customers}</List>
+        <List>{Reports}</List>
         <Divider />
         <List>{secondaryListItems}</List>
       </Drawer>
