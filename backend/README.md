@@ -10,3 +10,4 @@ refs: https://www.inctouch.com/crmproduct?gclid=CjwKCAjw-YT1BRAFEiwAd2WRtpZ1SV1q
 git anh Tuan: trantuan94
 
 CSDL : varchar(MAX) not nvarchar(..) because Sequelize.STRING = varchar(...)
+        datetime2 because: Sequelize translates the Sequelize.DATE type into DATETIME2 for MSSQL, but then proceeds to format dates in this format: 'YYYY-MM-DD HH:mm:ss.SSS Z'.

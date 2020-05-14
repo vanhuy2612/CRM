@@ -2,6 +2,7 @@
 
 const BaseController = require('./BaseController');
 const db = require('../model/db.js');
+const Op = db.Sequelize.Op;
 
 class BranchController extends BaseController {
     constructor() {
@@ -34,14 +35,25 @@ class BranchController extends BaseController {
     }
     async getAllUserOfBranch(req, res, next) {
         let branchId = req.params.branchId;
-        db.branchs.hasMany(db.users, { foreignKey: 'branchId'});
-        db.users.belongsTo(db.branchs, {foreignKey: "branchId"});
-
+        
         let data = await db.branchs.findAll({
             where: { id: branchId},
             include: [{ model: db.users}]
         })
         return res.json(data);
+    }
+    async getAllCustomerOfBranch(req, res, next) {
+        let branchId = req.params.branchId;
+        let data = await db.branchs.findAll({ 
+            where: { id: branchId}, 
+            include: [{ model: db.customers}] 
+        })
+        res.json(data);
+    }
+    async testDate(req, res, next) {
+        let today = Date.now();
+        let branch = await db.branchs.findAll({ where: { createdAt: {[Op.lt]: today}}})
+        res.json(branch);
     }
 }
 

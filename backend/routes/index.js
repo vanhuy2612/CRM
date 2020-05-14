@@ -7,6 +7,10 @@ const UserController = require('../app/controller/UserController');
 const BranchController = require('../app/controller/BranchController')
 const ProductController = require('../app/controller/ProductController')
 const ItemController = require('../app/controller/ItemController')
+const CustomerController = require('../app/controller/CustomerController')
+const OrderitemController = require('../app/controller/OrderitemController')
+
+
 
 const AuthMiddleware = require('../middleware/auth.middleware')
 
@@ -29,6 +33,8 @@ router.group( router => {
     router.get('/', BranchController.index);
     router.post('/', BranchController.store);
     router.get('/:branchId/user', BranchController.getAllUserOfBranch)
+    router.get('/:branchId/customer', BranchController.getAllCustomerOfBranch)
+    router.get('/test', BranchController.testDate)
 }).prefix('/api/branch')
 
 // Routes for Product:
@@ -44,6 +50,19 @@ router.group( router => {
     router.post('/', ItemController.store);
     router.put('/:itemId', ItemController.update);
 }).prefix('/api/item')
+
+// Routes for Customer:
+router.group( router => {
+    router.get('/', CustomerController.index);
+    router.get('/:customerId', CustomerController.getOne);
+    router.post('/', CustomerController.store);
+    router.delete('/:customerId', CustomerController.delete);
+    router.put('/:customerId', CustomerController.update);
+}).prefix('/api/customer')
+// Routes for Orderitem:
+router.group( router => {
+    router.post('/', OrderitemController.store)
+}).prefix('/api/orderitem')
 
 let listRoutes = router.init();
 module.exports = listRoutes;
