@@ -5,23 +5,23 @@ export default function MaterialTableDemo() {
     const [state, setState] = React.useState({
         columns: [
             { title: 'Id', field: 'id' },
-            { title: 'Name', field: 'name' },
-            { title: 'Surname', field: 'surname' },
-            { title: 'Phone', field: 'phone' },
-            { title: 'Birth Year', field: 'birthYear', type: 'numeric' },
-            { title: 'Birth Place', ield: 'birthCity', lookup: { 34: 'İstanbul', 63: 'Şanlıurfa' }, },
+            { title: 'Price', field: 'price', type: 'number' },
+            { title: 'Quantity', field: 'quantity', type: 'number' },
+            { title: 'ItemId', field: 'itemId' },
+            { title: 'CustomerId', field: 'customerId ' },
+            { title: 'CardId', field: 'cardId' },
         ],
         data: [
-            { id: "dagdbbvaq874361ajvh8", name: 'Mehmet', surname: 'Baran', phone: "541354863", birthYear: 1987, birthCity: 63 },
-            { id: "dagdbbq7crt398r61ajvh8", name: 'Zerya Betül', surname: 'Baran', phone: "541354863", birthYear: 2017, birthCity: 34 },
-            { id: "dagdbr87613ru1ajvh8", name: 'pogba', surname: 'Baran', phone: "541354863", birthYear: 1993, birthCity: 63 },
-            { id: "dagdbbvaq2784cf8y4ajvh8", name: 'hanmashi', surname: 'Baran', phone: "541354863", birthYear: 1997, birthCity: 34 },
+            { id: "dagdbbvaq874361ajvh8", price: '100000', quantity: '10', itemId: "jdagsdg1287fh", customerId: 'dagdbbvaq874361a', cardId: 'sfsdf' },
+            { id: "dagdbbq7crt398r61ajvh8", price: '100000', quantity: '8', itemId: "hadf761esahd", customerId: 'dagdbbvaq874361a', cardId: 'sfsd' },
+            { id: "dagdbr87613ru1ajvh8", price: '100000', quantity: '7', itemId: "qadtx712e6hd", customerId: 'dagdbbvaq874361a', cardId: 'sdfsd' },
+            { id: "dagdbbvaq2784cf8y4ajvh8", price: '100000', quantity: '6', itemId: "xd1edxad8", customerId: 'dagdbbvaq874361a', cardId: 'sfsd' },
         ],
     });
 
     return (
         <MaterialTable
-            title="Danh sách các khách hàng"
+            title="Danh sách đặt hàng"
             columns={state.columns}
             data={state.data}
             editable={{

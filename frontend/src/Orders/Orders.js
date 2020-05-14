@@ -20,6 +20,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import Avatar from '../Components/Avatar'
 import { Login,Dashboard,Order, Customers, Reports, secondaryListItems } from '../Components/ListItems';
+import TblOrders from './TblOrders'
 
 function Copyright() {
   return (
@@ -196,7 +197,7 @@ export default function RecentOrder(props) {
             {/* Recent Orders */}
             <Grid item xs={12}>
               <Paper className={classes.paper}>
-               Orders
+                <TblOrders />
               </Paper>
             </Grid>
           </Grid>
