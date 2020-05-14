@@ -18,7 +18,8 @@ import Link from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import { mainListItems, secondaryListItems } from './listItems';
+import Avatar from '../Components/Avatar'
+import { Login,mainListItems, secondaryListItems } from './ListItems';
 import Chart from './Chart';
 import Deposits from './Deposits';
 import Orders from './Orders';
@@ -114,7 +115,7 @@ const useStyles = makeStyles((theme) => ({
   },
   fixedHeight: {
     height: 240,
-  },
+  }
 }));
 
 export default function Dashboard() {
@@ -126,6 +127,9 @@ export default function Dashboard() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+  function handleLogOut(){
+    console.log('log out')
+  }
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
   return (
@@ -150,6 +154,7 @@ export default function Dashboard() {
               <NotificationsIcon />
             </Badge>
           </IconButton>
+          <Avatar />
         </Toolbar>
       </AppBar>
       <Drawer
@@ -164,6 +169,8 @@ export default function Dashboard() {
             <ChevronLeftIcon />
           </IconButton>
         </div>
+        <Divider />
+        <List  style={{marginLeft: '80px', marginRight: '90px',}} onClick={handleLogOut}>{Login}</List>
         <Divider />
         <List>{mainListItems}</List>
         <Divider />

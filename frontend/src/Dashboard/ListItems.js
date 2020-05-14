@@ -9,6 +9,17 @@ import PeopleIcon from '@material-ui/icons/People';
 import BarChartIcon from '@material-ui/icons/BarChart';
 import LayersIcon from '@material-ui/icons/Layers';
 import AssignmentIcon from '@material-ui/icons/Assignment';
+import ExitToApp from '@material-ui/icons/ExitToApp'
+
+export const Login = (
+  <div >
+    <ListItem button >
+      <ListItemIcon >
+        <ExitToApp style={{height: '40px', width: '40px'}} />
+      </ListItemIcon>
+    </ListItem>
+  </div>
+);
 
 export const mainListItems = (
   <div>

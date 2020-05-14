@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react'
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -11,7 +11,7 @@ import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 
 function Copyright() {
@@ -27,7 +27,7 @@ function Copyright() {
   );
 }
 
-const useStyles = makeStyles(theme => ({
+const styles = theme => ({
   root: {
     height: '100vh',
   },
@@ -56,118 +56,128 @@ const useStyles = makeStyles(theme => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
-}));
-
-export default function SignInSide(props) {
-  const classes = useStyles();
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
-  
-  function handleLogin() {
-    console.log('email',email)
-    console.log('password', password)
-    //props.history.push('/Drawer/13')
-    axios.post('http://localhost:3000/api/login/', {
-      username: 'duong',
-      password: '123'
-    },{
-     
+});
+class Login extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      email: "",
+      password:"",
+      messLogin: '',
+    }
+  }
+  handleCheckEmail = element =>{
+    this.setState({
+      email: element.currentTarget.value
+    })
+  }
+  handleCheckPassword = element => {
+    this.setState({
+      password: element.currentTarget.value
+    })
+  }
+  handleLogin = element => {
+    let username = this.state.email
+    let password = this.state.password
+    let messLogin = []
+    axios.post('http://localhost:3000/api/login/',{
+      username: username,
+      password: password
     })
     .then(function (response) {
-      console.log(response);
+      let message = response.data.message
+      // messLogin.push(message)
     })
     .catch(function (error) {
       console.log(error);
     });
+    if(messLogin == null){
+      console.log('XXXX',messLogin)
+      console.log('OK')
+      this.props.history.push('/Dashboard/13')
+    }else{
+      console.log('XXXX',messLogin[0])
+      console.log('FAIL')
+    }
+    // this.props.history.push('/Dashboard/13')
   }
-  function handleCheckEmail(element){
-    setEmail(element.currentTarget.value);
-  }
-  function handleCheckPassword(e){
-   setPassword(e.currentTarget.value)
-  }
-  // lấy data thông qua axios
-  // function componentDidMount(){
-  //   axios.get('/api/news')
-  //   .then(res => {
-  //      const news = res.data;
-  //      console.log('news', news)
-  //      this.setState({ news });
-  //    })
-  //   .catch(error => console.log(error));
-  // }
 
-  return (
-    <Grid container component="main" className={classes.root}>
-      <CssBaseline />
-      <Grid item xs={false} sm={4} md={7} className={classes.image} />
-      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-        <div className={classes.paper}>
-          <Avatar className={classes.avatar}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign in
-          </Typography>
-          <form className={classes.form} noValidate>
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              autoFocus
-              value={email}
-              onChange={handleCheckEmail}
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-              value={password}
-              onChange={handleCheckPassword}
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
-            <Button
-              type="button"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-              onClick={handleLogin}
-            >
-              Sign In
+  render() {
+    const { classes } = this.props;
+    const {email, password} = this.state
+    return (
+      <Grid container component="main" className={classes.root}>
+        <CssBaseline />
+        <Grid item xs={false} sm={4} md={7} className={classes.image} />
+        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+          <div className={classes.paper}>
+            <Avatar className={classes.avatar}>
+              <LockOutlinedIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
+              Sign in
+         </Typography>
+            <form className={classes.form} noValidate>
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
+                name="email"
+                autoComplete="email"
+                autoFocus
+                value={email}
+                onChange={this.handleCheckEmail}
+              />
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+                value={password}
+                onChange={this.handleCheckPassword}
+              />
+              <FormControlLabel
+                control={<Checkbox value="remember" color="primary" />}
+                label="Remember me"
+              />
+              <Button
+                type="button"
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+                onClick={this.handleLogin}
+              >
+                Sign In
             </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
+              <Grid container>
+                <Grid item xs>
+                  <Link href="#" variant="body2">
+                    Forgot password?
                 </Link>
+                </Grid>
+                <Grid item>
+                  <Link href='/Register/2' variant="body2">
+                    {"Don't have an account? Sign Up"}
+                  </Link>
+                </Grid>
               </Grid>
-              <Grid item>
-                <Link href='/Register/2' variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid>
-            </Grid>
-            <Box mt={5}>
-              <Copyright />
-            </Box>
-          </form>
-        </div>
+              <Box mt={5}>
+                <Copyright />
+              </Box>
+            </form>
+          </div>
+        </Grid>
       </Grid>
-    </Grid>
-  );
+    )
+  }
 }
+export default withStyles(styles)(Login);
