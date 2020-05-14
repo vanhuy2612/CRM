@@ -20,9 +20,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import Avatar from '../Components/Avatar'
 import { Login,Dashboard,Order, Customers, Reports, secondaryListItems } from '../Components/ListItems';
-import Chart from './Chart';
-import Deposits from './Deposits';
-import Orders from './Orders';
+import TblCustomers from './TblCustomers'
 
 function Copyright() {
   return (
@@ -118,7 +116,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function RecentDashboard(props) {
+export default function RecentCustomers(props) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
   const handleDrawerOpen = () => {
@@ -127,16 +125,20 @@ export default function RecentDashboard(props) {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
   // login 
   function handleLogOut(){
     props.history.push('/')
   }
-  // rent to order or customer or ...
+  // rent to order or dashboard or ...
   function handleToOrders(){
     props.history.push('/Orders/14')
   }
   function handleToCustomers(){
     props.history.push('/Customers/15')
+  }
+  function handleToDashboard(){
+    props.history.push('/Dashboard/15')
   }
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
@@ -155,7 +157,7 @@ export default function RecentDashboard(props) {
             <MenuIcon />
           </IconButton>
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-            Dashboard
+            Customers
           </Typography>
           <IconButton color="inherit">
             <Badge badgeContent={4} color="secondary">
@@ -180,7 +182,7 @@ export default function RecentDashboard(props) {
         <Divider />
         <List  style={{marginLeft: '80px', marginRight: '90px',}} onClick={handleLogOut}>{Login}</List>
         <Divider />
-        <List>{Dashboard}</List>
+        <List onClick={handleToDashboard}>{Dashboard}</List>
         <List onClick={handleToOrders}>{Order}</List>
         <List onClick={handleToCustomers}>{Customers}</List>
         <List>{Reports}</List>
@@ -191,23 +193,9 @@ export default function RecentDashboard(props) {
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
           <Grid container spacing={3}>
-            {/* Chart */}
-            <Grid item xs={12} md={8} lg={9}>
-              <Paper className={fixedHeightPaper}>
-                <Chart />
-              </Paper>
-            </Grid>
-            {/* Recent Deposits */}
-            <Grid item xs={12} md={4} lg={3}>
-              <Paper className={fixedHeightPaper}>
-                <Deposits />
-              </Paper>
-            </Grid>
             {/* Recent Orders */}
             <Grid item xs={12}>
-              <Paper className={classes.paper}>
-                <Orders />
-              </Paper>
+              <TblCustomers />
             </Grid>
           </Grid>
           <Box pt={4}>
