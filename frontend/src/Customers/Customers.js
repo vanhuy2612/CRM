@@ -151,23 +151,12 @@ class RecentCustomers extends Component {
     }
 
     // lấy data customers
-    componentDidMount() {
-        let dataCustomer =  axios.get('http://192.168.6.194:3000/api/customer/')
-            .then(function (response) {
-                // handle success
-                let data = _.get(response, "data", [])
-                console.log('data', data)
-                return data
-            })
-            .catch(function (error) {
-                // handle error
-                console.log(error);
-            })
-            .finally(function () {
-                // always executed
-            });
-        this.setState({dataCustomer: dataCustomer})
+    async componentDidMount() {
+        let dataCustomer = await (axios.get('http://192.168.6.194:3000/api/customer/'))
+        let data = _.get(dataCustomer, "data", [])
+        this.setState({ dataCustomer: data })
     }
+
     render() {
         const { open } = this.state
         const { classes } = this.props
@@ -224,7 +213,7 @@ class RecentCustomers extends Component {
                         <Grid container spacing={3}>
                             {/* Recent Orders */}
                             <Grid item xs={12}>
-                                <TblCustomers data = {this.state.dataCustomer} />
+                                <TblCustomers data={this.state.dataCustomer} />
                             </Grid>
                         </Grid>
                         <Box pt={4}>
