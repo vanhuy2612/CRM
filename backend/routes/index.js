@@ -9,6 +9,7 @@ const ProductController = require('../app/controller/ProductController')
 const ItemController = require('../app/controller/ItemController')
 const CustomerController = require('../app/controller/CustomerController')
 const OrderitemController = require('../app/controller/OrderitemController')
+const InvoiceController = require('../app/controller/InvoiceController')
 
 
 
@@ -59,11 +60,22 @@ router.group( router => {
     router.delete('/:customerId', CustomerController.delete);
     router.put('/:customerId', CustomerController.update);
 }).prefix('/api/customer')
+
 // Routes for Orderitem:
 router.group( router => {
     router.post('/', OrderitemController.store)
     router.get('/', OrderitemController.index)
 }).prefix('/api/orderitem')
+
+// Routes for Cart
+// Routes for Checkout
+
+// Routes for Invoice:
+router.group( router => {
+    router.get('/item', InvoiceController.revenueStatisticsByProduct)
+    router.get('/customer', InvoiceController.revenueStatisticsByCustomer)
+    router.get('/today', InvoiceController.revenueStatisticsForTheDay)
+}).prefix('/api/invoice')
 
 let listRoutes = router.init();
 module.exports = listRoutes;

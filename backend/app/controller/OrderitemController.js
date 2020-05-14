@@ -27,5 +27,6 @@ class OrderitemController extends BaseController {
         if(insertedOrder == null) res.json({ message: "Insert order faild"});
         else res.json(insertedOrder);
     }
+    
 }
 module.exports = new OrderitemController()
