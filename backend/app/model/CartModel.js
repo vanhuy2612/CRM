@@ -1,11 +1,11 @@
 'use strict'
 
 module.exports = (sequelize, DataTypes) => {
-    const BranchModel = sequelize.define('branchs', {
+    const CartModel = sequelize.define('carts', {
         id: {type: DataTypes.STRING, primaryKey: true},
-        name: {type: DataTypes.STRING},
+        OrderId: {type: DataTypes.STRING},
     },{
         freezeTableName: true
     })
-    return BranchModel;
+    return CartModel;
 }
