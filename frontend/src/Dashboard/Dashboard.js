@@ -19,7 +19,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import Avatar from '../Components/Avatar'
-import { Login,mainListItems, secondaryListItems } from './ListItems';
+import { Login,mainListItems, secondaryListItems } from '../Components/ListItems';
 import Chart from './Chart';
 import Deposits from './Deposits';
 import Orders from './Orders';

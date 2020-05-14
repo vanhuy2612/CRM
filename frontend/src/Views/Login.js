@@ -63,7 +63,6 @@ class Login extends Component {
     this.state = {
       email: "",
       password:"",
-      messLogin: '',
     }
   }
   handleCheckEmail = element =>{
@@ -79,27 +78,23 @@ class Login extends Component {
   handleLogin = element => {
     let username = this.state.email
     let password = this.state.password
-    let messLogin = []
     axios.post('http://localhost:3000/api/login/',{
       username: username,
       password: password
     })
     .then(function (response) {
-      let message = response.data.message
-      // messLogin.push(message)
+      let messLogin = response.data.message
+      if(messLogin == undefined){
+        console.log('OK')
+        // this.props.history.push('/Dashboard/13')
+      }else{
+        console.log('FAIL')
+      }
+      console.log('messLogin',messLogin);
     })
     .catch(function (error) {
       console.log(error);
     });
-    if(messLogin == null){
-      console.log('XXXX',messLogin)
-      console.log('OK')
-      this.props.history.push('/Dashboard/13')
-    }else{
-      console.log('XXXX',messLogin[0])
-      console.log('FAIL')
-    }
-    // this.props.history.push('/Dashboard/13')
   }
 
   render() {
