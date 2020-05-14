@@ -23,6 +23,9 @@ db.sequelize = sequelize;
 // Model, table:
 db.users = require('./UserModel')(sequelize, Sequelize);
 db.branchs = require('./BranchModel')(sequelize, Sequelize);
+db.items = require('./ItemModel')(sequelize, Sequelize);
+db.products = require('./ProductModel')(sequelize, Sequelize);
+
 
 // Relations:
 

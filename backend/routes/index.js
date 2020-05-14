@@ -5,6 +5,7 @@ const router = new Router();
 
 const UserController = require('../app/controller/UserController');
 const BranchController = require('../app/controller/BranchController')
+const ProductController = require('../app/controller/ProductController')
 
 const AuthMiddleware = require('../middleware/auth.middleware')
 
@@ -28,6 +29,12 @@ router.group( router => {
     router.post('/', BranchController.store);
     router.get('/:branchId/user', BranchController.getAllUserOfBranch)
 }).prefix('/api/branch')
+
+// Routes for Product:
+router.group( router => {
+    router.get('/', ProductController.index);
+    router.post('/', ProductController.store)
+}).prefix('/api/product')
 
 let listRoutes = router.init();
 module.exports = listRoutes;
