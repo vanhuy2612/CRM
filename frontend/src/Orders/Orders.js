@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { Component } from 'react';
 import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
 import Box from '@material-ui/core/Box';
@@ -19,8 +19,8 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import Avatar from '../Components/Avatar'
-import { Login,Dashboard,Order, Customers, Reports, secondaryListItems } from '../Components/ListItems';
-import TblOrders from './TblOrders'
+import { Login, Dashboard, Order, Customers, Reports, secondaryListItems } from '../Components/ListItems';
+import TblCustomers from './TblOrders'
 
 function Copyright() {
   return (
@@ -34,10 +34,9 @@ function Copyright() {
     </Typography>
   );
 }
-
 const drawerWidth = 240;
 
-const useStyles = makeStyles((theme) => ({
+const styles = theme => ({
   root: {
     display: 'flex',
   },
@@ -115,97 +114,107 @@ const useStyles = makeStyles((theme) => ({
   fixedHeight: {
     height: 240,
   }
-}));
+});
+class RecentOrder extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      open: true
+    }
+  }
 
-export default function RecentOrder(props) {
-  const classes = useStyles();
-  const [open, setOpen] = React.useState(true);
-  const handleDrawerOpen = () => {
-    setOpen(true);
+  handleDrawerOpen = () => {
+    this.setState({
+      open: true
+    })
   };
-  const handleDrawerClose = () => {
-    setOpen(false);
+  handleDrawerClose = () => {
+    this.setState({
+      open: false
+    })
   };
 
   // login 
-  function handleLogOut(){
-    props.history.push('/')
+  handleLogOut = () => {
+    this.props.history.push('/')
   }
-  // rent to order or customer or ...
-  function handleToOrders(){
-    props.history.push('/Orders/14')
+  // rent to order or dashboard or ...
+  handleToOrders = () => {
+    this.props.history.push('/Orders/14')
   }
-  function handleToCustomers(){
-    props.history.push('/Customers/15')
+  handleToCustomers = () => {
+    this.props.history.push('/Customers/15')
   }
-  function handleToDashboard(){
-      props.history.push('/Dashboard/13')
+  handleToDashboard = () => {
+    this.props.history.push('/Dashboard/15')
   }
-  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
-
-  return (
-    <div className={classes.root}>
-      <CssBaseline />
-      <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
-        <Toolbar className={classes.toolbar}>
-          <IconButton
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            className={clsx(classes.menuButton, open && classes.menuButtonHidden)}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-            Orders
-          </Typography>
-          <IconButton color="inherit">
-            <Badge badgeContent={4} color="secondary">
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
-          <Avatar />
-        </Toolbar>
-      </AppBar>
-      <Drawer
-        variant="permanent"
-        classes={{
-          paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
-        }}
-        open={open}
-      >
-        <div className={classes.toolbarIcon}>
-          <IconButton onClick={handleDrawerClose}>
-            <ChevronLeftIcon />
-          </IconButton>
-        </div>
-        <Divider />
-        <List  style={{marginLeft: '80px', marginRight: '90px',}} onClick={handleLogOut}>{Login}</List>
-        <Divider />
-        <List onClick={handleToDashboard}>{Dashboard}</List>
-        <List onClick={handleToOrders}>{Order}</List>
-        <List onClick={handleToCustomers}>{Customers}</List>
-        <List>{Reports}</List>
-        <Divider />
-        <List>{secondaryListItems}</List>
-      </Drawer>
-      <main className={classes.content}>
-        <div className={classes.appBarSpacer} />
-        <Container maxWidth="lg" className={classes.container}>
-          <Grid container spacing={3}>
-            {/* Recent Orders */}
-            <Grid item xs={12}>
-              <Paper className={classes.paper}>
-                <TblOrders />
-              </Paper>
+  render() {
+    const { open } = this.state
+    const { classes } = this.props
+    return (
+      <div className={classes.root}>
+        <CssBaseline />
+        <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
+          <Toolbar className={classes.toolbar}>
+            <IconButton
+              edge="start"
+              color="inherit"
+              aria-label="open drawer"
+              onClick={this.handleDrawerOpen}
+              className={clsx(classes.menuButton, open && classes.menuButtonHidden)}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
+              Order
+                  </Typography>
+            <IconButton color="inherit">
+              <Badge badgeContent={4} color="secondary">
+                <NotificationsIcon />
+              </Badge>
+            </IconButton>
+            <Avatar />
+          </Toolbar>
+        </AppBar>
+        <Drawer
+          variant="permanent"
+          classes={{
+            paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
+          }}
+          open={open}
+        >
+          <div className={classes.toolbarIcon}>
+            <IconButton onClick={this.handleDrawerClose}>
+              <ChevronLeftIcon />
+            </IconButton>
+          </div>
+          <Divider />
+          <List style={{ marginLeft: '80px', marginRight: '90px', }} onClick={this.handleLogOut}>{Login}</List>
+          <Divider />
+          <List onClick={this.handleToDashboard}>{Dashboard}</List>
+          <List onClick={this.handleToOrders}>{Order}</List>
+          <List onClick={this.handleToCustomers}>{Customers}</List>
+          <List>{Reports}</List>
+          <Divider />
+          <List>{secondaryListItems}</List>
+        </Drawer>
+        <main className={classes.content}>
+          <div className={classes.appBarSpacer} />
+          <Container maxWidth="lg" className={classes.container}>
+            <Grid container spacing={3}>
+              {/* Recent Orders */}
+              <Grid item xs={12}>
+                <TblCustomers />
+              </Grid>
             </Grid>
-          </Grid>
-          <Box pt={4}>
-            <Copyright />
-          </Box>
-        </Container>
-      </main>
-    </div>
-  );
+            <Box pt={4}>
+              <Copyright />
+            </Box>
+          </Container>
+        </main>
+      </div>
+    );
+  }
 }
+
+export default withStyles(styles)(RecentOrder);

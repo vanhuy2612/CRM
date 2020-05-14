@@ -1,27 +1,29 @@
 import React from 'react';
 import MaterialTable from 'material-table';
 
-export default function MaterialTableDemo() {
+export default function MaterialTableDemo(props) {
+    console.log('xxxxx', props.data || []) 
+    const dataCus = props.data
     const [state, setState] = React.useState({
         columns: [
             { title: 'Id', field: 'id' },
             { title: 'Name', field: 'name' },
-            { title: 'Surname', field: 'surname' },
+            { title: 'Address', field: 'address' },
             { title: 'Phone', field: 'phone' },
             { title: 'Birth Year', field: 'birthYear', type: 'numeric' },
             { title: 'Birth Place', ield: 'birthCity', lookup: { 34: 'İstanbul', 63: 'Şanlıurfa' }, },
         ],
         data: [
-            { id: "dagdbbvaq874361ajvh8", name: 'Mehmet', surname: 'Baran', phone: "541354863", birthYear: 1987, birthCity: 63 },
-            { id: "dagdbbq7crt398r61ajvh8", name: 'Zerya Betül', surname: 'Baran', phone: "541354863", birthYear: 2017, birthCity: 34 },
-            { id: "dagdbr87613ru1ajvh8", name: 'pogba', surname: 'Baran', phone: "541354863", birthYear: 1993, birthCity: 63 },
-            { id: "dagdbbvaq2784cf8y4ajvh8", name: 'hanmashi', surname: 'Baran', phone: "541354863", birthYear: 1997, birthCity: 34 },
+            { id: "dagdbbvaq874361ajvh8", name: 'Mehmet', address: 'Baran', phone: "541354863", birthYear: 1987, birthCity: 63 },
+            { id: "dagdbbq7crt398r61ajvh8", name: 'Zerya Betül', address: 'Baran', phone: "541354863", birthYear: 2017, birthCity: 34 },
+            { id: "dagdbr87613ru1ajvh8", name: 'pogba', address: 'Baran', phone: "541354863", birthYear: 1993, birthCity: 63 },
+            { id: "dagdbbvaq2784cf8y4ajvh8", name: 'hanmashi', address: 'Baran', phone: "541354863", birthYear: 1997, birthCity: 34 },
         ],
     });
 
     return (
         <MaterialTable
-            title="Danh sách các khách hàng"
+            title="Danh sách các khách hàng "
             columns={state.columns}
             data={state.data}
             editable={{
