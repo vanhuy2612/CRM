@@ -36,9 +36,9 @@ class InvoiceController {
     async revenueStatisticsForTheDay(req, res, next){
         let today = new Date();
         let startToday = new Date();
-            startToday.setHours(0,0,0);
+            startToday.setHours(0,0,0,0);
         let endToday = new Date();
-            endToday.setHours(23,59,59)
+            endToday.setHours(23,59,59,999)
         let data = await db.orderitems.findAll({
             attributes: ['id','quantity','price','createdAt'],
             where: {
