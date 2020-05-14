@@ -6,6 +6,7 @@ const router = new Router();
 const UserController = require('../app/controller/UserController');
 const BranchController = require('../app/controller/BranchController')
 const ProductController = require('../app/controller/ProductController')
+const ItemController = require('../app/controller/ItemController')
 
 const AuthMiddleware = require('../middleware/auth.middleware')
 
@@ -33,8 +34,16 @@ router.group( router => {
 // Routes for Product:
 router.group( router => {
     router.get('/', ProductController.index);
-    router.post('/', ProductController.store)
+    router.get('/:productId', ProductController.getOne);
+    router.post('/', ProductController.store);
 }).prefix('/api/product')
+// Routes for Item:
+router.group( router => {
+    router.get('/', ItemController.index);
+    router.get('/:itemID', ItemController.getOne);
+    router.post('/', ItemController.store);
+    router.put('/:itemId', ItemController.update);
+}).prefix('/api/item')
 
 let listRoutes = router.init();
 module.exports = listRoutes;
