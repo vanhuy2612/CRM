@@ -9,6 +9,7 @@ import './index.css'
 import Main from './Views/Main'
 import Login from './Views/Login'// component đăng nhập
 import Register from './Views/Register'// component đăng ký
+import Drawer from './Components/Drawer'
 
 // danh sách component các option của thanh công cụ
 import Dashboard from './Dashboard/Dashboard'
@@ -26,6 +27,7 @@ ReactDOM.render(
         <Route exact path="/" component={Main} />
         <Route exact path="/Login/:id" component={Login} />
         <Route exact path="/Register/:id" component={Register} />
+        <Route exact path="/Drawer/:id" component={Drawer} />
 
 
         <Route exact path="/Dashboard/:id" component={Dashboard} />
