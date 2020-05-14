@@ -62,6 +62,7 @@ router.group( router => {
 // Routes for Orderitem:
 router.group( router => {
     router.post('/', OrderitemController.store)
+    router.get('/', OrderitemController.index)
 }).prefix('/api/orderitem')
 
 let listRoutes = router.init();

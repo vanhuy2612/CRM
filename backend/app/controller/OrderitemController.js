@@ -5,6 +5,10 @@ class OrderitemController extends BaseController {
     constructor(){
         super( OrderitemController, db.orderitems);
     }
+    async index(req, res, next) {
+        let order = await db.orderitems.findAll();
+        res.json(order);
+    }
     async store(req, res, next) {
         // find id for orderitem
         let newId = process.env.DB_LOC + '1';
