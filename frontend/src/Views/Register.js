@@ -12,6 +12,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import Typography from '@material-ui/core/Typography'
 import { withStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
+import { I18n } from 'react-redux-i18n'
 import axios from 'axios'
 
 function Copyright() {
@@ -57,46 +58,82 @@ class Register extends Component {
     }
   }
 
-  handleCheckUserName = element => {
-    this.setState({
-      username: element.currentTarget.value
-    })
-  }
-  
-  handleCheckBranchId = element => {
-    this.setState({
-      branchId: element.currentTarget.value
-    })
-  }
-
-  handleCheckRole = element => {
-    this.setState({
-      role : element.currentTarget.value
-    })
-  }
-
-  handleCheckPassword = element => {
-    this.setState({
-      password: element.currentTarget.value
-    })
-  }
-
   handleSignUp = element => {
     let { username, password, branchId, role } = this.state
+    let dem = 0
     console.log(username, password, branchId, role)
-    axios.post('http://192.168.6.194:3000/api/register/',{
-      username: username,
-      password: password,
-      branchId: branchId,
-      role: role
-    })
-    .then(function (response) {
-      console.log(response.data)
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-    this.props.history.push(`/Dashboard/${element}`)
+    // check validate username
+    if (username == undefined || username.length == 0) {
+      dem = parseInt(dem) + 1
+      this.setState({
+          erName: true,
+          messName: I18n.t("Vui lòng nhập đầy đủ thông tin")
+      })
+    } else {
+        dem = parseInt(dem) - 1
+        this.setState({
+            erName: false,
+            messName: '',
+        })
+    }
+    // check validate role
+    if (role == undefined || role.length == 0) {
+      dem = parseInt(dem) + 1
+      this.setState({
+          erRole: true,
+          messRole: I18n.t("Vui lòng nhập đầy đủ thông tin")
+      })
+    } else {
+        dem = parseInt(dem) - 1
+        this.setState({
+            erRole: false,
+            messRole: '',
+        })
+    }
+    // check validate branchId
+    if (branchId == undefined || branchId.length == 0) {
+      dem = parseInt(dem) + 1
+      this.setState({
+          erBranchId: true,
+          messbranchId: I18n.t("Vui lòng nhập đầy đủ thông tin")
+      })
+    } else {
+        dem = parseInt(dem) - 1
+        this.setState({
+            erBranchId: false,
+            messbranchId: '',
+        })
+    }
+    // check validate pass
+    if (password == undefined || password.length == 0) {
+      dem = parseInt(dem) + 1
+      this.setState({
+          erPass: true,
+          messPass: I18n.t("Vui lòng nhập đầy đủ thông tin")
+      })
+    } else {
+        dem = parseInt(dem) - 1
+        this.setState({
+            erPass: false,
+            messPass: '',
+        })
+    }
+    if(dem == -4){
+      console.log('OKKKK')
+      axios.post('http://192.168.6.194:3000/api/register/',{
+        username: username,
+        password: password,
+        branchId: branchId,
+        role: role
+      })
+      .then(function (response) {
+        console.log(response.data)
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+      this.props.history.push(`/Dashboard/${element}`)
+    }
   }
 
   render() {
@@ -125,7 +162,13 @@ class Register extends Component {
                   label="User Name"
                   autoFocus
                   value={username}
-                  onChange={this.handleCheckUserName}
+                  onChange={(e) => this.setState({
+                    username: e.currentTarget.value,
+                    erName: undefined,
+                    messName: '',
+                })}
+                  error={this.state.erName}
+                  helperText={this.state.messName}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -138,7 +181,13 @@ class Register extends Component {
                   name="Role"
                   autoComplete="lname"
                   value={role}
-                  onChange={this.handleCheckRole}
+                  onChange={(e) => this.setState({
+                    role: e.currentTarget.value,
+                    erRole: undefined,
+                    messRole: '',
+                })}
+                  error={this.state.erRole}
+                  helperText={this.state.messRole}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -151,7 +200,13 @@ class Register extends Component {
                   name="email"
                   autoComplete="BranchId"
                   value={branchId}
-                  onChange={this.handleCheckBranchId}
+                  onChange={(e) => this.setState({
+                    branchId: e.currentTarget.value,
+                    erBranchId: undefined,
+                    messbranchId: '',
+                })}
+                  error={this.state.erBranchId}
+                  helperText={this.state.messbranchId}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -165,7 +220,13 @@ class Register extends Component {
                   id="password"
                   autoComplete="current-password"
                   value={password}
-                  onChange={this.handleCheckPassword}
+                  onChange={(e) => this.setState({
+                    password: e.currentTarget.value,
+                    erPass: undefined,
+                    messPass: '',
+                })}
+                  error={this.state.erPass}
+                  helperText={this.state.messPass}
                 />
               </Grid>
               <Grid item xs={12}>
