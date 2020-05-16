@@ -140,17 +140,17 @@ class RecentCustomers extends Component {
         this.props.history.push('/')
     }
     // rent to order or dashboard or ...
-    handleToOrders = () => {
-        this.props.history.push('/Orders/14')
+    handleToOrders = (element) => {
+        this.props.history.push(`/Orders/${element}`)
     }
-    handleToCustomers = () => {
-        this.props.history.push('/Customers/15')
+    handleToCustomers = (element) => {
+        this.props.history.push(`/Customers/${element}`)
     }
-    handleToDashboard = () => {
-        this.props.history.push('/Dashboard/15')
+    handleToDashboard = (element) => {
+        this.props.history.push(`/Dashboard/${element}`)
     }
-    handleToDashReports = () => {
-        this.props.history.push('/Reports/16')
+    handleToDashReports = (element) => {
+        this.props.history.push(`/Reports/${element}`)
     }
 
     // lấy data customers

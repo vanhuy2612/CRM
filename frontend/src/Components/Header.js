@@ -48,8 +48,8 @@ export default function PersistentDrawerRight(props) {
   const { sections } = props;
   const preventDefault = (event) => event.preventDefault();
 
-  function handleDrawerOpen() {
-    props.link.history.push('/login/11')
+  function handleDrawerOpen(element) {
+    props.link.history.push(`/Login/${element}`)
   }
 
   return (

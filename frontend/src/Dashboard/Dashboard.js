@@ -19,7 +19,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import Avatar from '../Components/Avatar'
-import { Login,Dashboard,Order, Customers, Reports, Activity, Products, Deals, Contacts } from '../Components/ListItems';
+import { Login, Dashboard, Order, Customers, Reports, Activity, Products, Deals, Contacts } from '../Components/ListItems';
 import Chart from './Chart';
 import Deposits from './Deposits';
 import Orders from './Orders';
@@ -129,19 +129,22 @@ export default function RecentDashboard(props) {
     setOpen(false);
   };
   // login 
-  function handleLogOut(){
+  function handleLogOut() {
     props.history.push('/')
   }
   // rent to order or customer or ...
-  function handleToOrders(){
-    props.history.push('/Orders/14')
+  function handleToOrders(element) {
+    props.history.push(`/Orders/${element}`)
   }
-  function handleToCustomers(){
-    props.history.push('/Customers/15')
+  function handleToCustomers(element) {
+    props.history.push(`/Customers/${element}`)
   }
-  function handleToDashReports(){
-    props.history.push('/Reports/16')
-}
+  function handleToDashboard(element) {
+    props.history.push(`/Dashboard/${element}`)
+  }
+  function handleToDashReports(element) {
+    props.history.push(`/Reports/${element}`)
+  }
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
   return (
@@ -182,9 +185,9 @@ export default function RecentDashboard(props) {
           </IconButton>
         </div>
         <Divider />
-        <List  style={{marginLeft: '80px', marginRight: '90px',}} onClick={handleLogOut}>{Login}</List>
+        <List style={{ marginLeft: '80px', marginRight: '90px', }} onClick={handleLogOut}>{Login}</List>
         <Divider />
-        <List>{Dashboard}</List>
+        <List onClick={handleToDashboard}>{Dashboard}</List>
         <List onClick={handleToOrders}>{Order}</List>
         <List onClick={handleToCustomers}>{Customers}</List>
         <List onClick={handleToDashReports}>{Reports}</List>

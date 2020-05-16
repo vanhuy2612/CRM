@@ -95,7 +95,7 @@ class Login extends Component {
     .catch(function (error) {
       console.log(error);
     });
-    this.props.history.push('/Dashboard/13')
+    this.props.history.push(`/Dashboard/${element}`)
   }
 
   render() {

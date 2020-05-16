@@ -65,8 +65,8 @@ const mainFeaturedPost = {
 export default function Blog(props) {
   const classes = useStyles();
 
-  function handleChangeRegister() {
-    props.history.push('/Register/12')
+  function handleChangeRegister(element) {
+    props.history.push(`/Register/${element}`)
   }
 
   return (
