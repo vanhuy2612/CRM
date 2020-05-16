@@ -120,7 +120,7 @@ class Register extends Component {
     }
     if(dem == -4){
       console.log('OKKKK')
-      axios.post('http://192.168.6.194:3000/api/register/',{
+      axios.post('http://localhost:3000/api/register/',{
         username: username,
         password: password,
         branchId: branchId,

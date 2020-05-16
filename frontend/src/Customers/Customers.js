@@ -18,7 +18,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import Avatar from '../Components/Avatar'
-import { Login, Dashboard, Order, Customers, Reports, Activity, Products, Deals, Contacts } from '../Components/ListItems';
+import { Login, Dashboard, Order, Customers, Reports, Activity, Products, Deals, Contacts, Accounts } from '../Components/ListItems';
 import TblCustomers from './TblCustomers'
 import axios from 'axios'
 import _ from 'lodash'
@@ -152,10 +152,13 @@ class RecentCustomers extends Component {
     handleToDashReports = (element) => {
         this.props.history.push(`/Reports/${element}`)
     }
+    handleToDashAccounts = (element) => {
+        this.props.history.push(`/Accounts/${element}`)
+      }
 
     // lấy data customers
     async componentDidMount() {
-        let dataCustomer = await (axios.get('http://192.168.6.194:3000/api/customer/'))
+        let dataCustomer = await (axios.get('http://localhost:3000/api/customer/'))
         let data = _.get(dataCustomer, "data", [])
         this.setState({ dataCustomer: data })
     }
@@ -212,6 +215,7 @@ class RecentCustomers extends Component {
                     <List>{Products}</List>
                     <List>{Deals}</List>
                     <List>{Contacts}</List>
+                    <List onClick={this.handleToDashAccounts}>{Accounts}</List>
                 </Drawer>
                 <main className={classes.content}>
                     <div className={classes.appBarSpacer} />

@@ -11,6 +11,7 @@ import Settings from '@material-ui/icons/Settings'
 import AccessTime from '@material-ui/icons/AccessTime'
 import ThumbsUpDown from '@material-ui/icons/ThumbsUpDown'
 import ImportContacts from '@material-ui/icons/ImportContacts'
+import AccountCircle from '@material-ui/icons/AccountCircle'
 
 export const Login = (
   <div >
@@ -98,6 +99,16 @@ export const Contacts = (
         <ImportContacts />
       </ListItemIcon>
       <ListItemText primary="Contacts" />
+    </ListItem>
+  </div>
+);
+export const Accounts = (
+  <div >
+  <ListItem button>
+      <ListItemIcon>
+        <AccountCircle />
+      </ListItemIcon>
+      <ListItemText primary="Accounts" />
     </ListItem>
   </div>
 );

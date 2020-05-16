@@ -20,6 +20,7 @@ import Acticity from './Activity/Activity'
 import Products from './Products/Products'
 import Deals from './Deals/Deal'
 import Contacts from './Contacts/Contacts'
+import Accounts from './Accounts/Accounts'
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
@@ -38,6 +39,7 @@ ReactDOM.render(
         <Route exact path="/Products/:id" component={Products} />
         <Route exact path="/Deals/:id" component={Deals} />
         <Route exact path="/Contacts/:id" component={Contacts} />
+        <Route exact path="/Accounts/:id" component={Accounts} />
     </BrowserRouter>, document.getElementById('root')
 );
 

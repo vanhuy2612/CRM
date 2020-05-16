@@ -19,9 +19,9 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import Avatar from '../Components/Avatar'
 import { Login, Dashboard, Order, Customers, Reports, Activity, Products, Deals, Contacts, Accounts } from '../Components/ListItems';
-import TblCustomers from './TblOrders'
 import axios from 'axios'
 import _ from 'lodash'
+import TblAccounts from './TblAccounts'
 
 function Copyright() {
   return (
@@ -121,7 +121,7 @@ class RecentOrder extends Component {
     super(props)
     this.state = {
       open: true,
-      dataOrder: [],
+      dataUser: [],
     }
   }
 
@@ -153,16 +153,13 @@ class RecentOrder extends Component {
   handleToDashReports = (element) => {
     this.props.history.push(`/Reports/${element}`)
   }
-  handleToDashAccounts = (element) => {
-    this.props.history.push(`/Accounts/${element}`)
-  }
 
   // lấy data order
   async componentDidMount() {
-    let dataOrder = await (axios.get('http://localhost:3000/api/orderitem/'))
+    let dataOrder = await (axios.get('http://localhost:3000/api/user/'))
     let data = _.get(dataOrder, "data", [])
     console.log('data', data)
-    this.setState({ dataOrder: data })
+    this.setState({ dataUser: data })
   }
   render() {
     const { open } = this.state
@@ -182,7 +179,7 @@ class RecentOrder extends Component {
               <MenuIcon />
             </IconButton>
             <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-              Order
+              Accounts
                   </Typography>
             <IconButton color="inherit">
               <Badge badgeContent={4} color="secondary">
@@ -216,7 +213,7 @@ class RecentOrder extends Component {
           <List>{Products}</List>
           <List>{Deals}</List>
           <List>{Contacts}</List>
-          <List onClick={this.handleToDashAccounts}>{Accounts}</List>
+          <List>{Accounts}</List>
         </Drawer>
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
@@ -224,7 +221,7 @@ class RecentOrder extends Component {
             <Grid container spacing={3}>
               {/* Recent Orders */}
               <Grid item xs={12}>
-                <TblCustomers data={this.state.dataOrder} />
+                  <TblAccounts data={this.state.dataUser} />
               </Grid>
             </Grid>
             <Box pt={4}>

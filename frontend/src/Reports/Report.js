@@ -19,9 +19,11 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import Paper from '@material-ui/core/Paper';
 import Avatar from '../Components/Avatar'
-import { Login, Dashboard, Order, Customers, Reports, Activity, Products, Deals, Contacts } from '../Components/ListItems';
+import { Login, Dashboard, Order, Customers, Reports, Activity, Products, Deals, Contacts, Accounts } from '../Components/ListItems';
 import axios from 'axios'
 import _ from 'lodash'
+import Send from './TblReports'
+
 function Copyright() {
     return (
         <Typography variant="body2" color="textSecondary" align="center">
@@ -152,11 +154,14 @@ class RecentReport extends Component {
     handleToDashReports = (element) => {
         this.props.history.push(`/Reports/${element}`)
     }
+    handleToDashAccounts = (element) => {
+        this.props.history.push(`/Accounts/${element}`)
+    }
 
 
     // lấy data customers
     async componentDidMount() {
-        let dataCustomer = await (axios.get('http://192.168.6.194:3000/api/customer/'))
+        let dataCustomer = await (axios.get('http://localhost:3000/api/customer/'))
         let data = _.get(dataCustomer, "data", [])
         this.setState({ dataCustomer: data })
     }
@@ -213,16 +218,17 @@ class RecentReport extends Component {
                     <List>{Products}</List>
                     <List>{Deals}</List>
                     <List>{Contacts}</List>
+                    <List onClick={this.handleToDashAccounts}>{Accounts}</List>
                 </Drawer>
                 <main className={classes.content}>
                     <div className={classes.appBarSpacer} />
                     <Container maxWidth="lg" className={classes.container}>
                         <Grid container spacing={3}>
-                            {/* Recent Orders */}
                             <Grid item xs={12}>
                                 <Paper className={classes.paper}>
-                                    Reports
-              </Paper>
+                                    <p style={{fontSize: 20}}>Gửi phản hồi cho chúng tôi</p>
+                                    <Send />
+                                </Paper>
                             </Grid>
                         </Grid>
                         <Box pt={4}>

@@ -19,7 +19,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import Avatar from '../Components/Avatar'
-import { Login, Dashboard, Order, Customers, Reports, Activity, Products, Deals, Contacts } from '../Components/ListItems';
+import { Login, Dashboard, Order, Customers, Reports, Activity, Products, Deals, Contacts, Accounts } from '../Components/ListItems';
 import Chart from './Chart';
 import Deposits from './Deposits';
 import Orders from './Orders';
@@ -145,6 +145,10 @@ export default function RecentDashboard(props) {
   function handleToDashReports(element) {
     props.history.push(`/Reports/${element}`)
   }
+  function handleToDashAccounts(element){
+    props.history.push(`/Accounts/${element}`)
+  }
+
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
   return (
@@ -196,6 +200,7 @@ export default function RecentDashboard(props) {
         <List>{Products}</List>
         <List>{Deals}</List>
         <List>{Contacts}</List>
+        <List onClick={handleToDashAccounts}>{Accounts}</List>
       </Drawer>
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
