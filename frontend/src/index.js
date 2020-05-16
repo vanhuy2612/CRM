@@ -16,7 +16,7 @@ import Dashboard from './Dashboard/Dashboard'
 import Orders from './Orders/Orders'
 import Customers from './Customers/Customers'
 import Reports from './Reports/Report'
-import Acticity from './Activity/Activity'
+import Activity from './Activity/Activity'
 import Products from './Products/Products'
 import Deals from './Deals/Deal'
 import Contacts from './Contacts/Contacts'
@@ -35,7 +35,7 @@ ReactDOM.render(
         <Route exact path="/Orders/:id" component={Orders} />
         <Route exact path="/Customers/:id" component={Customers} />
         <Route exact path="/Reports/:id" component={Reports} />
-        <Route exact path="/Acticity/:id" component={Acticity} />
+        <Route exact path="/Activity/:id" component={Activity} />
         <Route exact path="/Products/:id" component={Products} />
         <Route exact path="/Deals/:id" component={Deals} />
         <Route exact path="/Contacts/:id" component={Contacts} />

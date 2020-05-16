@@ -153,6 +153,21 @@ class RecentOrder extends Component {
   handleToDashReports = (element) => {
     this.props.history.push(`/Reports/${element}`)
   }
+  handleToAccounts = (element) => {
+    this.props.history.push(`/Accounts/${element}`)
+  }
+  handleToActivity = (element) => {
+    this.props.history.push(`/Activity/${element}`)
+  }
+  handleToProducts = (element) => {
+    this.props.history.push(`/Products/${element}`)
+  }
+  handleToDeals = (element) => {
+    this.props.history.push(`/Deals/${element}`)
+  }
+  handleToContacts = (element) => {
+    this.props.history.push(`/Contacts/${element}`)
+  }
 
   // lấy data order
   async componentDidMount() {
@@ -209,11 +224,11 @@ class RecentOrder extends Component {
           <List onClick={this.handleToCustomers}>{Customers}</List>
           <List onClick={this.handleToDashReports}>{Reports}</List>
           <Divider />
-          <List>{Activity}</List>
-          <List>{Products}</List>
-          <List>{Deals}</List>
-          <List>{Contacts}</List>
-          <List>{Accounts}</List>
+          <List onClick={this.handleToActivity}>{Activity}</List>
+          <List onClick={this.handleToProducts}>{Products}</List>
+          <List onClick={this.handleToDeals}>{Deals}</List>
+          <List onClick={this.handleToContacts}>{Contacts}</List>
+          <List onClick={this.handleToAccounts}>{Accounts}</List>
         </Drawer>
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
@@ -221,7 +236,7 @@ class RecentOrder extends Component {
             <Grid container spacing={3}>
               {/* Recent Orders */}
               <Grid item xs={12}>
-                  <TblAccounts data={this.state.dataUser} />
+                <TblAccounts data={this.state.dataUser} />
               </Grid>
             </Grid>
             <Box pt={4}>

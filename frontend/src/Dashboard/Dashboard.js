@@ -145,8 +145,20 @@ export default function RecentDashboard(props) {
   function handleToDashReports(element) {
     props.history.push(`/Reports/${element}`)
   }
-  function handleToDashAccounts(element){
+  function handleToAccounts(element) {
     props.history.push(`/Accounts/${element}`)
+  }
+  function handleToActivity(element) {
+    props.history.push(`/Activity/${element}`)
+  }
+  function handleToProducts(element) {
+    props.history.push(`/Products/${element}`)
+  }
+  function handleToDeals(element) {
+    props.history.push(`/Deals/${element}`)
+  }
+  function handleToContacts(element) {
+    props.history.push(`/Contacts/${element}`)
   }
 
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
@@ -196,11 +208,11 @@ export default function RecentDashboard(props) {
         <List onClick={handleToCustomers}>{Customers}</List>
         <List onClick={handleToDashReports}>{Reports}</List>
         <Divider />
-        <List>{Activity}</List>
-        <List>{Products}</List>
-        <List>{Deals}</List>
-        <List>{Contacts}</List>
-        <List onClick={handleToDashAccounts}>{Accounts}</List>
+        <List onClick={handleToActivity}>{Activity}</List>
+        <List onClick={handleToProducts}>{Products}</List>
+        <List onClick={handleToDeals}>{Deals}</List>
+        <List onClick={handleToContacts}>{Contacts}</List>
+        <List onClick={handleToAccounts}>{Accounts}</List>
       </Drawer>
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />

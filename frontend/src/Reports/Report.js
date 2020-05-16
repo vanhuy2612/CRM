@@ -154,8 +154,20 @@ class RecentReport extends Component {
     handleToDashReports = (element) => {
         this.props.history.push(`/Reports/${element}`)
     }
-    handleToDashAccounts = (element) => {
+    handleToAccounts = (element) => {
         this.props.history.push(`/Accounts/${element}`)
+    }
+    handleToActivity = (element) => {
+        this.props.history.push(`/Activity/${element}`)
+    }
+    handleToProducts = (element) => {
+        this.props.history.push(`/Products/${element}`)
+    }
+    handleToDeals = (element) => {
+        this.props.history.push(`/Deals/${element}`)
+    }
+    handleToContacts = (element) => {
+        this.props.history.push(`/Contacts/${element}`)
     }
 
 
@@ -214,11 +226,11 @@ class RecentReport extends Component {
                     <List onClick={this.handleToCustomers}>{Customers}</List>
                     <List onClick={this.handleToDashReports}>{Reports}</List>
                     <Divider />
-                    <List>{Activity}</List>
-                    <List>{Products}</List>
-                    <List>{Deals}</List>
-                    <List>{Contacts}</List>
-                    <List onClick={this.handleToDashAccounts}>{Accounts}</List>
+                    <List onClick={this.handleToActivity}>{Activity}</List>
+                    <List onClick={this.handleToProducts}>{Products}</List>
+                    <List onClick={this.handleToDeals}>{Deals}</List>
+                    <List onClick={this.handleToContacts}>{Contacts}</List>
+                    <List onClick={this.handleToAccounts}>{Accounts}</List>
                 </Drawer>
                 <main className={classes.content}>
                     <div className={classes.appBarSpacer} />
@@ -226,7 +238,7 @@ class RecentReport extends Component {
                         <Grid container spacing={3}>
                             <Grid item xs={12}>
                                 <Paper className={classes.paper}>
-                                    <p style={{fontSize: 20}}>Gửi phản hồi cho chúng tôi</p>
+                                    <p style={{ fontSize: 20 }}>Gửi phản hồi cho chúng tôi</p>
                                     <Send />
                                 </Paper>
                             </Grid>
