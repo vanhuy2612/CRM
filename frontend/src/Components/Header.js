@@ -5,7 +5,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
-import { IconButton } from '@material-ui/core';
+import { IconButton, Tooltip } from '@material-ui/core';
 import AccountCircle from '@material-ui/icons/AccountCircle'
 
 const drawerWidth = 240;
@@ -76,15 +76,17 @@ export default function PersistentDrawerRight(props) {
               )
             })}
           </Typography>
-          <IconButton
-            color="inherit"
-            aria-label="đăng nhập"
-            edge="end"
-            onClick={handleDrawerOpen}
-            className={clsx(open && classes.hide)}
-          >
-            <AccountCircle />
-          </IconButton>
+          <Tooltip title="Đăng nhập" key="Login">
+            <IconButton
+              color="inherit"
+              aria-label="đăng nhập"
+              edge="end"
+              onClick={handleDrawerOpen}
+              className={clsx(open && classes.hide)}
+            >
+              <AccountCircle />
+            </IconButton>
+          </Tooltip>
         </Toolbar>
       </AppBar>
     </div>

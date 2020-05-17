@@ -13,6 +13,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import axios from 'axios';
+import { I18n } from 'react-redux-i18n'
 
 function Copyright() {
   return (
@@ -76,10 +77,38 @@ class Login extends Component {
     })
   }
   handleLogin = element => {
-    let username = this.state.email
-    let password = this.state.password
-    axios.post('http://localhost:3000/api/login/',{
-      username: username,
+    let dem = 0
+    let {email, password} = this.state
+    if (email == undefined || email.length == 0) {
+      dem = parseInt(dem) + 1
+      this.setState({
+          erEmail: true,
+          messEmail: I18n.t("Vui lòng nhập đầy đủ thông tin")
+      })
+    } else {
+        dem = parseInt(dem) - 1
+        this.setState({
+            erEmail: false,
+            messEmail: '',
+        })
+    }
+    if (password == undefined || password.length == 0) {
+      dem = parseInt(dem) + 1
+      this.setState({
+          erPass: true,
+          messPass: I18n.t("Vui lòng nhập đầy đủ thông tin")
+      })
+    } else {
+        dem = parseInt(dem) - 1
+        this.setState({
+            erPass: false,
+            messPass: '',
+        })
+    }
+    if(dem == -2){
+      console.log('OKKKKK')
+      axios.post('http://localhost:3000/api/login/',{
+      username: email,
       password: password
     })
     .then(function (response) {
@@ -96,6 +125,8 @@ class Login extends Component {
       console.log(error);
     });
     this.props.history.push(`/Dashboard/${element}`)
+
+    }
   }
 
   render() {
@@ -125,7 +156,13 @@ class Login extends Component {
                 autoComplete="email"
                 autoFocus
                 value={email}
-                onChange={this.handleCheckEmail}
+                onChange={(e) => this.setState({
+                  email: e.currentTarget.value,
+                  erEmail: undefined,
+                  messEmail: '',
+              })}
+                error={this.state.erEmail}
+                helperText={this.state.messEmail}
               />
               <TextField
                 variant="outlined"
@@ -138,7 +175,13 @@ class Login extends Component {
                 id="password"
                 autoComplete="current-password"
                 value={password}
-                onChange={this.handleCheckPassword}
+                onChange={(e) => this.setState({
+                  password: e.currentTarget.value,
+                  erPass: undefined,
+                  messPass: '',
+              })}
+                error={this.state.erPass}
+                helperText={this.state.messPass}
               />
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}

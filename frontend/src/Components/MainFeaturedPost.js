@@ -38,8 +38,8 @@ export default function MainFeaturedPost(props) {
   const classes = useStyles();
   const { post } = props;
 
-  function handleSignUp(){
-    props.link.history.push('/Register/12')
+  function handleSignUp(element){
+    props.link.history.push(`/Register/${element}`)
   }
 
   return (

@@ -9,7 +9,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
-import IconButton from '@material-ui/core/IconButton';
+import {IconButton, Tooltip} from '@material-ui/core';
 import Badge from '@material-ui/core/Badge';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
@@ -168,6 +168,7 @@ export default function RecentDashboard(props) {
       <CssBaseline />
       <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
         <Toolbar className={classes.toolbar}>
+          <Tooltip title="Danh mục" title="menu">
           <IconButton
             edge="start"
             color="inherit"
@@ -177,6 +178,7 @@ export default function RecentDashboard(props) {
           >
             <MenuIcon />
           </IconButton>
+          </Tooltip>
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
             Dashboard
           </Typography>
@@ -201,7 +203,9 @@ export default function RecentDashboard(props) {
           </IconButton>
         </div>
         <Divider />
+        <Tooltip title="Đăng xuất" key="logout">
         <List style={{ marginLeft: '80px', marginRight: '90px', }} onClick={handleLogOut}>{Login}</List>
+        </Tooltip>
         <Divider />
         <List onClick={handleToDashboard}>{Dashboard}</List>
         <List onClick={handleToOrders}>{Order}</List>
