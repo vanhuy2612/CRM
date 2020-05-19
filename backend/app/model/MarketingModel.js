@@ -9,7 +9,8 @@ module.exports = (sequelize, DataTypes) => {
         urlImage: {type: DataTypes.STRING},
         subject: {type: DataTypes.STRING},
         startDate: {type: DataTypes.DATE},
-        endDate: {type: DataTypes.STRING},
+        endDate: {type: DataTypes.DATE},
+        status: {type: DataTypes.STRING},
         branchId: {type: DataTypes.STRING}
     },{
         freezeTableName: true

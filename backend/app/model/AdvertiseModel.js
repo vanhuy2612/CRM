@@ -7,6 +7,9 @@ module.exports = (sequelize, DataTypes) => {
         contents: {type: DataTypes.STRING},
         subject: {type: DataTypes.STRING},
         cost: {type: DataTypes.FLOAT},
+        startDate: {type: DataTypes.DATE},//
+        endDate: {type: DataTypes.DATE},//
+        status: {type: DataTypes.STRING},//
         branchId: {type: DataTypes.STRING},
         supplyId: {type: DataTypes.STRING}
     },{
