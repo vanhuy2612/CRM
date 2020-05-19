@@ -106,26 +106,25 @@ class Login extends Component {
         })
     }
     if(dem == -2){
-      console.log('OKKKKK')
       axios.post('http://localhost:3000/api/login/',{
       username: email,
       password: password
     })
     .then(function (response) {
-      let messLogin = response.data.message
-      if(messLogin == undefined){
-        console.log('OK')
-        // this.props.history.push('/Dashboard/13')
-      }else{
-        console.log('FAIL')
-      }
-      console.log('messLogin',messLogin);
+      let messLogin = response.data
+      console.log('data res', messLogin)
+      // if(messLogin !== undefined){
+      //   console.log('Fail')
+      // }else{
+      //   login = parseInt(login) - 1
+      //   console.log('OK')
+      // }
+      // console.log('messLogin',messLogin);
     })
     .catch(function (error) {
       console.log(error);
     });
     this.props.history.push(`/Dashboard/${element}`)
-
     }
   }
 

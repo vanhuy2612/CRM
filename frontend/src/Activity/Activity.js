@@ -9,7 +9,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
-import IconButton from '@material-ui/core/IconButton';
+import {IconButton, Tooltip} from '@material-ui/core';
 import Badge from '@material-ui/core/Badge';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
@@ -135,6 +135,10 @@ class RecentActivity extends Component {
     })
   };
 
+  handleLogOut = () => {
+    this.props.history.push('/')
+  }
+
   // login 
   handleLogOut = () => {
     this.props.history.push('/')
@@ -216,7 +220,9 @@ class RecentActivity extends Component {
             </IconButton>
           </div>
           <Divider />
-          <List style={{ marginLeft: '80px', marginRight: '90px', }} onClick={this.handleLogOut}>{Login}</List>
+          <Tooltip title="Đăng xuất" key="logout">
+            <List style={{ marginLeft: '80px', marginRight: '90px', }} onClick={this.handleLogOut}>{Login}</List>
+          </Tooltip>
           <Divider />
           <List onClick={this.handleToDashboard}>{Dashboard}</List>
           <List onClick={this.handleToOrders}>{Order}</List>
