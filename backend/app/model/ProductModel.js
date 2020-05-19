@@ -7,6 +7,7 @@ module.exports = (sequelize, DataTypes) => {
         des: {type: DataTypes.STRING},
         makeDate: {type: DataTypes.DATE},
         expiryDate: {type: DataTypes.DATE},
+        inputPrice: {type: DataTypes.FLOAT},
         quantity: {type: DataTypes.INTEGER},
         urlImage: {type: DataTypes.INTEGER},
         branchId: {type: DataTypes.STRING},

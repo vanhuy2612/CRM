@@ -40,6 +40,7 @@ db.payments = require('./PaymentModel')(sequelize, Sequelize);
 
 db.customers = require('./CustomerModel')(sequelize, Sequelize);
 db.contacts = require('./ContactModel')(sequelize, Sequelize);
+db.vouchers = require('./VoucherModel')(sequelize, Sequelize);
 
 db.marketings = require('./MarketingModel')(sequelize, Sequelize);
 db.workons = require('./WorkonModel')(sequelize, Sequelize);
@@ -129,6 +130,9 @@ db.advertises.belongsToMany(db.customers, { through: db.advertisedetails });
 db.items.belongsToMany(db.orders, { through: db.orderdetails });
 db.orders.belongsToMany(db.items, { through: db.orderdetails });
 
+// 22. customers 1-n vouchers
+db.customers.hasMany(db.vouchers, { foreignKey: 'customerId'})
+db.vouchers.belongsTo(db.customers, { foreignKey: 'customerId'})
 
 
 

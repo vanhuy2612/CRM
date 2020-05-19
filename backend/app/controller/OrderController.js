@@ -18,7 +18,7 @@ class OrderController extends BaseController {
     async store(req, res, next) {
         // find id for orderitem
         let newId = process.env.DB_LOC + '1';
-        let lastOrderitem = await db.orderitems.findAll({ order: [ ['createdAt', 'DESC']], limit: 1, offset: 0, raw: true,});
+        let lastOrderitem = await db.orders.findAll({ order: [ ['createdAt', 'DESC']], limit: 1, offset: 0, raw: true,});
         console.log(lastOrderitem);
         if( lastOrderitem.length != 0) {
            
@@ -30,7 +30,7 @@ class OrderController extends BaseController {
         }
         let data = req.body;
         data.id = newId;
-        let insertedOrder = await db.orderitems.create(data);
+        let insertedOrder = await db.orders.create(data);
         if(insertedOrder == null) res.json({ message: "Insert order faild"});
         else res.json(insertedOrder);
     }
