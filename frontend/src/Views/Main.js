@@ -39,6 +39,12 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: 40,
     marginTop: 20,
     fontSize: 20,
+  },
+  crmMKT: {
+    textAlign: 'center',
+    marginBottom: 40,
+    marginTop: 40,
+    fontSize: 20,
   }
 }));
 
@@ -163,7 +169,7 @@ export default function Blog(props) {
               <p>technology</p>
               <a href="#">LEARN MORELEARN MORE</a>
             </Grid>
-            <Grid item lg={4} className={classes.crm}>
+            <Grid item lg={4} className={classes.crmMKT}>
             <img src={marketing} />
               <p style={{ fontSize: 25, color: '#FF8300' }}><strong>Marketing Campaigns</strong></p>
               <p>Promote a product</p>

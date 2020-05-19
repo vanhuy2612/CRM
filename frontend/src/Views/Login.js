@@ -66,6 +66,9 @@ class Login extends Component {
       password:"",
     }
   }
+  handelRegister = element => {
+    this.props.history.push(`/Register/${element}`)
+  }
   handleCheckEmail = element =>{
     this.setState({
       email: element.currentTarget.value
@@ -203,7 +206,7 @@ class Login extends Component {
                 </Link>
                 </Grid>
                 <Grid item>
-                  <Link href='/Register/2' variant="body2">
+                  <Link onClick={this.handelRegister} variant="body2">
                     {"Don't have an account? Sign Up"}
                   </Link>
                 </Grid>
