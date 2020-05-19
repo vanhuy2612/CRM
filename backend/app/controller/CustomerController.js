@@ -21,7 +21,15 @@ class CustomerController extends BaseController {
         // find id for customer in a branch
         let newCustomerId = process.env.DB_LOC + '1';
         let local = process.env.DB_LOC + '%';
-        let lastCustomer = await db.customers.findAll({where: { id: { [Op.like]: local}}, order: [ ['createdAt', 'DESC']], limit: 1, offset: 0})
+        let lastCustomer = await db.customers.findAll({
+            where: { id: { [Op.like]: local}}, 
+            order: [ ['createdAt', 'DESC']], 
+            limit: 1, 
+            offset: 0
+        }, {
+            raw: true
+        })
+        console.log(lastCustomer);
         if( lastCustomer.length != 0) {
             lastCustomer = lastCustomer[0].dataValues;
             let stringId = lastCustomer.id;
@@ -33,8 +41,9 @@ class CustomerController extends BaseController {
         let data = req.body;
         data.id = newCustomerId;
 
-        // insert to db:
+        // insert to db customers:
         let insertedCus = await db.customers.create(data);
+
         if (insertedCus == null ) res.json({ message: "store customer faild"});
         else res.json(insertedCus);
     }
@@ -47,7 +56,7 @@ class CustomerController extends BaseController {
         let customerId = req.params.customerId;
         let data = req.body;
         data.id = customerId;
-        let updatedCus = await db.customers.update(data, {where: {id: customerId}});
+        let updatedCus = await db.customers.update(data, {where: {id: customerId}}, { raw: true});
         if(updatedCus != 0) res.json({ message: "Update Customer Success"});
         else res.json({ message: 'Update Customer Faild'});
     }

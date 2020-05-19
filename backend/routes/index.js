@@ -3,12 +3,12 @@
 const Router = require('express-group-router');
 const router = new Router();
 
-const UserController = require('../app/controller/UserController');
+const MemberController = require('../app/controller/MemberController');
 const BranchController = require('../app/controller/BranchController')
 const ProductController = require('../app/controller/ProductController')
 const ItemController = require('../app/controller/ItemController')
 const CustomerController = require('../app/controller/CustomerController')
-const OrderitemController = require('../app/controller/OrderitemController')
+const OrderController = require('../app/controller/OrderController')
 const InvoiceController = require('../app/controller/InvoiceController')
 
 
@@ -17,17 +17,18 @@ const AuthMiddleware = require('../middleware/auth.middleware')
 
 // Routes for register and login;
 router.group( router => {
-    router.post('/login', UserController.login);
-    router.post('/register', UserController.register);
+    router.post('/login', MemberController.login);
+    router.post('/register', MemberController.register);
 }
 ).prefix('/api');
 
-// Routes for User:
+// Routes for Member:
 router.group( router => {
-    router.get('/', UserController.index)
-    router.delete('/:userId', UserController.delete)
-    router.put('/:userId', UserController.update)
-}).prefix('/api/user')
+    router.get('/', MemberController.index)
+    router.delete('/:id', MemberController.delete)
+    router.put('/:id', MemberController.update)
+
+}).prefix('/api/member')
 
 // Routes for Branch:
 router.group( router => {
@@ -61,11 +62,11 @@ router.group( router => {
     router.put('/:customerId', CustomerController.update);
 }).prefix('/api/customer')
 
-// Routes for Orderitem:
+// Routes for Order:
 router.group( router => {
-    router.post('/', OrderitemController.store)
-    router.get('/', OrderitemController.index)
-}).prefix('/api/orderitem')
+    router.post('/', OrderController.store)
+    router.get('/', OrderController.index)
+}).prefix('/api/order')
 
 // Routes for Cart
 // Routes for Checkout

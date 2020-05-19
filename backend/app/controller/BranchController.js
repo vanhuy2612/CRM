@@ -25,10 +25,8 @@ class BranchController extends BaseController {
             newIdBranch = process.env.DB_LOC + numberId;
         }
         // insert to db:
-        let data = {
-            id: newIdBranch,
-            name: req.body.name
-        }
+        let data = req.body;
+        data.id = newIdBranch;
         let BrachInserted = await db.branchs.create(data);
         if(BrachInserted == null) res.json({message: "Luu tai khoan that bai"});
         else res.json(BrachInserted);

@@ -1,13 +1,12 @@
 'use strict'
 
 module.exports = (sequelize, DataTypes) => {
-    const ItemModel = sequelize.define('items', {
+    const CategoryModel = sequelize.define('categories', {
         id: {type: DataTypes.STRING, primaryKey: true},
-        productId: {type: DataTypes.STRING},
-        price: {type: DataTypes.FLOAT},
+        name: {type: DataTypes.STRING},
         des: {type: DataTypes.STRING}
     },{
         freezeTableName: true
     })
-    return ItemModel;
+    return CategoryModel;
 }

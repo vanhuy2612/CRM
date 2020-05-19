@@ -1,7 +1,7 @@
 'use strict'
 
 module.exports = (sequelize, DataTypes) => {
-    const BranchModel = sequelize.define('branchs', {
+    const BranchModel = sequelize.define('supplies', {
         id: {type: DataTypes.STRING, primaryKey: true},
         name: {type: DataTypes.STRING},
         address: {type: DataTypes.STRING},

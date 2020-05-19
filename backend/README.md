@@ -11,3 +11,11 @@ git anh Tuan: trantuan94
 
 CSDL : varchar(MAX) not nvarchar(..) because Sequelize.STRING = varchar(...)
         datetime2 because: Sequelize translates the Sequelize.DATE type into DATETIME2 for MSSQL, but then proceeds to format dates in this format: 'YYYY-MM-DD HH:mm:ss.SSS Z'.
+Get only data in findAll :
+        findAll({
+                ...,
+                raw: true
+        },{ })
+pop3, imap : get message from email.
+smtp: send mail
+

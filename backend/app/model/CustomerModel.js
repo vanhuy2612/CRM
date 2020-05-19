@@ -5,13 +5,13 @@ module.exports = (sequelize, DataTypes) => {
         id: {type: DataTypes.STRING, primaryKey: true},
         name: {type: DataTypes.STRING},
         address: {type: DataTypes.STRING},
-        phone: {type: DataTypes.STRING},
-        email: {type: DataTypes.STRING},
-        dateOfBirth: {type: DataTypes.DATE},
-        sex: {type: DataTypes.STRING},
+        birthDate: {type: DataTypes.DATE}, // ngay sinh
+        sex: {type: DataTypes.STRING}, // gioi tinh
         type: {type: DataTypes.STRING}, // vip or normal
-        branchId: {type : DataTypes.STRING},
-        avatar: {type: DataTypes.STRING}
+        urlImage: {type: DataTypes.STRING},
+        country: {type: DataTypes.STRING}, // dat nuoc
+        job: {type: DataTypes.STRING},
+        branchId: {type : DataTypes.STRING}
     },{
         freezeTableName: true
     })

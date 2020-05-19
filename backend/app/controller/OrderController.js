@@ -1,12 +1,18 @@
 'use strict'
 const BaseController = require('./BaseController');
 const db = require('../model/db')
-class OrderitemController extends BaseController {
+class OrderController extends BaseController {
     constructor(){
-        super( OrderitemController, db.orderitems);
+        super( OrderController, db.orders);
     }
     async index(req, res, next) {
-        let order = await db.orderitems.findAll({ order: [ ["createdAt", "DESC"]]});
+        let order = await db.orders.findAll({
+            order: [ ["createdAt", "DESC"]],
+            include: [{
+                model: db.items               
+            }],
+            raw: true
+        });
         res.json(order);
     }
     async store(req, res, next) {
@@ -30,4 +36,4 @@ class OrderitemController extends BaseController {
     }
     
 }
-module.exports = new OrderitemController()
+module.exports = new OrderController()
