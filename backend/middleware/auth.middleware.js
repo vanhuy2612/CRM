@@ -15,7 +15,9 @@ module.exports = (req, res, next) => {
         
         jwt.verify(token, authConfig.secrectKey, authConfig.options, (err, decode) => {
             if(err) return res.status(401).json({Errors: err, message:"Chuoi token sai"})
-            console.log(decode);
+            let decodeToken = jwt.decode(token);
+            // Lấy thông tin member trong chuỗi token:
+            req.authMember = decodeToken; 
             next();
         });
     }

@@ -21,62 +21,66 @@ router.group( router => {
     router.post('/register', MemberController.register);
 }
 ).prefix('/api');
+router.group('/api', router => {
+    // Routes for Member:
+    router.group('/member', router => {
+        router.get('/', MemberController.index)
+        router.delete('/:id', MemberController.delete)
+        router.put('/:id', MemberController.update),
+        router.post('/changepassword', MemberController.changepassword);
 
-// Routes for Member:
-router.group( router => {
-    router.get('/', MemberController.index)
-    router.delete('/:id', MemberController.delete)
-    router.put('/:id', MemberController.update)
+    })
 
-}).prefix('/api/member')
+    // Routes for Branch:
+    router.group('branch', router => {
+        router.get('/', BranchController.index);
+        router.post('/', BranchController.store);
+        router.put('/:id', BranchController.update);
+        router.get('/:branchId/member', BranchController.getAllUserOfBranch)
+        router.get('/:branchId/customer', BranchController.getAllCustomerOfBranch)
+        router.get('/test', BranchController.testDate)
+    })
 
-// Routes for Branch:
-router.group( router => {
-    router.get('/', BranchController.index);
-    router.post('/', BranchController.store);
-    router.get('/:branchId/user', BranchController.getAllUserOfBranch)
-    router.get('/:branchId/customer', BranchController.getAllCustomerOfBranch)
-    router.get('/test', BranchController.testDate)
-}).prefix('/api/branch')
+    // Routes for Product:
+    router.group('product', router => {
+        router.get('/', ProductController.index);
+        router.get('/:productId', ProductController.getOne);
+        router.post('/', ProductController.store);
+    })
+    // Routes for Item:
+    router.group('item', router => {
+        router.get('/', ItemController.index);
+        router.get('/:itemID', ItemController.getOne);
+        router.post('/', ItemController.store);
+        router.put('/:itemId', ItemController.update);
+    })
 
-// Routes for Product:
-router.group( router => {
-    router.get('/', ProductController.index);
-    router.get('/:productId', ProductController.getOne);
-    router.post('/', ProductController.store);
-}).prefix('/api/product')
-// Routes for Item:
-router.group( router => {
-    router.get('/', ItemController.index);
-    router.get('/:itemID', ItemController.getOne);
-    router.post('/', ItemController.store);
-    router.put('/:itemId', ItemController.update);
-}).prefix('/api/item')
+    // Routes for Customer:
+    router.group('customer', router => {
+        router.get('/search', CustomerController.search);
+        router.get('/', CustomerController.index);
+        router.get('/:customerId', CustomerController.getOne);
+        router.post('/', CustomerController.store);
+        router.delete('/:customerId', CustomerController.delete);
+        router.put('/:customerId', CustomerController.update);
+    })
 
-// Routes for Customer:
-router.group( router => {
-    router.get('/', CustomerController.index);
-    router.get('/:customerId', CustomerController.getOne);
-    router.post('/', CustomerController.store);
-    router.delete('/:customerId', CustomerController.delete);
-    router.put('/:customerId', CustomerController.update);
-}).prefix('/api/customer')
+    // Routes for Order:
+    router.group('order', router => {
+        router.post('/', OrderController.store)
+        router.get('/', OrderController.index)
+    })
 
-// Routes for Order:
-router.group( router => {
-    router.post('/', OrderController.store)
-    router.get('/', OrderController.index)
-}).prefix('/api/order')
 
-// Routes for Cart
-// Routes for Checkout
 
-// Routes for Invoice:
-router.group( router => {
-    router.get('/item', InvoiceController.revenueStatisticsByProduct)
-    router.get('/customer', InvoiceController.revenueStatisticsByCustomer)
-    router.get('/today', InvoiceController.revenueStatisticsForTheDay)
-}).prefix('/api/invoice')
+    // Routes for Invoice:
+    router.group('invoice', router => {
+        router.get('/today/item', InvoiceController.revenueStatisticsByItemToday)
+        router.get('/today/customer', InvoiceController.revenueStatisticsByCustomerToday)
+        router.get('/today/revenue', InvoiceController.revenueStatisticsToday)
+    })
+}).middleware(AuthMiddleware)
+
 
 let listRoutes = router.init();
 module.exports = listRoutes;

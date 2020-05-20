@@ -83,5 +83,16 @@ class MemberController extends BaseController{
             }
         }
     }
+    async changepassword(req, res, next){
+        let token = req.header('Authorization');
+        let member = jwt.decode(token);
+        let data = req.body;
+        // Ma Hoa pass
+        data.password = bcrypt.hashSync(data.password, SALT_ROUNDS);
+
+        let updatedPassword = await db.members.update(data, { where: {id: member.id}});
+        if(updatedPassword !=0) res.json({message: "Thay doi mat khau thanh cong"});
+        else res.json({ message: "Thay doi mat khau that bai"})
+    }
 }
 module.exports = new MemberController();

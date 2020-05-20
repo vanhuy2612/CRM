@@ -64,6 +64,26 @@ class CustomerController extends BaseController {
         if(updatedCus != 0) res.json({ message: "Update Customer Success"});
         else res.json({ message: 'Update Customer Faild'});
     }
+    async search(req, res, next){
+        let keyword = '%'+req.query.keyword+'%';
+        console.log(keyword)
+        let result = await db.customers.findAll({
+            where: {
+                [Op.or]: [{
+                    id: { [Op.like]: keyword}
+                },{
+                    name: { [Op.like]: keyword}
+                },{
+                    address: { [Op.like]: keyword}
+                },{
+                    country: { [Op.like]: keyword}
+                },{
+                    job: { [Op.like]: keyword}
+                }]
+            }
+        })
+        res.json(result)
+    }
 }
 
 module.exports = new CustomerController();

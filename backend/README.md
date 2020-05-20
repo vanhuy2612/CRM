@@ -16,6 +16,7 @@ Get only data in findAll :
                 ...,
                 raw: true
         },{ })
+INNER JOIN: require: true
 pop3, imap : get message from email.
 smtp: send mail
 

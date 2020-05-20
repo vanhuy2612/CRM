@@ -31,6 +31,12 @@ class BranchController extends BaseController {
         if(BrachInserted == null) res.json({message: "Luu tai khoan that bai"});
         else res.json(BrachInserted);
     }
+    async update(req, res, next){
+        let id = req.params.id;
+        let data = await db.branchs.update(req.body, {where: {id: id}});
+        if(data !=0) res.json({message: "Update chi nhanh thanh cong"});
+        else res.json({ message: "Update chi nhanh that bai"});
+    }
     async getAllUserOfBranch(req, res, next) {
         let branchId = req.params.branchId;
         

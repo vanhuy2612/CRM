@@ -9,9 +9,13 @@ class OrderController extends BaseController {
         let order = await db.orders.findAll({
             order: [ ["createdAt", "DESC"]],
             include: [{
-                model: db.items               
-            }],
-            raw: true
+                attributes: ['id','productId'], // Lấy dữ liệu tại table items
+                model: db.items,
+                through: {
+                    attributes: ['price', 'quantity']
+                }  
+            }], 
+                                  
         });
         res.json(order);
     }
