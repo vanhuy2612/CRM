@@ -63,7 +63,6 @@ class Register extends Component {
 
   handleSignUp = element => {
     let { username, password, branchId, role, phone, email, url } = this.state
-    console.log('url', url)
     let dem = 0
     console.log(username, password, branchId, role)
     // check validate username
@@ -299,6 +298,7 @@ class Register extends Component {
                   helperText={this.state.messPass}
                 />
               </Grid>
+              <h4>Vui lòng chọn ảnh đại diện</h4>
               { // upload image product
                                     <FileBase64
                                         multiple={true}

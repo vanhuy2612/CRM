@@ -9,7 +9,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
-import {IconButton, Tooltip} from '@material-ui/core';
+import { IconButton, Tooltip } from '@material-ui/core';
 import Badge from '@material-ui/core/Badge';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
@@ -23,6 +23,7 @@ import { Login, Dashboard, Order, Customers, Reports, Activity, Products, Deals,
 import axios from 'axios'
 import _ from 'lodash'
 import Send from './TblReports'
+import Chart from './Chart'
 
 function Copyright() {
     return (
@@ -117,6 +118,7 @@ const styles = theme => ({
         height: 240,
     }
 });
+
 class RecentReport extends Component {
     constructor(props) {
         super(props)
@@ -170,17 +172,19 @@ class RecentReport extends Component {
         this.props.history.push(`/Contacts/${element}`)
     }
 
-
     // lấy data customers
     async componentDidMount() {
         let dataCustomer = await (axios.get('http://localhost:3000/api/customer/'))
         let data = _.get(dataCustomer, "data", [])
         this.setState({ dataCustomer: data })
     }
+    
+    
 
     render() {
         const { open } = this.state
         const { classes } = this.props
+        const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
         return (
             <div className={classes.root}>
                 <CssBaseline />
@@ -239,9 +243,8 @@ class RecentReport extends Component {
                     <Container maxWidth="lg" className={classes.container}>
                         <Grid container spacing={3}>
                             <Grid item xs={12}>
-                                <Paper className={classes.paper}>
-                                    <p style={{ fontSize: 20 }}>Gửi phản hồi cho chúng tôi</p>
-                                    <Send />
+                                <Paper className={fixedHeightPaper}>
+                                    <Chart />
                                 </Paper>
                             </Grid>
                         </Grid>
