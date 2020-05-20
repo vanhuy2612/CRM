@@ -64,7 +64,7 @@ class Register extends Component {
   handleSignUp = element => {
     let { username, password, branchId, role, phone, email, url } = this.state
     let dem = 0
-    console.log(username, password, branchId, role)
+    console.log(username, password, branchId, role, phone, email)
     // check validate username
     if (username == undefined || username.length == 0) {
       dem = parseInt(dem) + 1
@@ -155,7 +155,10 @@ class Register extends Component {
         username: username,
         password: password,
         branchId: branchId,
-        role: role
+        role: role,
+        phone: phone,
+        email: email,
+        urlImage: url
       })
       .then(function (response) {
         console.log(response.data)
