@@ -14,6 +14,7 @@ const InvoiceController = require('../app/controller/InvoiceController')
 
 
 const AuthMiddleware = require('../middleware/auth.middleware')
+const PermissonMiddleware = require('../middleware/permission.middleware');
 
 // Routes for register and login;
 router.group( router => {
@@ -21,6 +22,7 @@ router.group( router => {
     router.post('/register', MemberController.register);
 }
 ).prefix('/api');
+// Routes need check roles
 router.group('/api', router => {
     // Routes for Member:
     router.group('/member', router => {
@@ -79,7 +81,7 @@ router.group('/api', router => {
         router.get('/today/customer', InvoiceController.revenueStatisticsByCustomerToday)
         router.get('/today/revenue', InvoiceController.revenueStatisticsToday)
     })
-}).middleware(AuthMiddleware)
+}).middleware([AuthMiddleware, PermissonMiddleware])
 
 
 let listRoutes = router.init();

@@ -28,6 +28,7 @@ db.supplies = require('./SupplyModel')(sequelize, Sequelize);
 db.members = require('./MemberModel')(sequelize, Sequelize);
 db.roles = require('./RoleModel')(sequelize, Sequelize);
 db.permissions = require('./PermissionModel')(sequelize, Sequelize);
+db.role_permissions = require('./Role_PermissionModel')(sequelize, Sequelize);
 
 db.items = require('./ItemModel')(sequelize, Sequelize);
 db.products = require('./ProductModel')(sequelize, Sequelize);
@@ -134,7 +135,13 @@ db.orders.belongsToMany(db.items, { through: db.orderdetails });
 db.customers.hasMany(db.vouchers, { foreignKey: 'customerId'})
 db.vouchers.belongsTo(db.customers, { foreignKey: 'customerId'})
 
+// 23. members 1-1 roles
+db.roles.hasOne(db.members, { foreignKey: 'roleId'})
+db.members.belongsTo(db.roles, { foreignKey: 'roleId'})
 
+// 24. roles n-m permissions
+db.roles.belongsToMany(db.permissions, { through: db.role_permissions });
+db.permissions.belongsToMany(db.roles, { through: db.role_permissions });
 
 // export:
 module.exports = db;
