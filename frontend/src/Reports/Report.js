@@ -176,7 +176,12 @@ class RecentReport extends Component {
     async componentDidMount() {
         let dataCustomer = await (axios.get('http://localhost:3000/api/customer/'))
         let data = _.get(dataCustomer, "data", [])
-        this.setState({ dataCustomer: data })
+        data.map((element, index) =>{
+            console.log(`datatype${index}`,element.type)
+            if(element.type !== 'normal'){
+                this.setState({ dataCustomer: data })
+            }
+        })
     }
     
     
@@ -242,10 +247,15 @@ class RecentReport extends Component {
                     <div className={classes.appBarSpacer} />
                     <Container maxWidth="lg" className={classes.container}>
                         <Grid container spacing={3}>
+                            {/* report doanh thu  */}
                             <Grid item xs={12}>
                                 <Paper className={fixedHeightPaper}>
                                     <Chart />
                                 </Paper>
+                            </Grid>
+                            {/* report khach hang tiem nang */}
+                            <Grid item xs={12}>
+                                    <Send data={this.state.dataCustomer}/>
                             </Grid>
                         </Grid>
                         <Box pt={4}>
