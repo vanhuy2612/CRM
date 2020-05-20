@@ -55,11 +55,13 @@ class Register extends Component {
       password: "",
       branchId: "",
       role: "",
+      phone: "",
+      email: "",
     }
   }
 
   handleSignUp = element => {
-    let { username, password, branchId, role } = this.state
+    let { username, password, branchId, role, phone, email } = this.state
     let dem = 0
     console.log(username, password, branchId, role)
     // check validate username
@@ -90,6 +92,34 @@ class Register extends Component {
             messRole: '',
         })
     }
+     // check validate phone
+     if (phone == undefined || phone.length == 0) {
+      dem = parseInt(dem) + 1
+      this.setState({
+          erPhone: true,
+          messPhone: I18n.t("Vui lòng nhập đầy đủ thông tin")
+      })
+    } else {
+        dem = parseInt(dem) - 1
+        this.setState({
+            erPhone: false,
+            messPhone: '',
+        })
+    }
+     // check validate email
+     if (email == undefined || email.length == 0) {
+      dem = parseInt(dem) + 1
+      this.setState({
+          erEmail: true,
+          messEmail: I18n.t("Vui lòng nhập đầy đủ thông tin")
+      })
+    } else {
+        dem = parseInt(dem) - 1
+        this.setState({
+            erEmail: false,
+            messEmail: '',
+        })
+    }
     // check validate branchId
     if (branchId == undefined || branchId.length == 0) {
       dem = parseInt(dem) + 1
@@ -118,7 +148,7 @@ class Register extends Component {
             messPass: '',
         })
     }
-    if(dem == -4){
+    if(dem == -6){
       console.log('OKKKK')
       axios.post('http://localhost:3000/api/register/',{
         username: username,
@@ -138,7 +168,7 @@ class Register extends Component {
 
   render() {
     const { classes } = this.props
-    const { username, password, branchId, role } = this.state
+    const { username, password, branchId, role, phone, email } = this.state
     return (
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -207,6 +237,44 @@ class Register extends Component {
                 })}
                   error={this.state.erBranchId}
                   helperText={this.state.messbranchId}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="Phone"
+                  label="Phone"
+                  name="phone"
+                  autoComplete="Phone"
+                  value={phone}
+                  onChange={(e) => this.setState({
+                    phone: e.currentTarget.value,
+                    erPhone: undefined,
+                    messPhone: '',
+                })}
+                  error={this.state.erPhone}
+                  helperText={this.state.messPhone}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="Email"
+                  label="Email"
+                  name="email"
+                  autoComplete="Email"
+                  value={email}
+                  onChange={(e) => this.setState({
+                    email: e.currentTarget.value,
+                    erEmail: undefined,
+                    messEmail: '',
+                })}
+                  error={this.state.erEmail}
+                  helperText={this.state.messEmail}
                 />
               </Grid>
               <Grid item xs={12}>
