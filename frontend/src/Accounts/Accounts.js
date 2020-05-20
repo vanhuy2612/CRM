@@ -171,7 +171,7 @@ class RecentOrder extends Component {
 
   // lấy data order
   async componentDidMount() {
-    let dataOrder = await (axios.get('http://localhost:3000/api/user/'))
+    let dataOrder = await (axios.get('http://localhost:3000/api/member/'))
     let data = _.get(dataOrder, "data", [])
     console.log('data', data)
     this.setState({ dataUser: data })
