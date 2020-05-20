@@ -13,6 +13,7 @@ import Typography from '@material-ui/core/Typography'
 import { withStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
 import { I18n } from 'react-redux-i18n'
+import FileBase64 from 'react-file-base64'
 import axios from 'axios'
 
 function Copyright() {
@@ -51,17 +52,18 @@ class Register extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      username: "",
-      password: "",
-      branchId: "",
-      role: "",
-      phone: "",
-      email: "",
     }
   }
+  // khai báo upload image
+  getFiles = (files) => {
+    if (typeof files[0] === 'object') {
+        this.setState({ url: files[0].base64 })
+    }
+}
 
   handleSignUp = element => {
-    let { username, password, branchId, role, phone, email } = this.state
+    let { username, password, branchId, role, phone, email, url } = this.state
+    console.log('url', url)
     let dem = 0
     console.log(username, password, branchId, role)
     // check validate username
@@ -297,6 +299,12 @@ class Register extends Component {
                   helperText={this.state.messPass}
                 />
               </Grid>
+              { // upload image product
+                                    <FileBase64
+                                        multiple={true}
+                                        onDone={this.getFiles.bind(this)} 
+                                        />
+                                }
               <Grid item xs={12}>
                 <FormControlLabel
                   control={<Checkbox value="allowExtraEmails" color="primary" />}
