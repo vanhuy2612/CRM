@@ -9,7 +9,11 @@ class CustomerController extends BaseController {
         super(CustomerController, db.customers)
     }
     async index(req, res, next) {
-        let customers = await db.customers.findAll();
+        let customers = await db.customers.findAll({
+            include: [{
+                model: db.contacts
+            }]
+        });
         res.json(customers);
     }
     async getOne(req, res, next) {

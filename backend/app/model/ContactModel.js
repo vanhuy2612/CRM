@@ -2,6 +2,7 @@
 
 module.exports = (sequelize, DataTypes) => {
     const ContactModel = sequelize.define('contacts', {
+        id: {type: DataTypes.STRING, primaryKey: true},
         customerId: {type: DataTypes.STRING},
         type: {type: DataTypes.STRING},
         link: {type: DataTypes.STRING},

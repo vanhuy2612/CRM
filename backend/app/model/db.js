@@ -100,7 +100,7 @@ db.marketings.belongsToMany(db.members, { through: db.workons });
 
 // 14. customers 1-n contacts
 db.customers.hasMany(db.contacts, { foreignKey: 'customerId'})
-db.contacts.belongsTo(db.customers, { foreignKey: 'customerId'})
+//db.contacts.belongsTo(db.customers, { foreignKey: 'customerId'})
 
 // 15. invoices 1-1 payments
 db.invoices.hasOne(db.payments, { foreignKey: 'invoiceId'})
