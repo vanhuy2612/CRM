@@ -66,12 +66,23 @@ class MemberController extends BaseController{
         let {username, password} = req.body;
         let memberGetByName = await db.members.findOne({
             where: {username: username},
-            raw: true
+            include: [{
+                model: db.roles,
+                include: [{
+                    attributes: ['keyRoute'],
+                    model: db.permissions,
+                    through:{
+                        attributes: []
+                    }
+                }]
+            }],
         }, {
-            
+        
         });
+        //console.log(memberGetByName);
         if(memberGetByName == null) res.json({message: "Tai khoan khong ton tai"});
         else {
+            memberGetByName = memberGetByName.dataValues;
             let availablePassword = bcrypt.compareSync(password, memberGetByName.password)
             if(availablePassword) {
                 let payload = memberGetByName;

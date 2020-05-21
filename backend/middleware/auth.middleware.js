@@ -11,6 +11,7 @@ module.exports = (req, res, next) => {
     if(ignorePath.includes(path)) next();
     else {
         let token = req.header('Authorization');
+     
         if (!token ) return res.status(401).json({message: 'You dont have token'})
         
         jwt.verify(token, authConfig.secrectKey, authConfig.options, (err, decode) => {
