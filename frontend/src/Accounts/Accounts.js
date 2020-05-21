@@ -5,7 +5,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import Avatar from '../Components/Avatar'
-import {IconButton, Tooltip, CssBaseline, Drawer,Box, AppBar,Toolbar, List, Typography,Divider, Badge, Container, Grid, Link} from '@material-ui/core';
+import { IconButton, Tooltip, CssBaseline, Drawer, Box, AppBar, Toolbar, List, Typography, Divider, Badge, Container, Grid, Link } from '@material-ui/core';
 import { Login, Dashboard, Order, Customers, Reports, Activity, Products, Deals, Contacts, Accounts } from '../Components/ListItems';
 import axios from 'axios'
 import _ from 'lodash'
@@ -161,10 +161,10 @@ class RecentOrder extends Component {
   async componentDidMount() {
     let token = localStorage.getItem('token')
     axios.defaults.headers.common['Authorization'] = token;
-    axios.defaults.headers.common['keyRoute'] = 'GetAllMember';
-    let dataOrder = await (axios.get('http://localhost:3000/api/member/'))
-    let data = _.get(dataOrder, "data", [])
-    for ( let i=0; i<data.length; i++){
+    let URL = process.env.REACT_APP_BASE_URL + '/api/member/';
+    let dataCustomer = await (axios.get(URL))
+    let data = _.get(dataCustomer, "data", [])
+    for (let i = 0; i < data.length; i++) {
       data[i].role = data[i].role.name
     }
     console.log('data', data)
