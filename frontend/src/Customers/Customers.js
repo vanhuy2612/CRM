@@ -163,9 +163,18 @@ class RecentCustomers extends Component {
         let token = localStorage.getItem('token')
         axios.defaults.headers.common['Authorization'] = token;
         let URL = process.env.REACT_APP_BASE_URL + '/api/customer/';
-        console.log('URL', URL)
         let dataCustomer = await (axios.get(URL))
         let data = _.get(dataCustomer, "data", [])
+        for(let i =0; i< data.length; i++){
+            let contacts = data[i].contacts;
+            contacts.map((element) => {
+                if(element.type == "phone"){
+                    data[i].phone = element.link
+                }else if(element.type == "email"){
+                    data[i].email = element.link
+                }
+            })
+        }
         this.setState({ dataCustomer: data })
     }
 
