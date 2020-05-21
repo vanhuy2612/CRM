@@ -9,7 +9,7 @@ import {IconButton, Tooltip, CssBaseline, Drawer,Box, AppBar,Toolbar, List, Typo
 import { Login, Dashboard, Order, Customers, Reports, Activity, Products, Deals, Contacts, Accounts } from '../Components/ListItems';
 import Chart from './Chart';
 import Deposits from './Deposits';
-import Orders from './Orders';
+import CustomerOrderToday from './CustomerOrderToday';
 
 function Copyright() {
   return (
@@ -150,6 +150,7 @@ export default function RecentDashboard(props) {
 
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
+
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -224,7 +225,7 @@ export default function RecentDashboard(props) {
             {/* Recent Orders */}
             <Grid item xs={12}>
               <Paper className={classes.paper}>
-                <Orders />
+                <CustomerOrderToday />
               </Paper>
             </Grid>
           </Grid>
