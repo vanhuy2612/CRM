@@ -1,19 +1,7 @@
 import React, { Component } from 'react';
 import clsx from 'clsx';
 import { withStyles } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Drawer from '@material-ui/core/Drawer';
-import Box from '@material-ui/core/Box';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
-import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import {IconButton, Tooltip} from '@material-ui/core';
-import Badge from '@material-ui/core/Badge';
-import Container from '@material-ui/core/Container';
-import Grid from '@material-ui/core/Grid';
-import Link from '@material-ui/core/Link';
+import {IconButton, Tooltip, CssBaseline, Drawer,Box, AppBar,Toolbar, List, Typography,Divider, Badge, Container, Grid, Link} from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
@@ -174,7 +162,6 @@ class RecentCustomers extends Component {
     async componentDidMount() {
         let token = localStorage.getItem('token')
         axios.defaults.headers.common['Authorization'] = token;
-        axios.defaults.headers.common['keyRoute'] = 'GetAllCostomer';
         let dataCustomer = await (axios.get('http://localhost:3000/api/customer/'))
         let data = _.get(dataCustomer, "data", [])
         this.setState({ dataCustomer: data })

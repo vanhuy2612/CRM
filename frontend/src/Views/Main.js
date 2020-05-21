@@ -1,13 +1,10 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import CssBaseline from '@material-ui/core/CssBaseline'
-import Grid from '@material-ui/core/Grid'
-import Container from '@material-ui/core/Container'
 import Header from '../Components/Header'
 import MainFeaturedPost from '../Components/MainFeaturedPost'
 import Footer from '../Components/Footer'
 import { Col, Row } from 'reactstrap'
-import { Button, formatMs } from '@material-ui/core';
+import { Button, formatMs, Container, CssBaseline, Grid } from '@material-ui/core';
 //image
 import img from '../bgr.jpg'
 import lead from '../images/lead.PNG'
