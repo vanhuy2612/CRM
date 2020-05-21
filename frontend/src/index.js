@@ -4,7 +4,6 @@ import { BrowserRouter } from "react-router-dom";
 import { Route, Router, browserHistory } from '../node_modules/react-router';
 
 
-
 import './index.css'
 import Main from './Views/Main'
 import Login from './Views/Login'// component đăng nhập
@@ -22,6 +21,7 @@ import Deals from './Deals/Deal'
 import Contacts from './Contacts/Contacts'
 import Accounts from './Accounts/Accounts'
 import * as serviceWorker from './serviceWorker';
+import { requirePropFactory } from '@material-ui/core';
 
 ReactDOM.render(
   <BrowserRouter>
@@ -42,6 +42,8 @@ ReactDOM.render(
         <Route exact path="/Accounts/:id" component={Accounts} />
     </BrowserRouter>, document.getElementById('root')
 );
+// import enviroment:
+require('dotenv').config();
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

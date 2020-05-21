@@ -53,11 +53,53 @@ class Register extends Component {
 }
 
   handleSignUp = element => {
-    let { username, password, branchId, role, phone, email, url } = this.state
+    let { username, password, branchId, role, phone, email, url, name, position, birthDate } = this.state
     let dem = 0
-    console.log(username, password, branchId, role, phone, email)
+    console.log(username, password, branchId, role, phone, email, url, name, position, birthDate )
+     // check validate birthDate
+     if (birthDate == undefined || birthDate.length == 0) {
+      dem = parseInt(dem) + 1
+      this.setState({
+          erBirthDate: true,
+          messBirthDate: I18n.t("Vui lòng nhập đầy đủ thông tin")
+      })
+    } else {
+        dem = parseInt(dem) - 1
+        this.setState({
+            erBirthDate: false,
+            messBirthDate: '',
+        })
+    }
+     // check validate position
+     if (position == undefined || position.length == 0) {
+      dem = parseInt(dem) + 1
+      this.setState({
+          erPosition: true,
+          messPosition: I18n.t("Vui lòng nhập đầy đủ thông tin")
+      })
+    } else {
+        dem = parseInt(dem) - 1
+        this.setState({
+            erPosition: false,
+            messPosition: '',
+        })
+    }
     // check validate username
     if (username == undefined || username.length == 0) {
+      dem = parseInt(dem) + 1
+      this.setState({
+          erUserName: true,
+          messUserName: I18n.t("Vui lòng nhập đầy đủ thông tin")
+      })
+    } else {
+        dem = parseInt(dem) - 1
+        this.setState({
+            erUserName: false,
+            messUserName: '',
+        })
+    }
+    // check validate name
+    if (name == undefined || name.length == 0) {
       dem = parseInt(dem) + 1
       this.setState({
           erName: true,
@@ -146,10 +188,13 @@ class Register extends Component {
         username: username,
         password: password,
         branchId: branchId,
-        role: role,
+        roleId: role,
         phone: phone,
         email: email,
-        urlImage: url
+        urlImage: url,
+        name: name,
+        position: position,
+        birthDate: birthDate
       })
       .then(function (response) {
         console.log(response.data)
@@ -163,7 +208,7 @@ class Register extends Component {
 
   render() {
     const { classes } = this.props
-    const { username, password, branchId, role, phone, email } = this.state
+    const { username, password, branchId, role, phone, email, position, birthDate, name } = this.state
     return (
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -176,6 +221,25 @@ class Register extends Component {
         </Typography>
           <form className={classes.form} noValidate>
             <Grid container spacing={2}>
+            <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="Name"
+                  label="Name"
+                  name="name"
+                  autoComplete="Name"
+                  value={name}
+                  onChange={(e) => this.setState({
+                    name: e.currentTarget.value,
+                    erName: undefined,
+                    messName: '',
+                })}
+                  error={this.state.erName}
+                  helperText={this.state.messName}
+                />
+              </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
                   autoComplete="fname"
@@ -189,11 +253,11 @@ class Register extends Component {
                   value={username}
                   onChange={(e) => this.setState({
                     username: e.currentTarget.value,
-                    erName: undefined,
-                    messName: '',
+                    erUserName: undefined,
+                    messUserName: '',
                 })}
-                  error={this.state.erName}
-                  helperText={this.state.messName}
+                  error={this.state.erUserName}
+                  helperText={this.state.messUserName}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -204,7 +268,7 @@ class Register extends Component {
                   id="Role"
                   label="Role"
                   name="Role"
-                  autoComplete="lname"
+                  autoComplete="Role"
                   value={role}
                   onChange={(e) => this.setState({
                     role: e.currentTarget.value,
@@ -215,7 +279,7 @@ class Register extends Component {
                   helperText={this.state.messRole}
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={12} sm={6}>
                 <TextField
                   variant="outlined"
                   required
@@ -234,7 +298,7 @@ class Register extends Component {
                   helperText={this.state.messbranchId}
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={12} sm={6}>
                 <TextField
                   variant="outlined"
                   required
@@ -270,6 +334,44 @@ class Register extends Component {
                 })}
                   error={this.state.erEmail}
                   helperText={this.state.messEmail}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="Position"
+                  label="Position"
+                  name="position"
+                  autoComplete="Position"
+                  value={position}
+                  onChange={(e) => this.setState({
+                    position: e.currentTarget.value,
+                    erPosition: undefined,
+                    messPosition: '',
+                })}
+                  error={this.state.erPosition}
+                  helperText={this.state.messPosition}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="birthDate"
+                  label="birthDate"
+                  name="birthDate"
+                  autoComplete="birthDate"
+                  value={birthDate}
+                  onChange={(e) => this.setState({
+                    birthDate: e.currentTarget.value,
+                    erBirthDate: undefined,
+                    messBirthDate: '',
+                })}
+                  error={this.state.erBirthDate}
+                  helperText={this.state.messBirthDate}
                 />
               </Grid>
               <Grid item xs={12}>

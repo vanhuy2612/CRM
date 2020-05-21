@@ -162,7 +162,9 @@ class RecentCustomers extends Component {
     async componentDidMount() {
         let token = localStorage.getItem('token')
         axios.defaults.headers.common['Authorization'] = token;
-        let dataCustomer = await (axios.get('http://localhost:3000/api/customer/'))
+        let URL = process.env.REACT_APP_BASE_URL + '/api/customer/';
+        console.log('URL', URL)
+        let dataCustomer = await (axios.get(URL))
         let data = _.get(dataCustomer, "data", [])
         this.setState({ dataCustomer: data })
     }
