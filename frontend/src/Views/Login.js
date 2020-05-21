@@ -80,6 +80,7 @@ class Login extends Component {
     })
   }
   handleLogin = element => {
+    let props = this.props
     let dem = 0
     let {email, password} = this.state
     if (email == undefined || email.length == 0) {
@@ -117,19 +118,14 @@ class Login extends Component {
       let messLogin = response.data
       console.log('data res', messLogin)
       localStorage.setItem('token', messLogin)
-      // if(messLogin.message == "tai khoan khong ton tai"){
-      //   console.log('Fail')
-      // }else{
-      //   if(messLogin.message == "sai mat khau"){
-      //     console.log('Fail2')
-      //   }else{
-      //     localStorage.setItem('token', messLogin)
-      //     console.log('OKKKKK')
-      //     // dispatchEvent(this.props.history.push(`/Dashboard/${element}`))
-      //   }
-      // }
+      if(messLogin.message !== undefined){
+        console.log('Fail', messLogin.message)
+      }else{
+          localStorage.setItem('token', messLogin)
+          console.log('Đăng nhập thành công')
+          props.history.push(`/Dashboard/${element}`)
+      }
     })
-    this.props.history.push(`/Dashboard/${element}`)
     }
   }
 
