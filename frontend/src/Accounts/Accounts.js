@@ -171,6 +171,9 @@ class RecentOrder extends Component {
 
   // lấy data order
   async componentDidMount() {
+    let token = localStorage.getItem('token')
+    axios.defaults.headers.common['Authorization'] = token;
+    axios.defaults.headers.common['keyRoute'] = 'GetAllMember';
     let dataOrder = await (axios.get('http://localhost:3000/api/member/'))
     let data = _.get(dataOrder, "data", [])
     console.log('data', data)

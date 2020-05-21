@@ -116,17 +116,19 @@ class Login extends Component {
     .then(function (response) {
       let messLogin = response.data
       console.log('data res', messLogin)
-      // if(messLogin !== undefined){
+      localStorage.setItem('token', messLogin)
+      // if(messLogin.message == "tai khoan khong ton tai"){
       //   console.log('Fail')
       // }else{
-      //   login = parseInt(login) - 1
-      //   console.log('OK')
+      //   if(messLogin.message == "sai mat khau"){
+      //     console.log('Fail2')
+      //   }else{
+      //     localStorage.setItem('token', messLogin)
+      //     console.log('OKKKKK')
+      //     // dispatchEvent(this.props.history.push(`/Dashboard/${element}`))
+      //   }
       // }
-      // console.log('messLogin',messLogin);
     })
-    .catch(function (error) {
-      console.log(error);
-    });
     this.props.history.push(`/Dashboard/${element}`)
     }
   }
