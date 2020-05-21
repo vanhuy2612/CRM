@@ -171,7 +171,7 @@ class RecentReport extends Component {
             let type = data[i].type
             if(type !== "normal"){
                 console.log('OKKK')
-                dataVip = data[i]
+                dataVip.push(data[i])
             }
         }
         for(let i =0; i< dataVip.length; i++){

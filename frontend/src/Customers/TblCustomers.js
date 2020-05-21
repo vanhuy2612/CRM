@@ -7,6 +7,7 @@ class TblCustomers extends Component {
         this.columns = [
             { title: 'Name', field: 'name', type: "String" },
             { title: 'Address', field: 'address', type: "String" },
+            { title: 'Job', field: 'job', type: "String" },
             { title: 'Phone', field: 'phone', type: "String" },
             { title: 'Email', field: 'email', type: 'String' },
             { title: 'Type', field: 'type', type: "String" },
