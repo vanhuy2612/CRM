@@ -15,7 +15,7 @@ class OrderController extends BaseController {
                     attributes: ['price', 'quantity']
                 }  
             }], 
-                                  
+            raw: true                    
         });
         res.json(order);
     }

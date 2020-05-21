@@ -81,8 +81,8 @@ router.group('/api', router => {
     // Routes for Invoice:
     router.group('invoice', router => {
         router.get('/today/item',[PermissonMiddleware('RevenueStatisticsByItemToday')], InvoiceController.revenueStatisticsByItemToday)
-        router.get('/today/customer',[PermissonMiddleware('revenueStatisticsByCustomerToday')], InvoiceController.revenueStatisticsByCustomerToday)
-        router.get('/today/revenue',[PermissonMiddleware('revenueStatisticsToday')], InvoiceController.revenueStatisticsToday)
+        router.get('/today/customer',[PermissonMiddleware('RevenueStatisticsByCustomerToday')], InvoiceController.revenueStatisticsByCustomerToday)
+        router.get('/today/revenue',[PermissonMiddleware('RevenueStatisticsToday')], InvoiceController.revenueStatisticsToday)
     })
     // Routes for Permission:
     router.group('permission', router => {

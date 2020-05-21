@@ -22,6 +22,7 @@ class CustomerController extends BaseController {
         res.json(customer)
     }
     async store(req, res, next) {
+        let message = {};
         // find id for customer in a branch
         let newCustomerId = process.env.DB_LOC + '1';
         let local = process.env.DB_LOC + '%';
@@ -33,7 +34,6 @@ class CustomerController extends BaseController {
         }, {
             raw: true
         })
-        console.log(lastCustomer);
         if( lastCustomer.length != 0) {
             lastCustomer = lastCustomer[0].dataValues;
             let stringId = lastCustomer.id;
@@ -47,9 +47,72 @@ class CustomerController extends BaseController {
 
         // insert to db customers:
         let insertedCus = await db.customers.create(data);
-
-        if (insertedCus == null ) res.json({ message: "store customer faild"});
-        else res.json(insertedCus);
+        console.log(insertedCus)
+        message.insertedCus = "Faild"
+        if (insertedCus != null ) {
+            message.insertedCus = "OK"
+            // insert to contact:
+            let phone = data.phone || ""
+            let email = data.email || ""
+            //---------------------------Phone---------------
+            if( phone != "") {
+                let lastContact = await db.contacts.findAll({
+                    order: [ ['createdAt', 'DESC']], 
+                    limit: 1, offset: 0
+                }, { 
+                    raw: true, 
+                    mapToModel: false 
+                });
+                if ( lastContact.length != 0) {
+                    lastContact = lastContact[0].dataValues;
+                    // handle Id : MB0001 => 0001
+                    let stringId = lastContact.id;
+                    let numberId = stringId.split( process.env.DB_LOC)[1];
+                        numberId = parseInt(numberId, 10) + 1; // convert string to int and inc 1.
+                    let newIdContact = process.env.DB_LOC + numberId;
+                    // insert contact phone to db:
+                    let data = {
+                        id : newIdContact,
+                        customerId: insertedCus.dataValues.id,
+                        type: "phone",
+                        username: insertedCus.dataValues.name,
+                        link: phone
+                    };
+                    let phoneContact = await db.contacts.create(data);
+                    if (phoneContact != null) message.phone="phone OK"; else message.member="phone Fail"                                     
+                }
+            }
+            //------------------------------Email------------------------
+            if( email != "") {
+                let lastContact = await db.contacts.findAll({
+                    order: [ ['createdAt', 'DESC']], 
+                    limit: 1, offset: 0
+                }, { 
+                    raw: true, 
+                    mapToModel: false 
+                });
+                if ( lastContact.length != 0) {
+                    lastContact = lastContact[0].dataValues;
+                    // handle Id : MB0001 => 0001
+                    let stringId = lastContact.id;
+                    let numberId = stringId.split( process.env.DB_LOC)[1];
+                        numberId = parseInt(numberId, 10) + 1; // convert string to int and inc 1.
+                    let newIdContact = process.env.DB_LOC + numberId;
+                    // insert contact phone to db:
+                    let data = {
+                        id : newIdContact,
+                        customerId: insertedCus.dataValues.id,
+                        type: "email",
+                        username: insertedCus.dataValues.name,
+                        link: email
+                    };
+                    let emailContact = await db.contacts.create(data);
+                    if (emailContact != null) message.phone="email OK"; else message.member="email Fail"                                     
+                                     
+                }
+            }
+        }
+        res.json(message)
     }
     async delete(req, res, next) {
         let customerId = req.params.customerId;

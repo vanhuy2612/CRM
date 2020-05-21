@@ -13,7 +13,12 @@ class MemberController extends BaseController{
         super(MemberController, db.members);
     }
     async index(req, res, next) {
-        let members = await db.members.findAll();
+        let members = await db.members.findAll({
+            include: {
+                model: db.roles
+            },
+            order: [ ['createdAt', 'ASC']]
+        });
         return res.json(members);
     }
     async update(req, res, next) {
@@ -27,7 +32,8 @@ class MemberController extends BaseController{
         else return res.json({message: "Xoa tai khoan that bai"})
     }
     async register(req, res, next){
-        
+        let message = {};
+
         let membername = req.body.username;
         let hashedPassword = bcrypt.hashSync(req.body.password, SALT_ROUNDS);
 
@@ -53,14 +59,14 @@ class MemberController extends BaseController{
                 newIdmember = process.env.DB_LOC + numberId;
                 
             }
-            // insert to db:
+            // insert member to db:
             let data = req.body;
             data.id = newIdmember;
             data.password = hashedPassword;
             let memberInserted = await db.members.create(data);
-            if(memberInserted == null) res.json({message: "Luu tai khoan that bai"});
-            else res.json(memberInserted);
-        }        
+            if (memberInserted != null) message.member="member OK"; else message.member="member Fail"
+        } 
+        res.json(message);       
     }
     async login(req, res, next){
         let {username, password} = req.body;
