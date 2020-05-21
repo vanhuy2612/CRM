@@ -161,11 +161,30 @@ class RecentReport extends Component {
 
     // lấy data customers
     async componentDidMount() {
+        let dataVip = []
         let token = localStorage.getItem('token')
         axios.defaults.headers.common['Authorization'] = token;
-        let dataCustomer = await (axios.get('http://localhost:3000/api/customer/'))
+        let URL = process.env.REACT_APP_BASE_URL + '/api/customer/';
+        let dataCustomer = await (axios.get(URL))
         let data = _.get(dataCustomer, "data", [])
-        this.setState({ dataCustomer: data })
+        for ( let i=0; i<data.length; i++){
+            let type = data[i].type
+            if(type !== "normal"){
+                console.log('OKKK')
+                dataVip = data[i]
+            }
+        }
+        for(let i =0; i< dataVip.length; i++){
+            let contacts = dataVip[i].contacts;
+            contacts.map((element) => {
+                if(element.type == "phone"){
+                    dataVip[i].phone = element.link
+                }else if(element.type == "email"){
+                    dataVip[i].email = element.link
+                }
+            })
+        }
+        this.setState({ dataCustomer: dataVip })
     }
     
     
