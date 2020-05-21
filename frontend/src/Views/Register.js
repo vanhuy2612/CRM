@@ -182,7 +182,7 @@ class Register extends Component {
             messPass: '',
         })
     }
-    if(dem == -6){
+    if(dem == -9){
       console.log('OKKKK')
       axios.post('http://localhost:3000/api/register/',{
         username: username,
@@ -191,7 +191,7 @@ class Register extends Component {
         roleId: role,
         phone: phone,
         email: email,
-        urlImage: url,
+        urlImage: url || 'something',
         name: name,
         position: position,
         birthDate: birthDate
