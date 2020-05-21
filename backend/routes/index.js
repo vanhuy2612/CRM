@@ -10,7 +10,7 @@ const ItemController = require('../app/controller/ItemController')
 const CustomerController = require('../app/controller/CustomerController')
 const OrderController = require('../app/controller/OrderController')
 const InvoiceController = require('../app/controller/InvoiceController')
-
+const PermissionController = require('../app/controller/PermissionController')
 
 
 const AuthMiddleware = require('../middleware/auth.middleware')
@@ -80,6 +80,10 @@ router.group('/api', router => {
         router.get('/today/item', InvoiceController.revenueStatisticsByItemToday)
         router.get('/today/customer', InvoiceController.revenueStatisticsByCustomerToday)
         router.get('/today/revenue', InvoiceController.revenueStatisticsToday)
+    })
+    // Routes for Permission:
+    router.group('permission', router => {
+        router.get('/', PermissionController.index);
     })
 }).middleware([AuthMiddleware, PermissonMiddleware])
 
