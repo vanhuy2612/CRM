@@ -18,5 +18,5 @@ Get only data in findAll :
         },{ })
 INNER JOIN: require: true
 pop3, imap : get message from email.
-smtp: send mail
+smtp: send mail : bull + redis + nodemailer
 
