@@ -5,12 +5,13 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import Avatar from '../Components/Avatar'
-import {IconButton, Tooltip, CssBaseline, Drawer,Box, AppBar,Toolbar, List, Typography,Divider, Badge, Container, Grid, Link, Paper} from '@material-ui/core';
+import {IconButton, Tooltip, CssBaseline, Drawer,Box, AppBar,Toolbar, List, Typography,Divider, Badge, Container, Grid, Link, Paper, formatMs} from '@material-ui/core';
 import { Login, Dashboard, Order, Customers, Reports, Activity, Products, Deals, Contacts, Accounts } from '../Components/ListItems';
 import axios from 'axios'
 import _ from 'lodash'
 import Send from './TblReportCostomers'
 import Chart from './Chart'
+import moment from 'moment'
 
 function Copyright() {
     return (
@@ -169,6 +170,7 @@ class RecentReport extends Component {
         let data = _.get(dataCustomer, "data", [])
         for ( let i=0; i<data.length; i++){
             let type = data[i].type
+            data[i].createdAt = moment(data[i].createdAt).format('YYYY/MM/DD')
             if(type !== "normal"){
                 console.log('OKKK')
                 dataVip.push(data[i])

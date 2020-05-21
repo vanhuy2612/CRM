@@ -10,6 +10,7 @@ import { Login, Dashboard, Order, Customers, Reports, Activity, Products, Deals,
 import TblCustomers from './TblOrders'
 import axios from 'axios'
 import _ from 'lodash'
+import moment from 'moment'
 
 function Copyright() {
   return (
@@ -159,9 +160,24 @@ class RecentOrder extends Component {
 
   // lấy data order
   async componentDidMount() {
-    let dataOrder = await (axios.get('http://localhost:3000/api/orderitem/'))
+    let token = localStorage.getItem('token')
+    axios.defaults.headers.common['Authorization'] = token;
+    let URL = process.env.REACT_APP_BASE_URL + '/api/order/';
+    let dataOrder = await (axios.get(URL))
     let data = _.get(dataOrder, "data", [])
-    console.log('data', data)
+    for( let i=0; i< data.length; i++){
+      data[i].createdAt = moment(data[i].createdAt).format('YYYY/MM/DD')
+      let items = data[i].items
+      for(let j=0;j< items.length; j++){
+        let productId = items[j].productId
+        let price = items[j].orderdetails.price
+        let quantity = items[j].orderdetails.quantity
+        console.log('productId', productId, "price", price, "quantity", quantity)
+        data[i].productId = productId 
+        data[i].price = price
+        data[i].quantity = quantity  
+      }
+    }
     this.setState({ dataOrder: data })
   }
   render() {

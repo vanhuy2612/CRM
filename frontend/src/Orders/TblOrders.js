@@ -6,58 +6,59 @@ class TblOrders extends Component {
         super(props)
         this.columns = [
             { title: 'Id', field: 'id', type: "String" },
-            { title: 'Price', field: 'price', type: 'Float' },
+            { title: 'Id Khách hàng', field: 'customerId', type: 'String' },
             { title: 'Quantity', field: 'quantity', type: 'Interger' },
-            { title: 'ItemId', field: 'itemId', type: "String" },
-            { title: 'CustomerId', field: 'customerId', type: "String" },
-            // { title: 'CardId', field: 'cardId', type: "String" },
+            { title: 'Giá', field: 'price', type: 'float' },
+            { title: 'Id của sản phẩm', field: 'productId', type: "String" },
+            { title: 'createdAt', field: 'createdAt', type: "String" },
         ]
     }
     render() {
         const { columns } = this
         const { data } = this.props
+        console.log('data', data)
         return (
             <MaterialTable
                 title="Danh sách đặt hàng"
                 columns={columns}
                 data={data}
-                // editable={{
-                //     onRowAdd: (newData) =>
-                //         new Promise((resolve) => {
-                //             setTimeout(() => {
-                //                 resolve();
-                //                 this.setState((prevState) => {
-                //                     const data = [...prevState.data];
-                //                     data.push(newData);
-                //                     return { ...prevState, data };
-                //                 });
-                //             }, 600);
-                //         }),
-                //     onRowUpdate: (newData, oldData) =>
-                //         new Promise((resolve) => {
-                //             setTimeout(() => {
-                //                 resolve();
-                //                 if (oldData) {
-                //                     this.setState((prevState) => {
-                //                         const data = [...prevState.data];
-                //                         data[data.indexOf(oldData)] = newData;
-                //                         return { ...prevState, data };
-                //                     });
-                //                 }
-                //             }, 600);
-                //         }),
-                //     onRowDelete: (oldData) =>
-                //         new Promise((resolve) => {
-                //             setTimeout(() => {
-                //                 resolve();
-                //                 this.setState((prevState) => {
-                //                     const data = [...prevState.data];
-                //                     data.splice(data.indexOf(oldData), 1);
-                //                     return { ...prevState, data };
-                //                 });
-                //             }, 600);
-                //         }),
-                // }}
+            // editable={{
+            //     onRowAdd: (newData) =>
+            //         new Promise((resolve) => {
+            //             setTimeout(() => {
+            //                 resolve();
+            //                 this.setState((prevState) => {
+            //                     const data = [...prevState.data];
+            //                     data.push(newData);
+            //                     return { ...prevState, data };
+            //                 });
+            //             }, 600);
+            //         }),
+            //     onRowUpdate: (newData, oldData) =>
+            //         new Promise((resolve) => {
+            //             setTimeout(() => {
+            //                 resolve();
+            //                 if (oldData) {
+            //                     this.setState((prevState) => {
+            //                         const data = [...prevState.data];
+            //                         data[data.indexOf(oldData)] = newData;
+            //                         return { ...prevState, data };
+            //                     });
+            //                 }
+            //             }, 600);
+            //         }),
+            //     onRowDelete: (oldData) =>
+            //         new Promise((resolve) => {
+            //             setTimeout(() => {
+            //                 resolve();
+            //                 this.setState((prevState) => {
+            //                     const data = [...prevState.data];
+            //                     data.splice(data.indexOf(oldData), 1);
+            //                     return { ...prevState, data };
+            //                 });
+            //             }, 600);
+            //         }),
+            // }}
             />
         );
     }
