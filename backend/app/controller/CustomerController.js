@@ -47,13 +47,13 @@ class CustomerController extends BaseController {
 
         // insert to db customers:
         let insertedCus = await db.customers.create(data);
-        console.log(insertedCus)
+        //console.log(insertedCus)
         message.insertedCus = "Faild"
         if (insertedCus != null ) {
             message.insertedCus = "OK"
             // insert to contact:
-            let phone = data.phone || ""
-            let email = data.email || ""
+            let phone = req.body.phone || ""
+            let email = req.body.email || ""
             //---------------------------Phone---------------
             if( phone != "") {
                 let lastContact = await db.contacts.findAll({
@@ -63,6 +63,7 @@ class CustomerController extends BaseController {
                     raw: true, 
                     mapToModel: false 
                 });
+                console.log(lastContact)
                 if ( lastContact.length != 0) {
                     lastContact = lastContact[0].dataValues;
                     // handle Id : MB0001 => 0001
@@ -107,7 +108,7 @@ class CustomerController extends BaseController {
                         link: email
                     };
                     let emailContact = await db.contacts.create(data);
-                    if (emailContact != null) message.phone="email OK"; else message.member="email Fail"                                     
+                    if (emailContact != null) message.email="email OK"; else message.email="email Fail"                                     
                                      
                 }
             }
