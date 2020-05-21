@@ -12,6 +12,10 @@ const OrderController = require('../app/controller/OrderController')
 const InvoiceController = require('../app/controller/InvoiceController')
 const PermissionController = require('../app/controller/PermissionController')
 
+/*
+router.group().middleware(...) : chỉ dùng middleware cho thằng router group
+còn get, pop, put thì phải dùng : router.get('',[middleware], func);
+*/ 
 
 const AuthMiddleware = require('../middleware/auth.middleware')
 const PermissonMiddleware = require('../middleware/permission.middleware');
@@ -26,66 +30,65 @@ router.group( router => {
 router.group('/api', router => {
     // Routes for Member:
     router.group('/member', router => {
-        router.get('/', MemberController.index)
-        router.delete('/:id', MemberController.delete)
-        router.put('/:id', MemberController.update),
-        router.post('/changepassword', MemberController.changepassword);
-
+        router.get('/',[PermissonMiddleware('GetAllMember')] , MemberController.index)
+        router.delete('/:id', [PermissonMiddleware('DeleteMember')], MemberController.delete)
+        router.put('/:id',[PermissonMiddleware('UpdateMember')], MemberController.update)
+        router.post('/changepassword',[PermissonMiddleware('ChangePassword')], MemberController.changepassword)
     })
 
     // Routes for Branch:
     router.group('branch', router => {
-        router.get('/', BranchController.index);
-        router.post('/', BranchController.store);
-        router.put('/:id', BranchController.update);
-        router.get('/:branchId/member', BranchController.getAllUserOfBranch)
-        router.get('/:branchId/customer', BranchController.getAllCustomerOfBranch)
-        router.get('/test', BranchController.testDate)
+        router.get('/',[PermissonMiddleware('GetAllBranch')], BranchController.index)
+        router.post('/',[PermissonMiddleware('StoreBranch')], BranchController.store)
+        router.put('/:id',[PermissonMiddleware('UpdateBranch')], BranchController.update)
+        router.get('/:branchId/member',[PermissonMiddleware('GetListMemberOfBranch')], BranchController.getAllUserOfBranch)
+        router.get('/:branchId/customer',[PermissonMiddleware('GetListCustomerOfBranch')], BranchController.getAllCustomerOfBranch)
+        router.get('/test',[PermissonMiddleware('DeleteMember')], BranchController.testDate)
     })
 
     // Routes for Product:
     router.group('product', router => {
-        router.get('/', ProductController.index);
-        router.get('/:productId', ProductController.getOne);
-        router.post('/', ProductController.store);
+        router.get('/',[PermissonMiddleware('GetAllProduct')], ProductController.index)
+        router.get('/:productId',[PermissonMiddleware('DetailProduct')], ProductController.getOne)
+        router.post('/',[PermissonMiddleware('StoreProduct')], ProductController.store)
     })
     // Routes for Item:
     router.group('item', router => {
-        router.get('/', ItemController.index);
-        router.get('/:itemID', ItemController.getOne);
-        router.post('/', ItemController.store);
-        router.put('/:itemId', ItemController.update);
+        router.get('/',[PermissonMiddleware('GetAllItem')], ItemController.index)
+        router.get('/:itemID',[PermissonMiddleware('DetailItem')], ItemController.getOne)
+        router.post('/',[PermissonMiddleware('StoreItem')], ItemController.store)
+        router.put('/:itemId',[PermissonMiddleware('UpdateItem')], ItemController.update)
     })
 
     // Routes for Customer:
     router.group('customer', router => {
-        router.get('/search', CustomerController.search);
-        router.get('/', CustomerController.index);
-        router.get('/:customerId', CustomerController.getOne);
-        router.post('/', CustomerController.store);
-        router.delete('/:customerId', CustomerController.delete);
-        router.put('/:customerId', CustomerController.update);
+        router.get('/search',[PermissonMiddleware('SearchCustomer')], CustomerController.search)
+        router.get('/',[PermissonMiddleware('GetAllCustomer')], CustomerController.index)
+        router.get('/:customerId',[PermissonMiddleware('DetailCustomer')], CustomerController.getOne)
+        router.post('/',[PermissonMiddleware('StoreCustomer')], CustomerController.store)
+        router.delete('/:customerId',[PermissonMiddleware('DeleteCustomer')], CustomerController.delete)
+        router.put('/:customerId',[PermissonMiddleware('UpdateCustomer')], CustomerController.update)
     })
 
     // Routes for Order:
     router.group('order', router => {
-        router.post('/', OrderController.store)
-        router.get('/', OrderController.index)
+        router.post('/',[PermissonMiddleware('StoreOrder')], OrderController.store)
+        router.get('/',[PermissonMiddleware('GetAllOrder')], OrderController.index)
     })
 
 
 
     // Routes for Invoice:
     router.group('invoice', router => {
-        router.get('/today/item', InvoiceController.revenueStatisticsByItemToday)
-        router.get('/today/customer', InvoiceController.revenueStatisticsByCustomerToday)
-        router.get('/today/revenue', InvoiceController.revenueStatisticsToday)
+        router.get('/today/item',[PermissonMiddleware('RevenueStatisticsByItemToday')], InvoiceController.revenueStatisticsByItemToday)
+        router.get('/today/customer',[PermissonMiddleware('revenueStatisticsByCustomerToday')], InvoiceController.revenueStatisticsByCustomerToday)
+        router.get('/today/revenue',[PermissonMiddleware('revenueStatisticsToday')], InvoiceController.revenueStatisticsToday)
     })
     // Routes for Permission:
     router.group('permission', router => {
-        router.get('/', PermissionController.index);
+        router.get('/',[PermissonMiddleware('GetAllPermission')], PermissionController.index)
     })
-}).middleware([AuthMiddleware, PermissonMiddleware])
+}).middleware([AuthMiddleware])
 
 
 let listRoutes = router.init();
