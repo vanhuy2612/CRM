@@ -164,6 +164,9 @@ class RecentOrder extends Component {
     axios.defaults.headers.common['keyRoute'] = 'GetAllMember';
     let dataOrder = await (axios.get('http://localhost:3000/api/member/'))
     let data = _.get(dataOrder, "data", [])
+    for ( let i=0; i<data.length; i++){
+      data[i].role = data[i].role.name
+    }
     console.log('data', data)
     this.setState({ dataUser: data })
   }

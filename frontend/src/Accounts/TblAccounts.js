@@ -7,13 +7,13 @@ class TblAccounts extends Component {
         this.columns = [
             { title: 'Name', field: 'name', type: "String" },
             { title: 'Tài khoản', field: 'username', type: "String" },
-            { title: 'Role', field: 'roleId', type: "String" },
-            { title: 'BranchId', field: 'branchId', type: "String" },
-            { title: 'Position', field: 'position', type: "String" },
+            { title: 'Chức vụ', field: 'role', type: "String" },
+            { title: 'Chi nhánh', field: 'branchId', type: "String" },
+            { title: 'Vị trí', field: 'position', type: "String" },
             { title: 'Phone', field: 'phone', type: "Interger" },
             { title: 'Email', field: 'email', type: "String" },
-            { title: 'CreatrdAt', field: 'createdAt', type: 'Date' },
-            { title: 'UpdatedAt', field: 'createdAt', type: 'Date' },
+            { title: 'Ngày tạo', field: 'createdAt', type: 'Date' },
+            { title: 'Thay đổi gần nhất', field: 'createdAt', type: 'Date' },
             { title: 'Avatar', field: 'urlImage', type: "String" },
         ]
     }
