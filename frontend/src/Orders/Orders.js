@@ -167,16 +167,16 @@ class RecentOrder extends Component {
     let data = _.get(dataOrder, "data", [])
     for( let i=0; i< data.length; i++){
       data[i].createdAt = moment(data[i].createdAt).format('YYYY/MM/DD')
-      let items = data[i].items
-      for(let j=0;j< items.length; j++){
-        let productId = items[j].productId
-        let price = items[j].orderdetails.price
-        let quantity = items[j].orderdetails.quantity
-        console.log('productId', productId, "price", price, "quantity", quantity)
-        data[i].productId = productId 
-        data[i].price = price
-        data[i].quantity = quantity  
-      }
+      // let items = data[i].items
+      // for(let j=0;j< items.length; j++){
+      //   let productId = items[j].productId
+      //   let price = items[j].orderdetails.price
+      //   let quantity = items[j].orderdetails.quantity
+      //   console.log('productId', productId, "price", price, "quantity", quantity)
+      //   data[i].productId = productId 
+      //   data[i].price = price
+      //   data[i].quantity = quantity  
+      // }
     }
     this.setState({ dataOrder: data })
   }

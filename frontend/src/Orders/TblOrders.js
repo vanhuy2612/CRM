@@ -7,9 +7,9 @@ class TblOrders extends Component {
         this.columns = [
             { title: 'Id', field: 'id', type: "String" },
             { title: 'Id Khách hàng', field: 'customerId', type: 'String' },
-            { title: 'Quantity', field: 'quantity', type: 'Interger' },
-            { title: 'Giá', field: 'price', type: 'float' },
-            { title: 'Id của sản phẩm', field: 'productId', type: "String" },
+            { title: 'Id của sản phẩm', field: 'items.productId', type: "String" },
+            { title: 'Quantity', field: 'items.orderdetails.quantity', type: 'Interger' },
+            { title: 'Giá', field: 'items.orderdetails.price', type: 'float' },
             { title: 'createdAt', field: 'createdAt', type: "String" },
         ]
     }
