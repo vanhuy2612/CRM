@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { Component } from 'react';
 import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
@@ -10,6 +10,9 @@ import { Login, Dashboard, Order, Customers, Reports, Activity, Products, Deals,
 import Chart from './Chart';
 import Deposits from './Deposits';
 import CustomerOrderToday from './CustomerOrderToday';
+import _ from 'lodash'
+import axios from 'axios'
+import moment from 'moment'
 
 function Copyright() {
   return (
@@ -23,10 +26,9 @@ function Copyright() {
     </Typography>
   );
 }
-
 const drawerWidth = 240;
 
-const useStyles = makeStyles((theme) => ({
+const styles = theme => ({
   root: {
     display: 'flex',
   },
@@ -104,136 +106,165 @@ const useStyles = makeStyles((theme) => ({
   fixedHeight: {
     height: 240,
   }
-}));
+});
+class DashboardToday extends Component{
+  constructor(props){
+    super(props)
+    this.state = {
+      open: true,
+      dataReportOr: []
+    }
+  }
+  // set open menu
+  handleDrawerOpen = () => {
+    this.setState({
+      open: true
+    })
+  }
+  handleDrawerClose = () => {
+    this.setState({
+      open: false
+    })
+  };
 
-export default function RecentDashboard(props) {
-  const classes = useStyles();
-  const [open, setOpen] = React.useState(true);
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
-  // login 
-  function handleLogOut() {
-    props.history.push('/')
+  handleLogOut = () => {
+    this.props.history.push('/')
   }
   // rent to order or customer or ...
-  function handleToOrders(element) {
-    props.history.push(`/Orders/${element}`)
+  handleToOrders = element => {
+    this.props.history.push(`/Orders/${element}`)
   }
-  function handleToCustomers(element) {
-    props.history.push(`/Customers/${element}`)
+  handleToCustomers = element => {
+    this.props.history.push(`/Customers/${element}`)
   }
-  function handleToDashboard(element) {
-    props.history.push(`/Dashboard/${element}`)
+  handleToDashboard = element => {
+    this.props.history.push(`/Dashboard/${element}`)
   }
-  function handleToDashReports(element) {
-    props.history.push(`/Reports/${element}`)
+  handleToDashReports = element => {
+    this.props.history.push(`/Reports/${element}`)
   }
-  function handleToAccounts(element) {
-    props.history.push(`/Accounts/${element}`)
+  handleToAccounts = element => {
+    this.props.history.push(`/Accounts/${element}`)
   }
-  function handleToActivity(element) {
-    props.history.push(`/Activity/${element}`)
+  handleToActivity = element => {
+    this.props.history.push(`/Activity/${element}`)
   }
-  function handleToProducts(element) {
-    props.history.push(`/Products/${element}`)
+  handleToProducts = element => {
+    this.props.history.push(`/Products/${element}`)
   }
-  function handleToDeals(element) {
-    props.history.push(`/Deals/${element}`)
+  handleToDeals = element => {
+    this.props.history.push(`/Deals/${element}`)
   }
-  function handleToContacts(element) {
-    props.history.push(`/Contacts/${element}`)
+  handleToContacts = element => {
+    this.props.history.push(`/Contacts/${element}`)
   }
 
-  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
-
-
-  return (
-    <div className={classes.root}>
-      <CssBaseline />
-      <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
-        <Toolbar className={classes.toolbar}>
-          <Tooltip title="Danh mục" title="menu">
-          <IconButton
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            className={clsx(classes.menuButton, open && classes.menuButtonHidden)}
-          >
-            <MenuIcon />
-          </IconButton>
+  // get data thống kê doang thu theo khách hàng trong ngày
+  async componentDidMount(){
+    let token = localStorage.getItem('token')
+        axios.defaults.headers.common['Authorization'] = token;
+        let URL = process.env.REACT_APP_BASE_URL + '/api/invoice/today/customer';
+        let dataCustomer = await (axios.get(URL))
+        let data = _.get(dataCustomer, "data", [])
+        console.log('data Customer Order today', data)
+        for( let i=0; i< data.length; i++){
+          let price = _.get(data[i], "invoices.order.items.orderdetails.price", 0)
+          let quantity = _.get(data[i], "invoices.order.items.orderdetails.quantity", 0)
+          let dateOrder = moment(_.get(data[i], "invoices.createdAt", 0)).format('DD/MM/YYYY')
+          data[i].price = price
+          data[i].quantity = quantity
+          data[i].dateOrder = dateOrder
+        }
+        this.setState({dataReportOr: data})
+  }
+  render(){
+    const {classes} = this.props
+    const {open} = this.state
+    return (
+      <div className={classes.root}>
+        <CssBaseline />
+        <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
+          <Toolbar className={classes.toolbar}>
+            <Tooltip title="Danh mục" title="menu">
+            <IconButton
+              edge="start"
+              color="inherit"
+              aria-label="open drawer"
+              onClick={this.handleDrawerOpen}
+              className={clsx(classes.menuButton, open && classes.menuButtonHidden)}
+            >
+              <MenuIcon />
+            </IconButton>
+            </Tooltip>
+            <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
+              Dashboard
+            </Typography>
+            <IconButton color="inherit">
+              <Badge badgeContent={4} color="secondary">
+                <NotificationsIcon />
+              </Badge>
+            </IconButton>
+            <Avatar />
+          </Toolbar>
+        </AppBar>
+        <Drawer
+          variant="permanent"
+          classes={{
+            paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
+          }}
+          open={open}
+        >
+          <div className={classes.toolbarIcon}>
+            <IconButton onClick={this.handleDrawerClose}>
+              <ChevronLeftIcon />
+            </IconButton>
+          </div>
+          <Divider />
+          <Tooltip title="Đăng xuất" key="logout">
+          <List style={{ marginLeft: '80px', marginRight: '90px', }} onClick={this.handleLogOut}>{Login}</List>
           </Tooltip>
-          <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-            Dashboard
-          </Typography>
-          <IconButton color="inherit">
-            <Badge badgeContent={4} color="secondary">
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
-          <Avatar />
-        </Toolbar>
-      </AppBar>
-      <Drawer
-        variant="permanent"
-        classes={{
-          paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
-        }}
-        open={open}
-      >
-        <div className={classes.toolbarIcon}>
-          <IconButton onClick={handleDrawerClose}>
-            <ChevronLeftIcon />
-          </IconButton>
-        </div>
-        <Divider />
-        <Tooltip title="Đăng xuất" key="logout">
-        <List style={{ marginLeft: '80px', marginRight: '90px', }} onClick={handleLogOut}>{Login}</List>
-        </Tooltip>
-        <Divider />
-        <List onClick={handleToDashboard}>{Dashboard}</List>
-        <List onClick={handleToOrders}>{Order}</List>
-        <List onClick={handleToCustomers}>{Customers}</List>
-        <List onClick={handleToDashReports}>{Reports}</List>
-        <Divider />
-        <List onClick={handleToActivity}>{Activity}</List>
-        <List onClick={handleToProducts}>{Products}</List>
-        <List onClick={handleToDeals}>{Deals}</List>
-        <List onClick={handleToContacts}>{Contacts}</List>
-        <List onClick={handleToAccounts}>{Accounts}</List>
-      </Drawer>
-      <main className={classes.content}>
-        <div className={classes.appBarSpacer} />
-        <Container maxWidth="lg" className={classes.container}>
-          <Grid container spacing={3}>
-            {/* Chart */}
-            <Grid item xs={12} md={8} lg={9}>
-              <Paper className={fixedHeightPaper}>
-                <Chart />
-              </Paper>
+          <Divider />
+          <List onClick={this.handleToDashboard}>{Dashboard}</List>
+          <List onClick={this.handleToOrders}>{Order}</List>
+          <List onClick={this.handleToCustomers}>{Customers}</List>
+          <List onClick={this.handleToDashReports}>{Reports}</List>
+          <Divider />
+          <List onClick={this.handleToActivity}>{Activity}</List>
+          <List onClick={this.handleToProducts}>{Products}</List>
+          <List onClick={this.handleToDeals}>{Deals}</List>
+          <List onClick={this.handleToContacts}>{Contacts}</List>
+          <List onClick={this.handleToAccounts}>{Accounts}</List>
+        </Drawer>
+        <main className={classes.content}>
+          <div className={classes.appBarSpacer} />
+          <Container maxWidth="lg" className={classes.container}>
+            <Grid container spacing={3}>
+              {/* Chart */}
+              <Grid item xs={12} md={8} lg={9}>
+                <Paper className={clsx(classes.paper, classes.fixedHeight)}>
+                  <Chart />
+                </Paper>
+              </Grid>
+              {/* Recent Deposits */}
+              <Grid item xs={12} md={4} lg={3}>
+                <Paper className={clsx(classes.paper, classes.fixedHeight)}>
+                  <Deposits />
+                </Paper>
+              </Grid>
+              {/* Recent Orders */}
+              <Grid item xs={12}>
+                <Paper className={classes.paper}>
+                  <CustomerOrderToday data={this.state.dataReportOr} />
+                </Paper>
+              </Grid>
             </Grid>
-            {/* Recent Deposits */}
-            <Grid item xs={12} md={4} lg={3}>
-              <Paper className={fixedHeightPaper}>
-                <Deposits />
-              </Paper>
-            </Grid>
-            {/* Recent Orders */}
-            <Grid item xs={12}>
-              <Paper className={classes.paper}>
-                <CustomerOrderToday />
-              </Paper>
-            </Grid>
-          </Grid>
-          <Box pt={4}>
-            <Copyright />
-          </Box>
-        </Container>
-      </main>
-    </div>
-  );
+            <Box pt={4}>
+              <Copyright />
+            </Box>
+          </Container>
+        </main>
+      </div>
+    );
+  }
 }
+export default withStyles(styles)(DashboardToday);
