@@ -23,7 +23,8 @@ class InvoiceController {
                         model: db.invoices,
                         required: true // INNER JOIN
                     }]                   
-                }]
+                }],
+                raw: true
             })
         res.json(data)
     }
@@ -40,7 +41,7 @@ class InvoiceController {
                     attributes: ["id"],
                     model: db.invoices,
                     include: [{
-                        attributes: ['id'],
+                        attributes: ['id','createdAt'],
                         model: db.orders,
                         include: [{
                             attributes: ['id'],
@@ -50,7 +51,8 @@ class InvoiceController {
                             }
                         }]
                     }]
-                }]
+                }],
+                raw: true
             })
         res.json(data)
     }
@@ -84,7 +86,8 @@ class InvoiceController {
                 }],
 
             }],           
-            order: [ ['createdAt', 'ASC']]          
+            order: [ ['createdAt', 'ASC']],
+            raw: true          
         })
         res.json(data)
     }
