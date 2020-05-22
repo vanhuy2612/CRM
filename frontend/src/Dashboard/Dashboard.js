@@ -112,7 +112,8 @@ class DashboardToday extends Component{
     super(props)
     this.state = {
       open: true,
-      dataReportOr: []
+      dataCutomerOrder: [],
+      SumOrderToday: '',
     }
   }
   // set open menu
@@ -159,14 +160,14 @@ class DashboardToday extends Component{
     this.props.history.push(`/Contacts/${element}`)
   }
 
-  // get data thống kê doang thu theo khách hàng trong ngày
+  // get data thống kê doang thu theo khách hàng trong ngày and thống kê doanh thu trong ngày
   async componentDidMount(){
-    let token = localStorage.getItem('token')
-        axios.defaults.headers.common['Authorization'] = token;
+        let SumOrderToday = 0
+        axios.defaults.headers.common['Authorization'] = localStorage.getItem('token');
         let URL = process.env.REACT_APP_BASE_URL + '/api/invoice/today/customer';
         let dataCustomer = await (axios.get(URL))
-        let data = _.get(dataCustomer, "data", [])
-        console.log('data Customer Order today', data)
+        let data = _.get(dataCustomer, "data", []) // 2 data giống nhau
+        // data table Customer Order Today
         for( let i=0; i< data.length; i++){
           let price = _.get(data[i], "invoices.order.items.orderdetails.price", 0)
           let quantity = _.get(data[i], "invoices.order.items.orderdetails.quantity", 0)
@@ -174,8 +175,27 @@ class DashboardToday extends Component{
           data[i].price = price
           data[i].quantity = quantity
           data[i].dateOrder = dateOrder
+          if(dateOrder == moment().format('DD/MM/YYYY')){
+            let sum = parseInt(price)*parseInt(quantity)
+            SumOrderToday = parseInt(SumOrderToday) + parseInt(sum) 
+            data[i].sum = sum
+          }
         }
-        this.setState({dataReportOr: data})
+        this.setState({
+            dataCutomerOrder: data,
+            SumOrderToday: SumOrderToday
+        })
+
+        // data Chart
+        for( let i=0; i< data.length; i++){
+          // let price = _.get(data[i], "invoices.order.items.orderdetails.price", 0)
+          // let quantity = _.get(data[i], "invoices.order.items.orderdetails.quantity", 0)
+          let date = moment(_.get(data[i], "invoices.createdAt", 0)).format('hh:mm:ss')
+          console.log('dataOrder', date)
+          // data[i].price = price
+          // data[i].quantity = quantity
+          // data[i].date = date
+        }
   }
   render(){
     const {classes} = this.props
@@ -248,13 +268,13 @@ class DashboardToday extends Component{
               {/* Recent Deposits */}
               <Grid item xs={12} md={4} lg={3}>
                 <Paper className={clsx(classes.paper, classes.fixedHeight)}>
-                  <Deposits />
+                  <Deposits data={this.state.SumOrderToday}/>
                 </Paper>
               </Grid>
               {/* Recent Orders */}
               <Grid item xs={12}>
                 <Paper className={classes.paper}>
-                  <CustomerOrderToday data={this.state.dataReportOr} />
+                  <CustomerOrderToday data={this.state.dataCutomerOrder} />
                 </Paper>
               </Grid>
             </Grid>
