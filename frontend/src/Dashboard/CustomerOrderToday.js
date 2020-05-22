@@ -9,8 +9,8 @@ class CustomerOrderToday extends Component {
             { title: 'Id', field: 'id', type: "String" },
             { title: 'Khách hàng', field: 'name', type: 'String' },
             { title: 'Số lượng', field: 'quantity', type: 'Interger' },
-            { title: 'Giá', field: 'price', type: 'float' },
-            { title: 'tổng tiền', field: 'sum', type: 'Interger' },
+            { title: 'Giá(vnd)', field: 'price', type: 'float' },
+            { title: 'tổng tiền(vnd)', field: 'sum', type: 'Interger' },
             { title: 'Ngày đặt hàng', field: 'dateOrder', type: "String" },
         ]
     }

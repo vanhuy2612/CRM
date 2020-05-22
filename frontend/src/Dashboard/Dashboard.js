@@ -171,10 +171,13 @@ class DashboardToday extends Component{
         for( let i=0; i< data.length; i++){
           let price = _.get(data[i], "invoices.order.items.orderdetails.price", 0)
           let quantity = _.get(data[i], "invoices.order.items.orderdetails.quantity", 0)
-          let dateOrder = moment(_.get(data[i], "invoices.createdAt", 0)).format('DD/MM/YYYY')
+          let dateOrder = moment(_.get(data[i], "createdAt", 0)).format('DD/MM/YYYY')
           data[i].price = price
           data[i].quantity = quantity
           data[i].dateOrder = dateOrder
+          data[i].sum = parseInt(price)*parseInt(quantity)
+
+          // data tổng tiền theo từng ngày 
           if(dateOrder == moment().format('DD/MM/YYYY')){
             let sum = parseInt(price)*parseInt(quantity)
             SumOrderToday = parseInt(SumOrderToday) + parseInt(sum) 
@@ -188,13 +191,8 @@ class DashboardToday extends Component{
 
         // data Chart
         for( let i=0; i< data.length; i++){
-          // let price = _.get(data[i], "invoices.order.items.orderdetails.price", 0)
-          // let quantity = _.get(data[i], "invoices.order.items.orderdetails.quantity", 0)
-          let date = moment(_.get(data[i], "invoices.createdAt", 0)).format('hh:mm:ss')
+          let date = moment(_.get(data[i], "createdAt", 0)).format('hh:mm:ss')
           console.log('dataOrder', date)
-          // data[i].price = price
-          // data[i].quantity = quantity
-          // data[i].date = date
         }
   }
   render(){

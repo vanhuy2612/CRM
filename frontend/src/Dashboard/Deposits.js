@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import Link from '@material-ui/core/Link';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import Title from './Title';
+import Title from './Title'
+import moment from 'moment'
 
 
 const styles = theme => ({
@@ -21,15 +22,14 @@ class Deposits extends Component{
   render(){
     const {classes}= this.props
     const {data} = this.props
-    console.log('data', data)
     return (
       <React.Fragment>
-        <Title>Tổng doanh thu trong ngày</Title>
+        <Title>Tổng doanh thu trong ngày(vnd)</Title>
         <Typography component="p" variant="h4">
           {data}
         </Typography>
         <Typography color="textSecondary" className={classes.depositContext}>
-          on 15 March, 2019
+          {moment().format('DD - MM - YYYY')}
         </Typography>
         {/* <div>
           <Link color="primary" href="#" onClick={this.preventDefault}>
