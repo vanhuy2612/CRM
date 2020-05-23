@@ -9,6 +9,7 @@ import {IconButton, Tooltip, CssBaseline, Drawer,Box, AppBar,Toolbar, List, Typo
 import { Login, Dashboard, Order, Customers, Reports, Activity, Products, Deals, Contacts, Accounts } from '../Components/ListItems';
 import axios from 'axios'
 import _ from 'lodash'
+import TblProduct from './TblProducts'
 
 function Copyright() {
     return (
@@ -225,7 +226,7 @@ class RecentProduct extends Component {
                         <Grid container spacing={3}>
                             {/* Recent Orders */}
                             <Grid item xs={12}>
-                                Products
+                                <TblProduct />
                             </Grid>
                         </Grid>
                         <Box pt={4}>

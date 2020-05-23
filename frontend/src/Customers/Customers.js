@@ -5,6 +5,7 @@ import {IconButton, Tooltip, CssBaseline, Drawer,Box, AppBar,Toolbar, List, Typo
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
+import AddIcon from '@material-ui/icons/Add'
 import Avatar from '../Components/Avatar'
 import { Login, Dashboard, Order, Customers, Reports, Activity, Products, Deals, Contacts, Accounts } from '../Components/ListItems';
 import TblCustomers from './TblCustomers'
@@ -157,6 +158,10 @@ class RecentCustomers extends Component {
     handleToContacts = (element) => {
         this.props.history.push(`/Contacts/${element}`)
     }
+    // Add Customer
+    AddCustomer = element => {
+        this.props.history.push(`/AddCustomer/${element}`)
+    }
 
     // lấy data customers
     async componentDidMount() {
@@ -238,7 +243,14 @@ class RecentCustomers extends Component {
                     <div className={classes.appBarSpacer} />
                     <Container maxWidth="lg" className={classes.container}>
                         <Grid container spacing={3}>
-                            {/* Recent Orders */}
+                            <Grid item xs={12}>
+                                <Tooltip title="Add Customer">
+                                    <IconButton onClick={this.AddCustomer}>
+                                        <AddIcon />
+                                    </IconButton>
+                                </Tooltip>
+                            </Grid>
+                            {/* Recent Customers */}
                             <Grid item xs={12}>
                                 <TblCustomers data={this.state.dataCustomer} />
                             </Grid>

@@ -5,14 +5,15 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import Avatar from '../Components/Avatar'
-import {IconButton, Tooltip, CssBaseline, Drawer,Box, AppBar,Toolbar, List, Typography,Divider, Badge, Container, Grid, Link, Paper} from '@material-ui/core';
+import { IconButton, Tooltip, CssBaseline, Drawer, Box, AppBar, Toolbar, List, Typography, Divider, Badge, Container, Grid, Link, Paper } from '@material-ui/core';
 import { Login, Dashboard, Order, Customers, Reports, Activity, Products, Deals, Contacts, Accounts } from '../Components/ListItems';
 import Chart from './Chart';
 import Deposits from './Deposits';
 import CustomerOrderToday from './CustomerOrderToday';
 import _ from 'lodash'
 import axios from 'axios'
-import moment from 'moment'
+// import moment from 'moment'
+import moment from 'moment-timezone'
 
 function Copyright() {
   return (
@@ -107,8 +108,8 @@ const styles = theme => ({
     height: 240,
   }
 });
-class DashboardToday extends Component{
-  constructor(props){
+class DashboardToday extends Component {
+  constructor(props) {
     super(props)
     this.state = {
       open: true,
@@ -161,58 +162,57 @@ class DashboardToday extends Component{
   }
 
   // get data thống kê doang thu theo khách hàng trong ngày and thống kê doanh thu trong ngày
-  async componentDidMount(){
-        let SumOrderToday = 0
-        axios.defaults.headers.common['Authorization'] = localStorage.getItem('token');
-        let URL = process.env.REACT_APP_BASE_URL + '/api/invoice/today/customer';
-        let dataCustomer = await (axios.get(URL))
-        let data = _.get(dataCustomer, "data", []) // 2 data giống nhau
-        // data table Customer Order Today
-        for( let i=0; i< data.length; i++){
-          let price = _.get(data[i], "invoices.order.items.orderdetails.price", 0)
-          let quantity = _.get(data[i], "invoices.order.items.orderdetails.quantity", 0)
-          let dateOrder = moment(_.get(data[i], "createdAt", 0)).format('DD/MM/YYYY')
-          data[i].price = price
-          data[i].quantity = quantity
-          data[i].dateOrder = dateOrder
-          data[i].sum = parseInt(price)*parseInt(quantity)
+  async componentDidMount() {
+    let SumOrderToday = 0
+    axios.defaults.headers.common['Authorization'] = localStorage.getItem('token');
+    let URL = process.env.REACT_APP_BASE_URL + '/api/invoice/today/customer';
+    let dataCustomer = await (axios.get(URL))
+    let data = _.get(dataCustomer, "data", []) // 2 data giống nhau
+    // data table Customer Order Today
+    for (let i = 0; i < data.length; i++) {
+      let price = _.get(data[i], "invoices.order.items.orderdetails.price", 0)
+      let quantity = _.get(data[i], "invoices.order.items.orderdetails.quantity", 0)
+      let dateOrder = moment(_.get(data[i], "invoices.order.createdAt", 0)).format('DD/MM/YYYY')
+      data[i].price = price
+      data[i].quantity = quantity
+      data[i].dateOrder = dateOrder
+      data[i].sum = parseInt(price) * parseInt(quantity)
 
-          // data tổng tiền theo từng ngày 
-          if(dateOrder == moment().format('DD/MM/YYYY')){
-            let sum = parseInt(price)*parseInt(quantity)
-            SumOrderToday = parseInt(SumOrderToday) + parseInt(sum) 
-            data[i].sum = sum
-          }
-        }
-        this.setState({
-            dataCutomerOrder: data,
-            SumOrderToday: SumOrderToday
-        })
+      // data tổng tiền theo từng ngày 
+      if (dateOrder == moment().format('DD/MM/YYYY')) {
+        let sum = parseInt(price) * parseInt(quantity)
+        SumOrderToday = parseInt(SumOrderToday) + parseInt(sum)
+        data[i].sum = sum
 
-        // data Chart
-        for( let i=0; i< data.length; i++){
-          let date = moment(_.get(data[i], "createdAt", 0)).format('hh:mm:ss')
-          console.log('dataOrder', date)
-        }
+         // data Chart
+         let date = moment(_.get(data[i], "invoices.order.createdAt", 0)).format('HH')
+        console.log('dataOrder', date)
+      }
+    }
+
+    this.setState({
+      dataCutomerOrder: data,
+      SumOrderToday: SumOrderToday
+    })
   }
-  render(){
-    const {classes} = this.props
-    const {open} = this.state
+  render() {
+    const { classes } = this.props
+    const { open } = this.state
     return (
       <div className={classes.root}>
         <CssBaseline />
         <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
           <Toolbar className={classes.toolbar}>
             <Tooltip title="Danh mục" title="menu">
-            <IconButton
-              edge="start"
-              color="inherit"
-              aria-label="open drawer"
-              onClick={this.handleDrawerOpen}
-              className={clsx(classes.menuButton, open && classes.menuButtonHidden)}
-            >
-              <MenuIcon />
-            </IconButton>
+              <IconButton
+                edge="start"
+                color="inherit"
+                aria-label="open drawer"
+                onClick={this.handleDrawerOpen}
+                className={clsx(classes.menuButton, open && classes.menuButtonHidden)}
+              >
+                <MenuIcon />
+              </IconButton>
             </Tooltip>
             <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
               Dashboard
@@ -239,7 +239,7 @@ class DashboardToday extends Component{
           </div>
           <Divider />
           <Tooltip title="Đăng xuất" key="logout">
-          <List style={{ marginLeft: '80px', marginRight: '90px', }} onClick={this.handleLogOut}>{Login}</List>
+            <List style={{ marginLeft: '80px', marginRight: '90px', }} onClick={this.handleLogOut}>{Login}</List>
           </Tooltip>
           <Divider />
           <List onClick={this.handleToDashboard}>{Dashboard}</List>
@@ -266,7 +266,7 @@ class DashboardToday extends Component{
               {/* Recent Deposits */}
               <Grid item xs={12} md={4} lg={3}>
                 <Paper className={clsx(classes.paper, classes.fixedHeight)}>
-                  <Deposits data={this.state.SumOrderToday}/>
+                  <Deposits data={this.state.SumOrderToday} />
                 </Paper>
               </Grid>
               {/* Recent Orders */}
