@@ -20,8 +20,8 @@ import Products from './Products/Products'
 import Deals from './Deals/Deal'
 import Contacts from './Contacts/Contacts'
 import Accounts from './Accounts/Accounts'
+import AddCustomer from './Customers/AddCustomer'
 import * as serviceWorker from './serviceWorker';
-import { requirePropFactory } from '@material-ui/core';
 
 ReactDOM.render(
   <BrowserRouter>
@@ -40,6 +40,7 @@ ReactDOM.render(
         <Route exact path="/Deals/:id" component={Deals} />
         <Route exact path="/Contacts/:id" component={Contacts} />
         <Route exact path="/Accounts/:id" component={Accounts} />
+        <Route exact path="/AddCustomer/:id" component={AddCustomer} />
     </BrowserRouter>, document.getElementById('root')
 );
 // import enviroment:
