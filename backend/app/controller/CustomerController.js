@@ -60,28 +60,29 @@ class CustomerController extends BaseController {
                     order: [ ['createdAt', 'DESC']], 
                     limit: 1, offset: 0
                 }, { 
-                    raw: true, 
-                    mapToModel: false 
+                    raw: true
                 });
                 console.log(lastContact)
+                let newIdContact = process.env.DB_LOC + '1';
                 if ( lastContact.length != 0) {
                     lastContact = lastContact[0].dataValues;
                     // handle Id : MB0001 => 0001
                     let stringId = lastContact.id;
                     let numberId = stringId.split( process.env.DB_LOC)[1];
                         numberId = parseInt(numberId, 10) + 1; // convert string to int and inc 1.
-                    let newIdContact = process.env.DB_LOC + numberId;
-                    // insert contact phone to db:
-                    let data = {
-                        id : newIdContact,
-                        customerId: insertedCus.dataValues.id,
-                        type: "phone",
-                        username: insertedCus.dataValues.name,
-                        link: phone
-                    };
-                    let phoneContact = await db.contacts.create(data);
-                    if (phoneContact != null) message.phone="phone OK"; else message.member="phone Fail"                                     
+                    newIdContact = process.env.DB_LOC + numberId;
                 }
+                // insert contact phone to db:
+                let data = {
+                    id : newIdContact,
+                    customerId: insertedCus.dataValues.id,
+                    type: "phone",
+                    username: insertedCus.dataValues.name,
+                    link: phone
+                };
+                let phoneContact = await db.contacts.create(data);
+                if (phoneContact != null) message.phone="phone OK"; else message.member="phone Fail"                                     
+
             }
             //------------------------------Email------------------------
             if( email != "") {
@@ -89,28 +90,30 @@ class CustomerController extends BaseController {
                     order: [ ['createdAt', 'DESC']], 
                     limit: 1, offset: 0
                 }, { 
-                    raw: true, 
-                    mapToModel: false 
+                    raw: true
                 });
+                let newIdContact = process.env.DB_LOC + '1';
+
                 if ( lastContact.length != 0) {
                     lastContact = lastContact[0].dataValues;
                     // handle Id : MB0001 => 0001
                     let stringId = lastContact.id;
                     let numberId = stringId.split( process.env.DB_LOC)[1];
                         numberId = parseInt(numberId, 10) + 1; // convert string to int and inc 1.
-                    let newIdContact = process.env.DB_LOC + numberId;
-                    // insert contact phone to db:
-                    let data = {
-                        id : newIdContact,
-                        customerId: insertedCus.dataValues.id,
-                        type: "email",
-                        username: insertedCus.dataValues.name,
-                        link: email
-                    };
-                    let emailContact = await db.contacts.create(data);
-                    if (emailContact != null) message.email="email OK"; else message.email="email Fail"                                     
+                    newIdContact = process.env.DB_LOC + numberId;
                                      
                 }
+                // insert contact phone to db:
+                let data = {
+                    id : newIdContact,
+                    customerId: insertedCus.dataValues.id,
+                    type: "email",
+                    username: insertedCus.dataValues.name,
+                    link: email
+                };
+                let emailContact = await db.contacts.create(data);
+                if (emailContact != null) message.email="email OK"; else message.email="email Fail"                                     
+                
             }
         }
         res.json(message)
