@@ -9,6 +9,7 @@ import {IconButton, Tooltip, CssBaseline, Drawer,Box, AppBar,Toolbar, List, Typo
 import { Login, Dashboard, Order, Customers, Reports, Activity, Products, Deals, Contacts, Accounts } from '../Components/ListItems';
 import axios from 'axios'
 import _ from 'lodash'
+import TblDeals from './TblDeals'
 
 function Copyright() {
     return (
@@ -157,17 +158,17 @@ class RecentDeals extends Component {
     }
 
     // lấy data order
-    async componentDidMount() {
-        let dataOrder = await (axios.get('http://localhost:3000/api/user/'))
-        let data = _.get(dataOrder, "data", [])
-        console.log('data', data)
-        this.setState({ dataUser: data })
-    }
+    // async componentDidMount() {
+    //     let dataOrder = await (axios.get('http://localhost:3000/api/user/'))
+    //     let data = _.get(dataOrder, "data", [])
+    //     console.log('data', data)
+    //     this.setState({ dataUser: data })
+    // }
     render() {
         const { open } = this.state
         const { classes } = this.props
         return (
-            <div className={classes.root}>
+            <div className={classes.root} id="container">
                 <CssBaseline />
                 <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
                     <Toolbar className={classes.toolbar}>
@@ -225,7 +226,7 @@ class RecentDeals extends Component {
                         <Grid container spacing={3}>
                             {/* Recent Orders */}
                             <Grid item xs={12}>
-                                Deals
+                                <TblDeals />
                             </Grid>
                         </Grid>
                         <Box pt={4}>
