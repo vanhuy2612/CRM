@@ -9,7 +9,7 @@ import {IconButton, Tooltip, CssBaseline, Drawer,Box, AppBar,Toolbar, List, Typo
 import { Login, Dashboard, Order, Customers, Reports, Activity, Products, Deals, Contacts, Accounts } from '../Components/ListItems';
 import axios from 'axios'
 import _ from 'lodash'
-import TblProduct from './TblProducts'
+import TblProduct from './TblProduct'
 
 function Copyright() {
     return (

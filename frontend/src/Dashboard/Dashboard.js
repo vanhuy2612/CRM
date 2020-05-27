@@ -13,7 +13,8 @@ import CustomerOrderToday from './CustomerOrderToday';
 import _ from 'lodash'
 import axios from 'axios'
 // import moment from 'moment'
-import moment from 'moment-timezone'
+import moment from 'moment';
+
 
 function Copyright() {
   return (

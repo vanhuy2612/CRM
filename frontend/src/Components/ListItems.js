@@ -66,7 +66,7 @@ export const Products = (
       <ListItemIcon>
         <Settings />
       </ListItemIcon>
-      <ListItemText primary="Products/Services" />
+      <ListItemText primary="Products" />
     </ListItem>
   </div>
 );
