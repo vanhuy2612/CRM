@@ -1,6 +1,7 @@
 'use strict'
 
 const BaseController = require('./BaseController')
+const to = require('await-to-js').default
 const db = require('../model/db')
 
 class ItemController extends BaseController{
@@ -9,7 +10,13 @@ class ItemController extends BaseController{
     }
 
     async index(req, res, next){
-        let items = await db.items.findAll({ order: [ ['name', 'ASC']]});
+        let [ err, items] = await to (db.items.findAll({ 
+            include: {
+                model: db.products
+            },
+            order: [ ['id', 'ASC']]
+        }));
+        if (err) res.json(err)
         res.json(items);
     }
     

@@ -10,7 +10,7 @@ const mssql = require('mssql')
 const dbConfig = require('./config/dbConfig');
 const {Sequelize} = require('sequelize');
 const {PORT} = process.env || 3000
-
+process.env.NODE_TLS_REJECT_UNAUTHORIZED='0' // fix TLSSocket.onConnectSecure
 // turn on CORS
 app.use(cors());
 app.use(bodyParser.json());
