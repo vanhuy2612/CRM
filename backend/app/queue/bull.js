@@ -16,14 +16,14 @@ console.log("Queue is ready...")
 
 mailQueue.process( async (job, done) => {
     console.log(job);
-    const { to, subject, contents, type} = job.data
+    const { to, subject, content, type} = job.data
     let mailOptions = {
         from: MAIL_SENDER_USER,
         to: to,
         subject: subject,
-        text: contents
+        text: content
     }
-    let reponse = nodemailer.createTransport(mailConfig).sendMail(mailOptions)
+    let reponse = transporter.sendMail(mailOptions)
 })
 
 
