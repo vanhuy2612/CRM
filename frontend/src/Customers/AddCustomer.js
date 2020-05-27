@@ -199,17 +199,17 @@ class AddCustomer extends Component {
             axios.defaults.headers.common['Authorization'] = localStorage.getItem('token');
             let URL = process.env.REACT_APP_BASE_URL + '/api/customer/';
             axios.post(URL, {
+                name: name,
                 address: address,
-                job: job,
+                birthDate: birthDate,
                 sex: sex,
                 type: type,
+                urlImage: url || 'something',
+                country: country,
+                job: job,
+                branchId: branchId,
                 phone: phone,
                 email: email,
-                urlImage: url || 'something',
-                name: name,
-                branchId: branchId,
-                birthDate: birthDate,
-                country: country
             })
                 .then(function (response) {
                     console.log(response.data)
@@ -217,7 +217,9 @@ class AddCustomer extends Component {
                 .catch(function (error) {
                     console.log(error);
                 });
-            this.props.history.push(`/Customers/${element}`)
+            window.location.reload(
+                this.props.history.push(`/Customers/${element}`)
+            )
         }
     }
 
@@ -243,7 +245,7 @@ class AddCustomer extends Component {
                     </Typography>
                     <form className={classes.form} noValidate>
                         <Grid container spacing={3}>
-                        {/* {dataValue.map((element) =>(
+                            {/* {dataValue.map((element) =>(
                             <Grid item xs={12}>
                                 <TextField
                                     variant="outlined"
