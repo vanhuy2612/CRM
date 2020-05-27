@@ -173,7 +173,7 @@ class DashboardToday extends Component {
     for (let i = 0; i < data.length; i++) {
       let price = _.get(data[i], "invoices.order.items.orderdetails.price", 0)
       let quantity = _.get(data[i], "invoices.order.items.orderdetails.quantity", 0)
-      let dateOrder = moment(_.get(data[i], "invoices.order.createdAt", 0)).format('DD/MM/YYYY')
+      let dateOrder = moment(_.get(data[i], "invoices.createdAt", 0)).format('DD/MM/YYYY')
       data[i].price = price
       data[i].quantity = quantity
       data[i].dateOrder = dateOrder
