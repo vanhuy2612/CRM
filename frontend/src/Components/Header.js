@@ -31,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     flexGrow: 1,
+    cursor: 'pointer'
   },
   hide: {
     display: 'none',
@@ -62,7 +63,7 @@ export default function PersistentDrawerRight(props) {
         })}
       >
         <Toolbar>
-          <Typography variant="h5" noWrap className={classes.title}>
+          <Typography variant="h5" noWrap className={classes.title} onClick={() => window.location.reload()}>
             BiTrix24h
           </Typography>
           <Typography variant="h6" noWrap className={classes.title}>

@@ -3,7 +3,6 @@ import { makeStyles } from '@material-ui/core/styles'
 import Header from '../Components/Header'
 import MainFeaturedPost from '../Components/MainFeaturedPost'
 import Footer from '../Components/Footer'
-import { Col, Row } from 'reactstrap'
 import { Button, formatMs, Container, CssBaseline, Grid } from '@material-ui/core';
 //image
 import img from '../bgr.jpg'
@@ -71,6 +70,9 @@ export default function Blog(props) {
   function handleChangeRegister(element) {
     props.history.push(`/Register/${element}`)
   }
+  function handleChangePage(element){
+    props.history.push(`Login/${element}`)
+  }
 
   return (
     <React.Fragment>
@@ -132,7 +134,7 @@ export default function Blog(props) {
               <p>Create the ordered</p>
               <p>structure in your</p>
               <p>company</p>
-              <a href="#">LEARN MORE</a>
+              <a onClick={handleChangePage}>LEARN MORE</a>
             </Grid>
             <Grid item lg={4} className={classes.crm}>
             <img src={contact} />
@@ -140,7 +142,7 @@ export default function Blog(props) {
               <p>Track all information</p>
               <p>and communication</p>
               <p>activities</p>
-              <a href="#">LEARN MORE</a>
+              <a onClick={handleChangePage}>LEARN MORE</a>
             </Grid>
             <Grid item lg={4} className={classes.crm}>
             <img src={deal} />
@@ -148,7 +150,7 @@ export default function Blog(props) {
               <p>Improve the</p>
               <p>strategy. Celebrate</p>
               <p>sales.</p>
-              <a href="#">LEARN MORE</a>
+              <a onClick={handleChangePage}>LEARN MORE</a>
             </Grid>
             <Grid item lg={4} className={classes.crm}>
             <img src={activiti} />
@@ -156,7 +158,7 @@ export default function Blog(props) {
               <p>Engage new</p>
               <p>customers and make</p>
               <p>them stay</p>
-              <a href="#">LEARN MORE</a>
+              <a onClick={handleChangePage}>LEARN MORE</a>
             </Grid>
             <Grid item lg={4} className={classes.crm}>
             <img src={report} />
@@ -164,7 +166,7 @@ export default function Blog(props) {
               <p>Consider a fresh</p>
               <p>approach to</p>
               <p>technology</p>
-              <a href="#">LEARN MORELEARN MORE</a>
+              <a onClick={handleChangePage}>LEARN MORELEARN MORE</a>
             </Grid>
             <Grid item lg={4} className={classes.crmMKT}>
             <img src={marketing} />
@@ -172,7 +174,7 @@ export default function Blog(props) {
               <p>Promote a product</p>
               <p>through different</p>
               <p>media</p>
-              <a href="#">LEARN MORE</a>
+              <a onClick={handleChangePage}>LEARN MORE</a>
             </Grid>
           </Grid>
           <Grid item md={12} style={{ textAlign: 'center', fontFamily: 'auto', marginBottom: 40 }} >
