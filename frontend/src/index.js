@@ -25,6 +25,7 @@ import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <BrowserRouter>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/> 
         <Route exact path="/" component={Main} />
         <Route exact path="/Login/:id" component={Login} />
         <Route exact path="/Register/:id" component={Register} />

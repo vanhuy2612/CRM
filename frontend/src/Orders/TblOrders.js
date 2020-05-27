@@ -22,43 +22,43 @@ class TblOrders extends Component {
                 title="Danh sách đặt hàng"
                 columns={columns}
                 data={data}
-            // editable={{
-            //     onRowAdd: (newData) =>
-            //         new Promise((resolve) => {
-            //             setTimeout(() => {
-            //                 resolve();
-            //                 this.setState((prevState) => {
-            //                     const data = [...prevState.data];
-            //                     data.push(newData);
-            //                     return { ...prevState, data };
-            //                 });
-            //             }, 600);
-            //         }),
-            //     onRowUpdate: (newData, oldData) =>
-            //         new Promise((resolve) => {
-            //             setTimeout(() => {
-            //                 resolve();
-            //                 if (oldData) {
-            //                     this.setState((prevState) => {
-            //                         const data = [...prevState.data];
-            //                         data[data.indexOf(oldData)] = newData;
-            //                         return { ...prevState, data };
-            //                     });
-            //                 }
-            //             }, 600);
-            //         }),
-            //     onRowDelete: (oldData) =>
-            //         new Promise((resolve) => {
-            //             setTimeout(() => {
-            //                 resolve();
-            //                 this.setState((prevState) => {
-            //                     const data = [...prevState.data];
-            //                     data.splice(data.indexOf(oldData), 1);
-            //                     return { ...prevState, data };
-            //                 });
-            //             }, 600);
-            //         }),
-            // }}
+                editable={{
+                    onRowAdd: (newData) =>
+                        new Promise((resolve) => {
+                            setTimeout(() => {
+                                resolve();
+                                this.setState((prevState) => {
+                                    const data = [...prevState.data];
+                                    data.push(newData);
+                                    return { ...prevState, data };
+                                });
+                            }, 600);
+                        }),
+                    onRowUpdate: (newData, oldData) =>
+                        new Promise((resolve) => {
+                            setTimeout(() => {
+                                resolve();
+                                if (oldData) {
+                                    this.setState((prevState) => {
+                                        const data = [...prevState.data];
+                                        data[data.indexOf(oldData)] = newData;
+                                        return { ...prevState, data };
+                                    });
+                                }
+                            }, 600);
+                        }),
+                    onRowDelete: (oldData) =>
+                        new Promise((resolve) => {
+                            setTimeout(() => {
+                                resolve();
+                                this.setState((prevState) => {
+                                    const data = [...prevState.data];
+                                    data.splice(data.indexOf(oldData), 1);
+                                    return { ...prevState, data };
+                                });
+                            }, 600);
+                        }),
+                }}
             />
         );
     }

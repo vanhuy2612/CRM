@@ -1,4 +1,4 @@
-import React, { Component  } from 'react';
+import React, { Component } from 'react';
 import MaterialTable from 'material-table';
 
 class TblProduct extends Component {
@@ -6,79 +6,42 @@ class TblProduct extends Component {
         super(props)
         this.columns = [
             { title: 'Id', field: 'id', type: "String" },
-            { title: 'Id sản phẩm', field: 'productId', type: 'String' },
-            { title: 'Giá', field: 'price', type: 'float' },
+            { title: 'Tên sản phẩm', field: 'productName', type: "String" },
+            { title: 'Giá bán ra', field: 'price', type: 'float' },
+            { title: 'Giá nhập vào', field: 'inputPrice', type: "float" },
+            { title: 'Số lượng', field: 'quantity', type: "String" },
             { title: 'Mô tả', field: 'des', type: "String" },
+            { title: 'Hạn SD', field: 'expiryDate', type: "String" },
+            { title: 'Ngày nhập', field: 'createdAt', type: "String" },
         ]
     }
     render() {
         const { columns } = this
-        // const { data } = this.props
-        const data = [
-            { id: '213124', productId: 'MB1', price: '250000',des: 'asaddsadsadad' },
-            { id: '12345', productId: 'MB1', price: '5860000',des: '12dscvda' },
-            { id: '342544321', productId: 'MB1',price: '20000', des: '2dvfqwdaqdqw' }
-
-        ]
-        const Action = [
-            {
-                icon: 'edit',
-                tooltip: 'Edit Product',
-                onClick: (event, rowData) => {
-                    // Do save operation
-                } 
-            }, {
-                icon: 'delete',
-                tooltip: 'Delete Product',
-                onClick: (event, rowData) => {
-                    // Do save operation
-                }
-            },
-        ]
-        console.log('data', data)
+        const { data } = this.props
         return (
             <MaterialTable
                 title="Danh sách đặt hàng"
                 columns={columns}
                 data={data}
-                actions={Action}
-            //     editable={{
-            //     onRowAdd: (newData) =>
-            //         new Promise((resolve) => {
-            //             setTimeout(() => {
-            //                 resolve();
-            //                 this.setState((prevState) => {
-            //                     const data = [...prevState.data];
-            //                     data.push(newData);
-            //                     return { ...prevState, data };
-            //                 });
-            //             }, 600);
-            //         }),
-            //     onRowUpdate: (newData, oldData) =>
-            //         new Promise((resolve) => {
-            //             setTimeout(() => {
-            //                 resolve();
-            //                 if (oldData) {
-            //                     this.setState((prevState) => {
-            //                         const data = [...prevState.data];
-            //                         data[data.indexOf(oldData)] = newData;
-            //                         return { ...prevState, data };
-            //                     });
-            //                 }
-            //             }, 600);
-            //         }),
-            //     onRowDelete: (oldData) =>
-            //         new Promise((resolve) => {
-            //             setTimeout(() => {
-            //                 resolve();
-            //                 this.setState((prevState) => {
-            //                     const data = [...prevState.data];
-            //                     data.splice(data.indexOf(oldData), 1);
-            //                     return { ...prevState, data };
-            //                 });
-            //             }, 600);
-            //         }),
-            // }}
+                // actions={Action}
+                editable={{
+                    onRowUpdate: (newData, oldData) =>
+                        new Promise((resolve) => {
+                            setTimeout(() => {
+                                resolve();
+                                if (oldData) {
+                                    console.log('Api Edit data')
+                                }
+                            }, 60);
+                        }),
+                    onRowDelete: (oldData) =>
+                        new Promise((resolve) => {
+                            setTimeout(() => {
+                                resolve();
+                                console.log('Api delete data')
+                            }, 600);
+                        }),
+                }}
             />
         );
     }
