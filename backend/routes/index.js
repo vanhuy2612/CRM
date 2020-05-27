@@ -3,7 +3,7 @@
 const Router = require('express-group-router');
 const router = new Router();
 
-const Mail = require('../app/Task/Mail')
+const SystemController = require('../app/controller/SystemController')
 
 const MemberController = require('../app/controller/MemberController');
 const BranchController = require('../app/controller/BranchController')
@@ -92,7 +92,7 @@ router.group('/api', router => {
     })
     // Routes for Mail:
     router.group('mail', router => {
-        router.post('/sendmail', [PermissonMiddleware('SendMail')],Mail.sendMail);
+        router.post('/sendmail', [PermissonMiddleware('SendMail')], SystemController.sendMail);
     })
 }).middleware([AuthMiddleware])
 

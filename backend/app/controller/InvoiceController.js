@@ -8,6 +8,12 @@ class InvoiceController {
 
     // thống kê doanh thu theo sản phẩm trong ngay
     async revenueStatisticsByItemToday(req, res, next){
+        let today = new Date();
+        let startToday = new Date();
+            startToday.setHours(0,0,0,0);
+        let endToday = new Date();
+            endToday.setHours(23,59,59,999)
+
         let data = await 
             db.items.findAll({
                 include: [{
@@ -21,6 +27,12 @@ class InvoiceController {
                     include: [ {
                         attributes: ['id','createdAt'],
                         model: db.invoices,
+                        where:{
+                            createdAt: {
+                                [Op.gte]: startToday,
+                                [Op.lte]: endToday
+                            }
+                        },
                         required: true // INNER JOIN
                     }]                   
                 }],
@@ -38,8 +50,14 @@ class InvoiceController {
         let data = await
             db.customers.findAll({
                 include: [{
-                    attributes: ["id"],
+                    attributes: ["id","createdAt"],
                     model: db.invoices,
+                    where:{
+                        createdAt: {
+                            [Op.gte]: startToday,
+                            [Op.lte]: endToday
+                        }
+                    },
                     include: [{
                         attributes: ['id','createdAt'],
                         model: db.orders,

@@ -68,6 +68,8 @@ app.use(function (err, req, res, next) {
     res.send(err.message);
 });
 
+// Bull - Redis sendmail:
+require('./app/queue/Bull');
 // Listen port
 
 const server = require('http').createServer(app)
