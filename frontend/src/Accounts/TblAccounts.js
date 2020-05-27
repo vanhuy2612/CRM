@@ -17,7 +17,7 @@ class TblAccounts extends Component {
             { title: 'Avatar', field: 'urlImage', type: "String" },
         ]
     }
-    
+
 
     render() {
         const { columns } = this
@@ -28,6 +28,24 @@ class TblAccounts extends Component {
                 title="Danh sách các Tài khoản "
                 columns={columns}
                 data={data}
+                editable={{
+                    onRowUpdate: (newData, oldData) =>
+                        new Promise((resolve) => {
+                            setTimeout(() => {
+                                resolve();
+                                if (oldData) {
+                                    console.log('Chưa có api update')
+                                }
+                            }, 600);
+                        }),
+                    onRowDelete: (oldData) =>
+                        new Promise((resolve) => {
+                            setTimeout(() => {
+                                resolve();
+                                console.log('Chưa có api delete ')
+                            }, 600);
+                        }),
+                }}
             />
         );
     }
