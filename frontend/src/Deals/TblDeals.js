@@ -1,20 +1,57 @@
 import React, { Component } from 'react';
 import 'antd/dist/antd.css';
-import { Upload, Button } from 'antd';
+import { Upload, Button, Icon } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
-class image extends Component{
-    constructor(props){
-        super(props)
+class image extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      fileList : []
     }
-   
-    render(){
-        return(
-            <Upload>
-            <Button>
-              <UploadOutlined /> Upload Image
-            </Button>
-          </Upload>
-        )
+  }
+  handleChange = (info) => {
+    let fileList = info.fileList;
+
+    // 1. Limit the number of uploaded files
+    //    Only to show two recent uploaded files, and old ones will be replaced by the new
+    fileList = fileList.slice(-2);
+
+    // 2. read from response and show file link
+    fileList = fileList.map((file) => {
+      if (file.response) {
+        // Component will show file.url as link
+        file.url = file.response.url;
+        console.log('url image', file )
+      }
+      return file;
+    });
+
+    // 3. filter successfully uploaded files according to response from server
+    fileList = fileList.filter((file) => {
+      if (file.response) {
+        return file.response.status === 'success';
+      }
+      return true;
+    });
+
+    this.setState({ fileList });
+  }
+  render() {
+    const props = {
+      action: '//jsonplaceholder.typicode.com/posts/',
+      listType: 'picture',
+      defaultFileList: [...this.state.fileList],
+      onChange: this.handleChange,
     }
+    return (
+      <div>
+        <Upload {...props}>
+          <Button>
+            <UploadOutlined /> upload
+      </Button>
+        </Upload>
+      </div>
+    )
+  }
 }
 export default image
