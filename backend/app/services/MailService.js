@@ -4,6 +4,7 @@ const Imap = require('imap')
 const inspect = require('util').inspect;
 const { simpleParser} = require('mailparser')
 const path = require('path')
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
 class MailService {
     constructor () {
@@ -43,7 +44,7 @@ class MailService {
                                     //console.log(stream)
                                     // List of mail we need:
                                     simpleParser(stream, {
-                                        //skipHtmlToText:true, 
+                                        skipHtmlToText:true, 
                                         //skipTextToHtml: true
                                     }, (err2, mail) => {
                                         if (err2) {
@@ -59,6 +60,7 @@ class MailService {
                                             to: mail.to.text,
                                             subject: mail.subject,
                                             html: mail.html,
+                                            text: mail.text,
                                             attachments: []
                                         };
                                         // write attachments

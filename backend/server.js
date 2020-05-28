@@ -10,6 +10,7 @@ const mssql = require('mssql')
 const dbConfig = require('./config/dbConfig');
 const {Sequelize} = require('sequelize');
 const {PORT} = process.env || 3000
+
 process.env.NODE_TLS_REJECT_UNAUTHORIZED='0' // fix TLSSocket.onConnectSecure
 // turn on CORS
 app.use(cors());
@@ -68,11 +69,12 @@ app.use(function (err, req, res, next) {
     res.send(err.message);
 });
 
-// Bull - Redis sendmail:
-require('./app/queue/Bull');
+
 // Listen port
 
 const server = require('http').createServer(app)
 server.listen(PORT, () => {
     console.log("Server is running in port "+ PORT);
 })
+// Bull - Redis sendmail:
+require('./app/queue/bull');
