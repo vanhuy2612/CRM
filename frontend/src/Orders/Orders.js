@@ -165,9 +165,6 @@ class RecentOrder extends Component {
     let URL = process.env.REACT_APP_BASE_URL + '/api/order/';
     let dataOrder = await (axios.get(URL))
     let data = _.get(dataOrder, "data", [])
-    for( let i=0; i< data.length; i++){
-      data[i].createdAt = moment(data[i].createdAt).format('YYYY/MM/DD HH:MM:SS')
-    }
     this.setState({ dataOrder: data })
   }
   render() {

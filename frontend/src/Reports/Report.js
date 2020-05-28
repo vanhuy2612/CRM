@@ -170,7 +170,6 @@ class RecentReport extends Component {
         let data = _.get(dataCustomer, "data", [])
         for ( let i=0; i<data.length; i++){
             let type = data[i].type
-            data[i].createdAt = moment(data[i].createdAt).format('YYYY/MM/DD')
             if(type !== "normal"){
                 console.log('OKKK')
                 dataVip.push(data[i])
