@@ -31,7 +31,7 @@ class MailService {
                         reject(err);
                     }
                     //if (err)  console.log(err);
-                    this.imap.search(['SEEN'], (err1, results) => {
+                    this.imap.search(['ALL'], (err1, results) => {
                         if (err1) reject(err1);
                         try {
                             const f =  this.imap.fetch(results, {
