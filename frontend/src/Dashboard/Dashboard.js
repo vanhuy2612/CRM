@@ -187,16 +187,16 @@ class DashboardToday extends Component {
       let price = _.get(data[i], "invoices.order.items.orderdetails.price", 0)
       let quantity = _.get(data[i], "invoices.order.items.orderdetails.quantity", 0)
       let sum = parseInt(price) * parseInt(quantity)
-      dataCharts.push({time: time, sum: sum})
+      dataCharts.push({time: time, amount: sum})
       // data tổng tiền trong ngày SumorderToday (Deposits)
       if(date == moment().format('YYYY-MM-DD')){
         SumOrderToday = (parseInt(SumOrderToday) + parseInt(sum))
       }
     }
-
     this.setState({
       dataCutomerOrder: data,
-      SumOrderToday: SumOrderToday
+      SumOrderToday: SumOrderToday,
+      dataCharts: dataCharts
     })
   }
   render() {
@@ -264,7 +264,7 @@ class DashboardToday extends Component {
               {/* Chart */}
               <Grid item xs={12} md={8} lg={9}>
                 <Paper className={clsx(classes.paper, classes.fixedHeight)}>
-                  <Chart />
+                  <Chart data={this.state.dataCharts}/>
                 </Paper>
               </Grid>
               {/* Recent Deposits */}
