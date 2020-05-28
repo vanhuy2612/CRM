@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import Link from '@material-ui/core/Link';
-import { withStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
+import React, { Component } from 'react'
+import { withStyles } from '@material-ui/core/styles'
+import Typography from '@material-ui/core/Typography'
 import Title from './Title'
 import moment from 'moment'
+import NumberFormat from 'react-number-format'
 
 
 const styles = theme => ({
@@ -11,31 +11,27 @@ const styles = theme => ({
     flex: 1,
   },
 });
-class Deposits extends Component{
-  constructor(props){
+class Deposits extends Component {
+  constructor(props) {
     super(props)
-    this.state={}
+    this.state = {}
   }
   preventDefault = event => {
     event.preventDefault();
   }
-  render(){
-    const {classes}= this.props
-    const {data} = this.props
+  render() {
+    // const NumberFormat = require('react-number-format');
+    const { classes } = this.props
+    const { data } = this.props
     return (
       <React.Fragment>
         <Title>Tổng doanh thu trong ngày(vnd)</Title>
         <Typography component="p" variant="h4">
-          {data}
+          <NumberFormat value={data} displayType={'text'} thousandSeparator={true} renderText={value => <div>{value}</div>}/>
         </Typography>
         <Typography color="textSecondary" className={classes.depositContext}>
           {moment().format('DD - MM - YYYY')}
         </Typography>
-        {/* <div>
-          <Link color="primary" href="#" onClick={this.preventDefault}>
-            View balance
-          </Link>
-        </div> */}
       </React.Fragment>
     );
   }

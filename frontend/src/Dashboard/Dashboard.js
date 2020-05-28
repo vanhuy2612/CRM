@@ -12,7 +12,7 @@ import Deposits from './Deposits';
 import CustomerOrderToday from './CustomerOrderToday';
 import _ from 'lodash'
 import axios from 'axios'
-// import moment from 'moment'
+import NumberFormat from 'react-number-format';
 import moment from 'moment';
 
 
@@ -116,6 +116,7 @@ class DashboardToday extends Component {
       open: true,
       dataCutomerOrder: [],
       SumOrderToday: '',
+      dataCharts: [],
     }
   }
   // set open menu
@@ -165,6 +166,7 @@ class DashboardToday extends Component {
   // get data thống kê doang thu theo khách hàng trong ngày and thống kê doanh thu trong ngày
   async componentDidMount() {
     let SumOrderToday = 0
+    let dataCharts = []
     axios.defaults.headers.common['Authorization'] = localStorage.getItem('token');
     let URL = process.env.REACT_APP_BASE_URL + '/api/invoice/today/customer';
     let dataCustomer = await (axios.get(URL))
@@ -173,21 +175,22 @@ class DashboardToday extends Component {
     for (let i = 0; i < data.length; i++) {
       let price = _.get(data[i], "invoices.order.items.orderdetails.price", 0)
       let quantity = _.get(data[i], "invoices.order.items.orderdetails.quantity", 0)
-      let dateOrder = moment(_.get(data[i], "invoices.createdAt", 0)).format('DD/MM/YYYY')
-      data[i].price = price
+      let dateOrder = _.get(data[i], "invoices.createdAt", 0)
+      data[i].price = <NumberFormat value={price} displayType={'text'} thousandSeparator={true}/>
       data[i].quantity = quantity
       data[i].dateOrder = dateOrder
-      data[i].sum = parseInt(price) * parseInt(quantity)
-
-      // data tổng tiền theo từng ngày 
-      if (dateOrder == moment().format('DD/MM/YYYY')) {
-        let sum = parseInt(price) * parseInt(quantity)
-        SumOrderToday = parseInt(SumOrderToday) + parseInt(sum)
-        data[i].sum = sum
-
-         // data Chart
-         let date = moment(_.get(data[i], "invoices.order.createdAt", 0)).format('HH')
-        console.log('dataOrder', date)
+      data[i].sum = <NumberFormat value={parseInt(price) * parseInt(quantity)} displayType={'text'} thousandSeparator={true}/>
+    }
+    for( let i=0;i<data.length;i++){
+      let date = (_.get(data[i], "invoices.createdAt", 0)).split('T')[0]
+      let time = ((_.get(data[i], "invoices.createdAt", 0)).split('T')[1]).split(':')[0]
+      let price = _.get(data[i], "invoices.order.items.orderdetails.price", 0)
+      let quantity = _.get(data[i], "invoices.order.items.orderdetails.quantity", 0)
+      let sum = parseInt(price) * parseInt(quantity)
+      dataCharts.push({time: time, sum: sum})
+      // data tổng tiền trong ngày SumorderToday (Deposits)
+      if(date == moment().format('YYYY-MM-DD')){
+        SumOrderToday = (parseInt(SumOrderToday) + parseInt(sum))
       }
     }
 
