@@ -90,9 +90,10 @@ router.group('/api', router => {
     router.group('permission', router => {
         router.get('/',[PermissonMiddleware('GetAllPermission')], PermissionController.index)
     })
-    // Routes for Mail:
+    // Routes for System:
     router.group('mail', router => {
         router.post('/sendmail', [PermissonMiddleware('SendMail')], SystemController.sendMail);
+        router.get('/', [PermissonMiddleware('GetAllMail')], SystemController.getAllMail);
     })
 }).middleware([AuthMiddleware])
 

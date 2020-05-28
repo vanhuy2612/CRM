@@ -167,6 +167,8 @@ class DashboardToday extends Component {
   async componentDidMount() {
     let SumOrderToday = 0
     let dataCharts = []
+    let lenDataCharts = 0 // length dataChart
+
     axios.defaults.headers.common['Authorization'] = localStorage.getItem('token');
     let URL = process.env.REACT_APP_BASE_URL + '/api/invoice/today/customer';
     let dataCustomer = await (axios.get(URL))
@@ -181,18 +183,39 @@ class DashboardToday extends Component {
       data[i].dateOrder = dateOrder
       data[i].sum = <NumberFormat value={parseInt(price) * parseInt(quantity)} displayType={'text'} thousandSeparator={true}/>
     }
+    // Get time and amount
+    let array = [];
     for( let i=0;i<data.length;i++){
       let date = (_.get(data[i], "invoices.createdAt", 0)).split('T')[0]
       let time = ((_.get(data[i], "invoices.createdAt", 0)).split('T')[1]).split(':')[0]
       let price = _.get(data[i], "invoices.order.items.orderdetails.price", 0)
       let quantity = _.get(data[i], "invoices.order.items.orderdetails.quantity", 0)
-      let sum = parseInt(price) * parseInt(quantity)
-      dataCharts.push({time: time, amount: sum})
+      let amount = parseInt(price) * parseInt(quantity)
+      
+      if( lenDataCharts == 0) {
+        dataCharts.push({time: time, amount: amount})
+        lenDataCharts++
+      }
+      else {
+        let index = -1;
+        dataCharts.forEach( ele => {
+          if(ele.time == time) {
+            index = dataCharts.indexOf(ele);
+          }
+        })
+        if(index == - 1) {
+          dataCharts.push({time: time, amount: amount})
+        } else {
+          dataCharts[index].amount += amount
+        }
+      }
+      
       // data tổng tiền trong ngày SumorderToday (Deposits)
       if(date == moment().format('YYYY-MM-DD')){
-        SumOrderToday = (parseInt(SumOrderToday) + parseInt(sum))
+        SumOrderToday = (parseInt(SumOrderToday) + parseInt(amount))
       }
     }
+    //
     this.setState({
       dataCutomerOrder: data,
       SumOrderToday: SumOrderToday,

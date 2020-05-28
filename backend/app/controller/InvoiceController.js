@@ -36,6 +36,7 @@ class InvoiceController {
                         required: true // INNER JOIN
                     }]                   
                 }],
+                order: [ [db.orders, db.invoices, 'createdAt', 'ASC']], // items => order => invoices.createdAt
                 raw: true
             })
         res.json(data)
@@ -70,6 +71,7 @@ class InvoiceController {
                         }]
                     }]
                 }],
+                order: [ [db.invoices,'createdAt','ASC']], /// Special Order
                 raw: true
             })
         res.json(data)

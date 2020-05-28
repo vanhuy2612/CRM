@@ -15,7 +15,7 @@ const mailQueue = new Queue('sendMail', redisConfig);
 console.log("Queue is ready...")
 
 mailQueue.process( async (job, done) => {
-    console.log(job);
+    //console.log(job);
     const { to, subject, content, type} = job.data
     let mailOptions = {
         from: MAIL_SENDER_USER,
