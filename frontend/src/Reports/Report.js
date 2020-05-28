@@ -5,7 +5,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import Avatar from '../Components/Avatar'
-import {IconButton, Tooltip, CssBaseline, Drawer,Box, AppBar,Toolbar, List, Typography,Divider, Badge, Container, Grid, Link, Paper, formatMs} from '@material-ui/core';
+import { IconButton, Tooltip, CssBaseline, Drawer, Box, AppBar, Toolbar, List, Typography, Divider, Badge, Container, Grid, Link, Paper, formatMs } from '@material-ui/core';
 import { Login, Dashboard, Order, Customers, Reports, Activity, Products, Deals, Contacts, Accounts } from '../Components/ListItems';
 import axios from 'axios'
 import _ from 'lodash'
@@ -113,6 +113,7 @@ class RecentReport extends Component {
         this.state = {
             open: true,
             dataCustomer: [],
+            dataOrderChart: []
         }
     }
 
@@ -163,32 +164,72 @@ class RecentReport extends Component {
     // lấy data customers
     async componentDidMount() {
         let dataVip = []
+        let dataOrderChart = []
+        let lengthdataReport = 0
         let token = localStorage.getItem('token')
         axios.defaults.headers.common['Authorization'] = token;
-        let URL = process.env.REACT_APP_BASE_URL + '/api/customer/';
-        let dataCustomer = await (axios.get(URL))
+        let URLCustomer = process.env.REACT_APP_BASE_URL + '/api/customer/';
+        let dataCustomer = await (axios.get(URLCustomer))
         let data = _.get(dataCustomer, "data", [])
-        for ( let i=0; i<data.length; i++){
+        // get all customer difficunt normal
+        for (let i = 0; i < data.length; i++) {
             let type = data[i].type
-            if(type !== "normal"){
-                console.log('OKKK')
+            if (type !== "normal") {
                 dataVip.push(data[i])
             }
         }
-        for(let i =0; i< dataVip.length; i++){
+        // get phone and email 
+        for (let i = 0; i < dataVip.length; i++) {
             let contacts = dataVip[i].contacts;
             contacts.map((element) => {
-                if(element.type == "phone"){
+                if (element.type == "phone") {
                     dataVip[i].phone = element.link
-                }else if(element.type == "email"){
+                } else if (element.type == "email") {
                     dataVip[i].email = element.link
                 }
             })
         }
-        this.setState({ dataCustomer: dataVip })
+        // get data Chart Order
+        let URLOrder = process.env.REACT_APP_BASE_URL + '/api/order/';
+        let dataOrder = await (axios.get(URLOrder))
+        let dataReport = _.get(dataOrder, "data", [])
+
+
+        for (let i = 0; i < dataReport.length; i++) {
+            let time = (((_.get(dataReport[i], "createdAt", 0)).split('T')[0]).split('-')[2])
+            let price = _.get(data[i], "items.orderdetails.price", 0)
+            console.log('price', price)
+            let quantity = _.get(data[i], "items.orderdetails.quantity", 0)
+            console.log('quantity', quantity)
+            let amount = parseInt(price) * parseInt(quantity)
+            console.log('amount', amount)
+            console.log('time', time)
+            if (lengthdataReport == 0) {
+                dataOrderChart.push({ time: time, amount: amount })
+                lengthdataReport++
+            }
+            else {
+                let index = -1;
+                dataOrderChart.forEach(ele => {
+                    if (ele.time == time) {
+                        index = dataOrderChart.indexOf(ele);
+                    }
+                })
+                if (index == - 1) {
+                    dataOrderChart.push({ time: time, amount: amount })
+                } else {
+                    dataOrderChart[index].amount += amount
+                }
+            }
+        }
+
+        this.setState({
+            dataCustomer: dataVip,
+            dataOrderChart: dataOrderChart
+        })
     }
-    
-    
+
+
 
     render() {
         const { open } = this.state
@@ -254,12 +295,12 @@ class RecentReport extends Component {
                             {/* report doanh thu  */}
                             <Grid item xs={12}>
                                 <Paper className={fixedHeightPaper}>
-                                    <Chart />
+                                    <Chart data={this.state.dataOrderChart} />
                                 </Paper>
                             </Grid>
                             {/* report khach hang tiem nang */}
                             <Grid item xs={12}>
-                                    <Send data={this.state.dataCustomer}/>
+                                <Send data={this.state.dataCustomer} />
                             </Grid>
                         </Grid>
                         <Box pt={4}>

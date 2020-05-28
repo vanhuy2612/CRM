@@ -3,34 +3,10 @@ import { useTheme } from '@material-ui/core/styles';
 import { LineChart, Line, XAxis, YAxis, Label, ResponsiveContainer } from 'recharts';
 import Title from '../Dashboard/Title';
 
-// Generate Sales Data
-function createData(time, amount) {
-  return { time, amount };
-}
-
-const data = [
-  createData('1', 0),
-  createData('2', 300),
-  createData('3', 600),
-  createData('4', 800),
-  createData('5', 1500),
-  createData('6', 2000),
-  createData('7', 2400),
-  createData('8', 2400),
-  createData('9', 2400),
-  createData('10', 1500),
-  createData('11', 1200),
-  createData('12', 1900),
-  createData('13', 700),
-  createData('14', 900),
-  createData('15', 300),
-  createData('16', 1500),
-  createData('17', 3000),
-];
-
-export default function Chart() {
+export default function Chart(props) {
   const theme = useTheme();
-
+  const {data} = props
+  console.log('data Report Order', data)
   return (
     <React.Fragment>
       <Title>Month</Title>
