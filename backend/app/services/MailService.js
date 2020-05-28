@@ -19,7 +19,7 @@ class MailService {
     }
 
 
-    async getListMail () {
+    async getAllMail () {
         // initiating connection:
         this.imap.connect();
         return new Promise((resolve, reject) => {
@@ -40,8 +40,12 @@ class MailService {
                             f.on('message', (msg, seqno) => {
                                 const prefix = `(#${seqno}) `;
                                 msg.on('body', (stream, info) => {
+                                    //console.log(stream)
                                     // List of mail we need:
-                                    simpleParser(stream, (err2, mail) => {
+                                    simpleParser(stream, {
+                                        //skipHtmlToText:true, 
+                                        //skipTextToHtml: true
+                                    }, (err2, mail) => {
                                         if (err2) {
                                             console.log('Read mail executor error …..', err2);
                                             //res.json(err2)
@@ -54,7 +58,7 @@ class MailService {
                                             date: mail.date,
                                             to: mail.to.text,
                                             subject: mail.subject,
-                                            text: mail.text,
+                                            html: mail.html,
                                             attachments: []
                                         };
                                         // write attachments
@@ -63,15 +67,11 @@ class MailService {
                                         //     const { filename } = attachment;
                                         //     emailEnvolope.attachments.push(filename);
                                         //     fs.writeFileSync(path.join(workspace, dir, filename), attachment.content, 'base64'); // take encoding from attachment ?
-                                        // }
-                                        // Show list mail
+                                        // }                                       
                                         // const contents = JSON.stringify(emailEnvolope);
                                         listMail.push(emailEnvolope);
                                         // fs.writeFileSync(fullFilePath, contents);
                                         //console.log('processing mail done….');
-                                        //-------------------------------------------------------------
-                                        //console.log(emailEnvolope)
-                                        //console.log(listMail);
                                     });
                                 });
                                 msg.once('attributes', (attrs) => {
@@ -88,7 +88,7 @@ class MailService {
                             })
                             f.once('end', () => {
                                 this.imap.end();
-                                resolve(listMail);
+                                resolve(listMail); // resolve tại đây vì sự kiện kết thúc tại vị trí này.
                             })
                             // LIST MAIL-----------------------------------------------------
                             //console.log(listMail);
@@ -96,7 +96,7 @@ class MailService {
                         } catch (error) {
                             reject(error);
                         }
-                    })
+                    }) // close search
                 }) // close open mail box
             })// close ready
         })
