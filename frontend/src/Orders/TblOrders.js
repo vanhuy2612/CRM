@@ -9,7 +9,7 @@ class TblOrders extends Component {
             { title: 'Id Khách hàng', field: 'customerId', type: 'String' },
             { title: 'Id của sản phẩm', field: 'items.productId', type: "String" },
             { title: 'Số lượng', field: 'items.orderdetails.quantity', type: 'Interger' },
-            { title: 'Giá', field: 'items.orderdetails.price', type: 'float' },
+            { title: 'Giá', field: 'price', type: 'float' },
             { title: 'Ngày đặt hàng', field: 'createdAt', type: "String" },
         ]
     }

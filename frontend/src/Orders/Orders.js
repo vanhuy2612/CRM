@@ -11,6 +11,7 @@ import TblCustomers from './TblOrders'
 import axios from 'axios'
 import _ from 'lodash'
 import moment from 'moment'
+import NumberFormat from 'react-number-format';
 
 function Copyright() {
   return (
@@ -165,6 +166,10 @@ class RecentOrder extends Component {
     let URL = process.env.REACT_APP_BASE_URL + '/api/order/';
     let dataOrder = await (axios.get(URL))
     let data = _.get(dataOrder, "data", [])
+    for(let i= 0;i<data.length;i++){
+      let price =  _.get(data[i], "items.orderdetails.price", 0)
+      data[i].price = <NumberFormat value={price} displayType={'text'} thousandSeparator={true}/>
+    }
     this.setState({ dataOrder: data })
   }
   render() {
