@@ -184,7 +184,6 @@ class DashboardToday extends Component {
       data[i].sum = <NumberFormat value={parseInt(price) * parseInt(quantity)} displayType={'text'} thousandSeparator={true}/>
     }
     // Get time and amount
-    let array = [];
     for( let i=0;i<data.length;i++){
       let date = (_.get(data[i], "invoices.createdAt", 0)).split('T')[0]
       let time = ((_.get(data[i], "invoices.createdAt", 0)).split('T')[1]).split(':')[0]
