@@ -21,6 +21,7 @@ import Deals from './Deals/Deal'
 import Contacts from './Contacts/Contacts'
 import Accounts from './Accounts/Accounts'
 import AddCustomer from './Customers/AddCustomer'
+import ViewMail from './Contacts/ViewMail'
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
@@ -42,6 +43,7 @@ ReactDOM.render(
         <Route exact path="/Contacts/:id" component={Contacts} />
         <Route exact path="/Accounts/:id" component={Accounts} />
         <Route exact path="/AddCustomer/:id" component={AddCustomer} />
+        <Route exact path="/ViewMail/:id" component={ViewMail} />
     </BrowserRouter>, document.getElementById('root')
 );
 // import enviroment:

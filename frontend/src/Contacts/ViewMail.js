@@ -7,22 +7,9 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import Avatar from '../Components/Avatar'
 import {IconButton, Tooltip, CssBaseline, Drawer,Box, AppBar,Toolbar, List, Typography,Divider, Badge, Container, Grid, Link} from '@material-ui/core';
 import { Login, Dashboard, Order, Customers, Reports, Activity, Products, Deals, Contacts, Accounts } from '../Components/ListItems';
-import axios from 'axios'
 import _ from 'lodash'
-import TblMailContacts from './TblMailContacts'
+import axios from 'axios'
 
-function Copyright() {
-    return (
-        <Typography variant="body2" color="textSecondary" align="center">
-            {'Copyright © '}
-            <Link color="inherit" href="https://material-ui.com/">
-                Your Website
-      </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
 const drawerWidth = 240;
 
 const styles = theme => ({
@@ -104,7 +91,7 @@ const styles = theme => ({
         height: 240,
     }
 });
-class RecentContatcs extends Component {
+class ViewMails extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -159,19 +146,11 @@ class RecentContatcs extends Component {
     handleToContacts = (element) => {
         this.props.history.push(`/Contacts/${element}`)
     }
-    // lấy data order
-    async componentDidMount() {
-        let token = localStorage.getItem('token')
-        axios.defaults.headers.common['Authorization'] = token;
-        let URL = process.env.REACT_APP_BASE_URL + '/api/mail/';
-        let dataMail = await (axios.get(URL))
-        let data = _.get(dataMail, "data", [])
-        console.log('dataMail', data)
-        this.setState({ dataMail: data })
-    }
     render() {
         const { open } = this.state
         const { classes } = this.props
+        const {data} = this.props.location.state
+        console.log('data View Mail', data)
         return (
             <div className={classes.root}>
                 <CssBaseline />
@@ -231,12 +210,9 @@ class RecentContatcs extends Component {
                         <Grid container spacing={3}>
                             {/* Recent Orders */}
                             <Grid item xs={12}>
-                                <TblMailContacts data={this.state.dataMail}  link={this.props}/>
+                                <div dangerouslySetInnerHTML={{ __html: data.html }} />
                             </Grid>
                         </Grid>
-                        <Box pt={4}>
-                            <Copyright />
-                        </Box>
                     </Container>
                 </main>
             </div>
@@ -244,4 +220,4 @@ class RecentContatcs extends Component {
     }
 }
 
-export default withStyles(styles)(RecentContatcs);
+export default withStyles(styles)(ViewMails);
