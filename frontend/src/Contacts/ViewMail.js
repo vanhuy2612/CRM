@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
-import clsx from 'clsx';
-import { withStyles } from '@material-ui/core/styles';
-import MenuIcon from '@material-ui/icons/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import NotificationsIcon from '@material-ui/icons/Notifications';
+import React, { Component } from 'react'
+import clsx from 'clsx'
+import { withStyles } from '@material-ui/core/styles'
+import MenuIcon from '@material-ui/icons/Menu'
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
+import NotificationsIcon from '@material-ui/icons/Notifications'
+import { Form, Input, Button, } from 'antd';
+import { RollbackOutlined, HighlightOutlined, SendOutlined } from '@ant-design/icons';
 import Avatar from '../Components/Avatar'
-import {IconButton, Tooltip, CssBaseline, Drawer,Box, AppBar,Toolbar, List, Typography,Divider, Badge, Container, Grid, Link} from '@material-ui/core';
+import { IconButton, Tooltip, CssBaseline, Drawer, Box, AppBar, Toolbar, List, Typography, Divider, Badge, Container, Grid } from '@material-ui/core';
 import { Login, Dashboard, Order, Customers, Reports, Activity, Products, Deals, Contacts, Accounts } from '../Components/ListItems';
-import _ from 'lodash'
 import axios from 'axios'
-
 const drawerWidth = 240;
 
 const styles = theme => ({
@@ -89,6 +89,10 @@ const styles = theme => ({
     },
     fixedHeight: {
         height: 240,
+    },
+    ButtonMail: {
+        textAlign: 'center',
+        padding: 40,
     }
 });
 class ViewMails extends Component {
@@ -96,7 +100,8 @@ class ViewMails extends Component {
         super(props)
         this.state = {
             open: true,
-            dataMail: []
+            dataMail: [],
+            display: true
         }
     }
 
@@ -112,7 +117,7 @@ class ViewMails extends Component {
     };
     handleLogOut = () => {
         this.props.history.push('/')
-      }
+    }
 
     // login 
     handleLogOut = () => {
@@ -146,11 +151,36 @@ class ViewMails extends Component {
     handleToContacts = (element) => {
         this.props.history.push(`/Contacts/${element}`)
     }
+    // Send Mail
+    sendMail = element => {
+        let to = this.props.location.state.data.from
+        let {subject, content} = this.state
+        console.log(subject, content, to)
+        let token = localStorage.getItem('token')
+        axios.defaults.headers.common['Authorization'] = token;
+        let URLSendMail = process.env.REACT_APP_BASE_URL + '/api/mail/sendmail';
+        axios.post(URLSendMail, {
+            to: to,
+            subject: subject,
+            content: content
+        }).then(function (response) {
+            console.log(response.data)
+        })
+        .catch(function (error) {
+            console.log(error);
+        }); window.location.reload()
+    }
     render() {
-        const { open } = this.state
+        const layout = {
+            labelCol: { span: 8 },
+            wrapperCol: { span: 16 },
+        }
+          const tailLayout = {
+            wrapperCol: { offset: 8, span: 16 },
+        }
+        const { open, subject, content } = this.state
         const { classes } = this.props
-        const {data} = this.props.location.state
-        console.log('data View Mail', data)
+        const { data } = this.props.location.state
         return (
             <div className={classes.root}>
                 <CssBaseline />
@@ -211,6 +241,61 @@ class ViewMails extends Component {
                             {/* Recent Orders */}
                             <Grid item xs={12}>
                                 <div dangerouslySetInnerHTML={{ __html: data.html }} />
+                            </Grid>
+                            <Grid item xs={12} className={classes.ButtonMail}>
+                                <Button type="primary" icon={<RollbackOutlined />} size={'large'} onClick={(element) => this.props.history.push(`/Contacts/${element}`)}>
+                                    Back
+                                </Button>
+                                <Button type="primary" icon={<HighlightOutlined />} size={'large'} style={{ marginLeft: 20 }}
+                                    onClick={() => this.setState({display: false})}
+                                >
+                                    Trả lời
+                                </Button>
+                            </Grid>
+                            <Grid item xs={12} hidden={this.state.display}>
+                                <Form
+                                    {...layout}
+                                    name="basic"
+                                    initialValues={{ remember: true }}
+                                >
+                                    <Form.Item
+                                        label="Người nhận"
+                                        name="to"
+                                        initialValue={data.from}
+                                        rules={[{ required: true, message: 'Vui lòng nhập đầy đủ thông tin' }]}
+                                    >
+                                        <Input 
+                                        />
+                                    </Form.Item>
+                                    <Form.Item
+                                        label="Chủ đề"
+                                        name="subject"
+                                        rules={[{ required: true, message: 'Vui lòng nhập đầy đủ thông tin' }]}
+                                    >
+                                        <Input  
+                                            value={subject}
+                                            onChange={(element) => this.setState({subject: element.currentTarget.value})}
+                                        />
+                                    </Form.Item>
+
+                                    <Form.Item 
+                                        name= 'Nội dung' 
+                                        label="Nội dung"
+                                        rules={[{ required: true, message: 'Vui lòng nhập đầy đủ thông tin' }]}
+                                    >
+                                        <Input.TextArea 
+                                            value={content}
+                                            onChange={(element) => this.setState({content: element.currentTarget.value})}
+                                        />
+                                    </Form.Item>
+                                    <Form.Item {...tailLayout}>
+                                        <Button type="primary" htmlType="submit" icon={<SendOutlined />}
+                                            onClick={this.sendMail}
+                                        >
+                                            Gửi 
+                                        </Button>
+                                    </Form.Item>
+                                </Form>
                             </Grid>
                         </Grid>
                     </Container>
