@@ -30,7 +30,7 @@ class MailService {
                     if (err) {
                         reject(err);
                     }
-                    //if (err)  console.log(err);
+                    console.log("Reading mail ...........");
                     this.imap.search(['ALL'], (err1, results) => {
                         if (err1) reject(err1);
                         try {
