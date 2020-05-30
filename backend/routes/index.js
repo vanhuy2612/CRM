@@ -1,5 +1,6 @@
 'use strict'
 
+const upload = require('../config/multerConfig');
 const Router = require('express-group-router');
 const router = new Router();
 
@@ -13,6 +14,7 @@ const CustomerController = require('../app/controller/CustomerController')
 const OrderController = require('../app/controller/OrderController')
 const InvoiceController = require('../app/controller/InvoiceController')
 const PermissionController = require('../app/controller/PermissionController')
+const FileController = require('../app/controller/FileController')
 
 /*
 router.group().middleware(...) : chỉ dùng middleware cho thằng router group
@@ -67,7 +69,8 @@ router.group('/api', router => {
         router.get('/search',[PermissonMiddleware('SearchCustomer')], CustomerController.search)
         router.get('/',[PermissonMiddleware('GetAllCustomer')], CustomerController.index)
         router.get('/:customerId',[PermissonMiddleware('DetailCustomer')], CustomerController.getOne)
-        router.post('/',[PermissonMiddleware('StoreCustomer')], CustomerController.store)
+        router.post('/',[PermissonMiddleware('StoreCustomer')], upload.single('avatar'), CustomerController.store)
+        //router.post('/',[PermissonMiddleware('StoreCustomer')], upload.single('avatar'), FileController.uploadFile)
         router.delete('/:customerId',[PermissonMiddleware('DeleteCustomer')], CustomerController.delete)
         router.put('/:customerId',[PermissonMiddleware('UpdateCustomer')], CustomerController.update)
     })

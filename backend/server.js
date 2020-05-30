@@ -14,6 +14,9 @@ const {PORT} = process.env || 3000
 process.env.NODE_TLS_REJECT_UNAUTHORIZED='0' // fix TLSSocket.onConnectSecure
 // turn on CORS
 app.use(cors());
+// Permit access to the file:
+app.use('/', express.static('public/upload'));
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 // Authentication:

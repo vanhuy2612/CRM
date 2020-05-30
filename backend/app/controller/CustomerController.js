@@ -44,6 +44,8 @@ class CustomerController extends BaseController {
 
         let data = req.body;
         data.id = newCustomerId;
+        //link image
+        data.urlImage = `http://${process.env.HOST}:${process.env.PORT}/${req.file.filename}`
 
         // insert to db customers:
         let insertedCus = await db.customers.create(data);
