@@ -92,9 +92,6 @@ class MailService {
                                 this.imap.end();
                                 resolve(listMail); // resolve tại đây vì sự kiện kết thúc tại vị trí này.
                             })
-                            // LIST MAIL-----------------------------------------------------
-                            //console.log(listMail);
-                            //res.json(listMail)
                         } catch (error) {
                             reject(error);
                         }

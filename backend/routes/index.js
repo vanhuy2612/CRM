@@ -73,7 +73,7 @@ router.group('/api', router => {
         router.post('/',[PermissonMiddleware('StoreCustomer')], upload.single('avatar'), CustomerController.store)
         //router.post('/',[PermissonMiddleware('StoreCustomer')], upload.single('avatar'), FileController.uploadFile)
         router.delete('/:customerId',[PermissonMiddleware('DeleteCustomer')], CustomerController.delete)
-        router.put('/:customerId',[PermissonMiddleware('UpdateCustomer')], CustomerController.update)
+        router.put('/:id',[PermissonMiddleware('UpdateCustomer')], upload.single('avatar'), CustomerController.update)
     })
 
     // Routes for Order:
@@ -89,6 +89,10 @@ router.group('/api', router => {
         router.get('/today/item',[PermissonMiddleware('RevenueStatisticsByItemToday')], InvoiceController.revenueStatisticsByItemToday)
         router.get('/today/customer',[PermissonMiddleware('RevenueStatisticsByCustomerToday')], InvoiceController.revenueStatisticsByCustomerToday)
         router.get('/today/revenue',[PermissonMiddleware('RevenueStatisticsToday')], InvoiceController.revenueStatisticsToday)
+        router.get('/customer/rate',[PermissonMiddleware('TurnoverRatioByCustomer')], InvoiceController.turnoverRatioByCustomer)
+        router.get('/12mouths',[PermissonMiddleware('Revenue12Months')], InvoiceController.revenue12Months)
+        router.get('/10years',[PermissonMiddleware('Revenue10years')], InvoiceController.revenue10years)
+
     })
     // Routes for Permission:
     router.group('permission', router => {
