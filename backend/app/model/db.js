@@ -62,8 +62,8 @@ db.members.belongsTo(db.branchs, {foreignKey: "branchId"});
 db.branchs.hasMany(db.products, { foreignKey: 'branchId'});
 db.products.belongsTo(db.branchs, {foreignKey: "branchId"});
 // 3. branchs 1-n marketings
-db.customers.hasMany(db.marketings, { foreignKey: 'branchId'})
-db.marketings.belongsTo(db.customers, { foreignKey: 'branchId'})
+db.branchs.hasMany(db.marketings, { foreignKey: 'branchId'})
+db.marketings.belongsTo(db.branchs, { foreignKey: 'branchId'})
 // 4. branch 1-n activities
 db.branchs.hasMany(db.activities, { foreignKey: 'branchId'});
 db.activities.belongsTo(db.branchs, {foreignKey: "branchId"});

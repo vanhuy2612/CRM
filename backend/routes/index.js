@@ -15,6 +15,7 @@ const OrderController = require('../app/controller/OrderController')
 const InvoiceController = require('../app/controller/InvoiceController')
 const PermissionController = require('../app/controller/PermissionController')
 const FileController = require('../app/controller/FileController')
+const MarketingController = require('../app/controller/MarketingController')
 
 /*
 router.group().middleware(...) : chỉ dùng middleware cho thằng router group
@@ -97,6 +98,13 @@ router.group('/api', router => {
     router.group('mail', router => {
         router.post('/sendmail', [PermissonMiddleware('SendMail')], SystemController.sendMail);
         router.get('/', [PermissonMiddleware('GetAllMail')], SystemController.getAllMail);
+    })
+    // Routes for Marketing:
+    router.group('marketing', router => {
+        router.get('/', [PermissonMiddleware('GetAllMarketing')], MarketingController.index)
+        router.post('/', [PermissonMiddleware('StoreMarketing')], upload.single('avatar'), MarketingController.store)
+        router.delete('/:id', [PermissonMiddleware('DeleteMarketing')], MarketingController.delete)
+        router.put('/:id', [PermissonMiddleware('UpdateMarketing')], upload.single('avatar'), MarketingController.update)
     })
 }).middleware([AuthMiddleware])
 

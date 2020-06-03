@@ -36,3 +36,5 @@ Bull and Redis ( task queue):
 defind our job to send an email with nodemailer.
 we need Redis to be installed.
 
+------------------------- make a call
+call with messenger.
