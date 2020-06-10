@@ -2,6 +2,7 @@
 
 module.exports = (sequelize, DataTypes) => {
     const CustomerStat = sequelize.define('customerstats', {
+        branchId: {type: DataTypes.STRING, defaultValue: process.env.BRANCH_ID},
         customerId: {type: DataTypes.STRING},
         type: {type: DataTypes.STRING},
         timeStart: {type: DataTypes.DATE},
