@@ -9,20 +9,8 @@ import {IconButton, Tooltip, CssBaseline, Drawer,Box, AppBar,Toolbar, List, Typo
 import { Login, Dashboard, Order, Customers, Reports, Activity, Products, Deals, Contacts, Accounts } from '../Components/ListItems';
 import axios from 'axios'
 import _ from 'lodash'
-import TblActivity from './TblActivity'
+import DragAndDrop from './DragAndDrop'
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
 const drawerWidth = 240;
 
 const styles = theme => ({
@@ -230,12 +218,9 @@ class RecentActivity extends Component {
             <Grid container spacing={3}>
               {/* Recent Orders */}
               <Grid item xs={12}>
-                 <TblActivity />
+                 <DragAndDrop />
               </Grid>
             </Grid>
-            <Box pt={4}>
-              <Copyright />
-            </Box>
           </Container>
         </main>
       </div>
