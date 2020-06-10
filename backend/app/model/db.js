@@ -1,6 +1,6 @@
 'use strict'
 const dbConfig = require('../../config/dbConfig');
-const {Sequelize} = require('sequelize');
+const {Sequelize, Transaction} = require('sequelize');
 const sequelize = new Sequelize(
     dbConfig.database,
     dbConfig.user,
@@ -20,6 +20,7 @@ const db = {};
 
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
+db.Transaction = Transaction;
 
 //-------------- Model, table-----------------------------------:
 db.branchs = require('./BranchModel')(sequelize, Sequelize);
@@ -53,7 +54,8 @@ db.activitiedetails = require('./ActivitydetailModel')(sequelize, Sequelize);
 db.advertises = require('./AdvertiseModel')(sequelize, Sequelize);
 db.advertisedetails = require('./AdvertisedetailModel')(sequelize, Sequelize);
 
-
+db.customerstats = require('./CustomerStat')(sequelize, Sequelize)
+db.revenuestats = require('./RevenueStat')(sequelize, Sequelize)
 // --------------Relations---------------------------------:
 // 1. branchs 1-n members
 db.branchs.hasMany(db.members, { foreignKey: 'branchId'});

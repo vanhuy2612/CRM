@@ -107,8 +107,10 @@ router.group('/api', router => {
     router.group('marketing', router => {
         router.get('/', [PermissonMiddleware('GetAllMarketing')], MarketingController.index)
         router.post('/', [PermissonMiddleware('StoreMarketing')], upload.single('avatar'), MarketingController.store)
-        router.delete('/:id', [PermissonMiddleware('DeleteMarketing')], MarketingController.delete)
+        router.delete('/delete/:id', [PermissonMiddleware('DeleteMarketing')], MarketingController.delete)
         router.put('/:id', [PermissonMiddleware('UpdateMarketing')], upload.single('avatar'), MarketingController.update)
+        router.delete('/removecustomer', [PermissonMiddleware('RemoveCustomerToMarketing')], MarketingController.removeCustomerFromMarketing)
+        router.post('/addcustomer', [PermissonMiddleware('AddCustomerToMarketing')], MarketingController.addCustomerToMarketing)
     })
 }).middleware([AuthMiddleware])
 

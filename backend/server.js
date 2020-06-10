@@ -81,3 +81,6 @@ server.listen(PORT, () => {
 })
 // Bull - Redis sendmail:
 require('./app/queue/bull');
+
+// Cronjob:
+require('./app/cronjob')
