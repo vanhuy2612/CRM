@@ -7,24 +7,12 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import AddIcon from '@material-ui/icons/Add'
 import Avatar from '../Components/Avatar'
 import { IconButton, Tooltip, CssBaseline, Drawer, Box, AppBar, Toolbar, List, Typography, Divider, Badge, Container, Grid, Link } from '@material-ui/core';
-import { Login, Dashboard, Order, Customers, Reports, Activity, Products, Deals, Contacts, Accounts } from '../Components/ListItems';
+import { Login, Dashboard, Order, Customers, Reports, Activity, Products, Deals, Contacts, Accounts, Maketing } from '../Components/ListItems';
 import axios from 'axios'
 import _ from 'lodash'
 import moment from 'moment'
 import TblProduct from './TblProduct'
 
-function Copyright() {
-    return (
-        <Typography variant="body2" color="textSecondary" align="center">
-            {'Copyright © '}
-            <Link color="inherit" href="https://material-ui.com/">
-                Your Website
-      </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
 const drawerWidth = 240;
 
 const styles = theme => ({
@@ -158,6 +146,9 @@ class RecentProduct extends Component {
     handleToContacts = (element) => {
         this.props.history.push(`/Contacts/${element}`)
     }
+    handleToMaketing = element => {
+        this.props.history.push(`/Maketing/${element}`)
+      }
 
     // lấy data item
     async componentDidMount() {
@@ -225,6 +216,7 @@ class RecentProduct extends Component {
                     <List onClick={this.handleToCustomers}>{Customers}</List>
                     <List onClick={this.handleToDashReports}>{Reports}</List>
                     <Divider />
+                    <List onClick={this.handleToMaketing}>{Maketing}</List>
                     <List onClick={this.handleToActivity}>{Activity}</List>
                     <List onClick={this.handleToProducts}>{Products}</List>
                     <List onClick={this.handleToDeals}>{Deals}</List>
@@ -248,9 +240,6 @@ class RecentProduct extends Component {
                                 <TblProduct data={this.state.dataItems} />
                             </Grid>
                         </Grid>
-                        <Box pt={4}>
-                            <Copyright />
-                        </Box>
                     </Container>
                 </main>
             </div>

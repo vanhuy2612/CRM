@@ -5,11 +5,11 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import Avatar from '../Components/Avatar'
-import {IconButton, Tooltip, CssBaseline, Drawer,Box, AppBar,Toolbar, List, Typography,Divider, Badge, Container, Grid, Link} from '@material-ui/core';
-import { Login, Dashboard, Order, Customers, Reports, Activity, Products, Deals, Contacts, Accounts } from '../Components/ListItems';
+import {IconButton, Tooltip, CssBaseline, Drawer, AppBar,Toolbar, List, Typography,Divider, Badge, Container, Grid, Link} from '@material-ui/core';
+import { Login, Dashboard, Order, Customers, Reports, Activity, Products, Deals, Contacts, Accounts, Maketing } from '../Components/ListItems';
 import axios from 'axios'
 import _ from 'lodash'
-import DragAndDrop from './DragAndDrop'
+import TblActivity from './TblActivity'
 
 const drawerWidth = 240;
 
@@ -148,6 +148,9 @@ class RecentActivity extends Component {
   handleToContacts = (element) => {
     this.props.history.push(`/Contacts/${element}`)
   }
+  handleToMaketing = element => {
+    this.props.history.push(`/Maketing/${element}`)
+  }
 
   // lấy data order
   async componentDidMount() {
@@ -206,6 +209,7 @@ class RecentActivity extends Component {
           <List onClick={this.handleToCustomers}>{Customers}</List>
           <List onClick={this.handleToDashReports}>{Reports}</List>
           <Divider />
+          <List onClick={this.handleToMaketing}>{Maketing}</List>
           <List onClick={this.handleToActivity}>{Activity}</List>
           <List onClick={this.handleToProducts}>{Products}</List>
           <List onClick={this.handleToDeals}>{Deals}</List>
@@ -218,7 +222,7 @@ class RecentActivity extends Component {
             <Grid container spacing={3}>
               {/* Recent Orders */}
               <Grid item xs={12}>
-                 <DragAndDrop />
+                 <TblActivity />
               </Grid>
             </Grid>
           </Container>

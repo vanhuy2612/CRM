@@ -5,13 +5,11 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import Avatar from '../Components/Avatar'
-import {IconButton, Tooltip, CssBaseline, Drawer,Box, AppBar,Toolbar, List, Typography,Divider, Badge, Container, Grid, Link} from '@material-ui/core';
+import {IconButton, Tooltip, CssBaseline, Drawer, AppBar,Toolbar, List, Typography,Divider, Badge, Container, Grid, Link} from '@material-ui/core';
 import { Login, Dashboard, Order, Customers, Reports, Activity, Products, Deals, Contacts, Accounts, Maketing } from '../Components/ListItems';
-import TblCustomers from './TblOrders'
 import axios from 'axios'
 import _ from 'lodash'
-import moment from 'moment'
-import NumberFormat from 'react-number-format';
+import TblMaketing from './TblMaketing'
 
 const drawerWidth = 240;
 
@@ -94,12 +92,12 @@ const styles = theme => ({
     height: 240,
   }
 });
-class RecentOrder extends Component {
+class RecentMaketing extends Component {
   constructor(props) {
     super(props)
     this.state = {
       open: true,
-      dataOrder: [],
+      dataUser: [],
     }
   }
 
@@ -113,6 +111,10 @@ class RecentOrder extends Component {
       open: false
     })
   };
+
+  handleLogOut = () => {
+    this.props.history.push('/')
+  }
 
   // login 
   handleLogOut = () => {
@@ -152,16 +154,10 @@ class RecentOrder extends Component {
 
   // lấy data order
   async componentDidMount() {
-    let token = localStorage.getItem('token')
-    axios.defaults.headers.common['Authorization'] = token;
-    let URL = process.env.REACT_APP_BASE_URL + '/api/order/';
-    let dataOrder = await (axios.get(URL))
+    let dataOrder = await (axios.get('http://localhost:3000/api/user/'))
     let data = _.get(dataOrder, "data", [])
-    for(let i= 0;i<data.length;i++){
-      let price =  _.get(data[i], "items.orderdetails.price", 0)
-      data[i].price = <NumberFormat value={price} displayType={'text'} thousandSeparator={true}/>
-    }
-    this.setState({ dataOrder: data })
+    console.log('data', data)
+    this.setState({ dataUser: data })
   }
   render() {
     const { open } = this.state
@@ -181,7 +177,7 @@ class RecentOrder extends Component {
               <MenuIcon />
             </IconButton>
             <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-              Order
+              Maketing
                   </Typography>
             <IconButton color="inherit">
               <Badge badgeContent={4} color="secondary">
@@ -226,7 +222,7 @@ class RecentOrder extends Component {
             <Grid container spacing={3}>
               {/* Recent Orders */}
               <Grid item xs={12}>
-                <TblCustomers data={this.state.dataOrder} />
+                 <TblMaketing />
               </Grid>
             </Grid>
           </Container>
@@ -236,4 +232,4 @@ class RecentOrder extends Component {
   }
 }
 
-export default withStyles(styles)(RecentOrder);
+export default withStyles(styles)(RecentMaketing);

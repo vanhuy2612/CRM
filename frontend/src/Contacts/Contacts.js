@@ -6,23 +6,11 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import Avatar from '../Components/Avatar'
 import {IconButton, Tooltip, CssBaseline, Drawer,Box, AppBar,Toolbar, List, Typography,Divider, Badge, Container, Grid, Link} from '@material-ui/core';
-import { Login, Dashboard, Order, Customers, Reports, Activity, Products, Deals, Contacts, Accounts } from '../Components/ListItems';
+import { Login, Dashboard, Order, Customers, Reports, Activity, Products, Deals, Contacts, Accounts, Maketing } from '../Components/ListItems';
 import axios from 'axios'
 import _ from 'lodash'
 import TblMailContacts from './TblMailContacts'
 
-function Copyright() {
-    return (
-        <Typography variant="body2" color="textSecondary" align="center">
-            {'Copyright © '}
-            <Link color="inherit" href="https://material-ui.com/">
-                Your Website
-      </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
 const drawerWidth = 240;
 
 const styles = theme => ({
@@ -159,6 +147,9 @@ class RecentContatcs extends Component {
     handleToContacts = (element) => {
         this.props.history.push(`/Contacts/${element}`)
     }
+    handleToMaketing = element => {
+        this.props.history.push(`/Maketing/${element}`)
+      }
     // lấy data order
     async componentDidMount() {
         let token = localStorage.getItem('token')
@@ -219,6 +210,7 @@ class RecentContatcs extends Component {
                     <List onClick={this.handleToCustomers}>{Customers}</List>
                     <List onClick={this.handleToDashReports}>{Reports}</List>
                     <Divider />
+                    <List onClick={this.handleToMaketing}>{Maketing}</List>
                     <List onClick={this.handleToActivity}>{Activity}</List>
                     <List onClick={this.handleToProducts}>{Products}</List>
                     <List onClick={this.handleToDeals}>{Deals}</List>
@@ -234,9 +226,6 @@ class RecentContatcs extends Component {
                                 <TblMailContacts data={this.state.dataMail}  link={this.props}/>
                             </Grid>
                         </Grid>
-                        <Box pt={4}>
-                            <Copyright />
-                        </Box>
                     </Container>
                 </main>
             </div>

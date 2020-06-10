@@ -6,7 +6,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import Avatar from '../Components/Avatar'
 import { IconButton, Tooltip, CssBaseline, Drawer, Box, AppBar, Toolbar, List, Typography, Divider, Badge, Container, Grid, Link, Paper } from '@material-ui/core';
-import { Login, Dashboard, Order, Customers, Reports, Activity, Products, Deals, Contacts, Accounts } from '../Components/ListItems';
+import { Login, Dashboard, Order, Customers, Reports, Activity, Products, Deals, Contacts, Accounts, Maketing } from '../Components/ListItems';
 import Chart from './Chart';
 import Deposits from './Deposits';
 import CustomerOrderToday from './CustomerOrderToday';
@@ -16,18 +16,6 @@ import NumberFormat from 'react-number-format';
 import moment from 'moment';
 
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
 const drawerWidth = 240;
 
 const styles = theme => ({
@@ -162,6 +150,9 @@ class DashboardToday extends Component {
   handleToContacts = element => {
     this.props.history.push(`/Contacts/${element}`)
   }
+  handleToMaketing = element => {
+    this.props.history.push(`/Maketing/${element}`)
+  }
 
   // get data thống kê doang thu theo khách hàng trong ngày and thống kê doanh thu trong ngày
   async componentDidMount() {
@@ -273,6 +264,7 @@ class DashboardToday extends Component {
           <List onClick={this.handleToCustomers}>{Customers}</List>
           <List onClick={this.handleToDashReports}>{Reports}</List>
           <Divider />
+          <List onClick={this.handleToMaketing}>{Maketing}</List>
           <List onClick={this.handleToActivity}>{Activity}</List>
           <List onClick={this.handleToProducts}>{Products}</List>
           <List onClick={this.handleToDeals}>{Deals}</List>
@@ -302,9 +294,6 @@ class DashboardToday extends Component {
                 </Paper>
               </Grid>
             </Grid>
-            <Box pt={4}>
-              <Copyright />
-            </Box>
           </Container>
         </main>
       </div>
