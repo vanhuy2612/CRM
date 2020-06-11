@@ -43,17 +43,18 @@ class AddCustomer extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            selectedFile: null
         }
     }
     // khai báo upload image
-    getFiles = (files) => {
-        if (typeof files[0] === 'object') {
-            this.setState({ url: files[0].base64 })
-        }
+    getFiles(files){
+        this.setState({ selectedFile: files[0].file })
+        console.log(files)
     }
 
     handleSignUp = element => {
-        let { address, job, sex, type, phone, email, url, name, branchId, birthDate, country } = this.state
+        console.log("state:",this.state)
+        let { address, job, sex, type, phone, email, selectedFile, name, branchId, birthDate, country } = this.state
         let dem = 0
         // check validate birthDate
         if (birthDate == undefined || birthDate.length == 0) {
@@ -198,19 +199,24 @@ class AddCustomer extends Component {
         if (dem == -10) {
             axios.defaults.headers.common['Authorization'] = localStorage.getItem('token');
             let URL = process.env.REACT_APP_BASE_URL + '/api/customer/';
-            axios.post(URL, {
-                name: name,
-                address: address,
-                birthDate: birthDate,
-                sex: sex,
-                type: type,
-                urlImage: url || 'something',
-                country: country,
-                job: job,
-                branchId: branchId,
-                phone: phone,
-                email: email,
-            })
+            
+            // create formdata
+            let formdata = new FormData() 
+            formdata.append('avatar', this.state.selectedFile)
+            formdata.append('name', name);
+            formdata.append('address',address)
+            formdata.append('birthDate',birthDate)
+            formdata.append('sex',sex)
+            formdata.append('type',type)
+            formdata.append('country',country)
+            formdata.append('job',job)
+            formdata.append('branchId',branchId)
+            formdata.append('phone',phone)
+            formdata.append('email',email)
+            let options = { content: formdata}
+            //console.log('form-data',formdata.getAll('avatar'))
+            // end create formdata
+            axios.post(URL, formdata)
                 .then(function (response) {
                     console.log(response.data)
                 })

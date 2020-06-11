@@ -14,7 +14,7 @@ class TblCustomers extends Component {
             { title: 'Chi nhánh', field: 'branchId', type: "String" },
             { title: 'Ngày tạo', field: 'createdAt', type: 'Date' },
             { title: 'Thay đổi gần nhất', field: 'createdAt', type: 'Date' },
-            { title: 'Avatar', field: 'urlImage', type: "String" },
+            { title: 'Avatar', field: 'urlImage', type: "String", render: rowData => <img src={rowData.urlImage} style={{width: 50, borderRadius: '50%'}}/> },
         ]
     }
 

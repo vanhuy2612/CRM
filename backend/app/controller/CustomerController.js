@@ -74,6 +74,7 @@ class CustomerController extends BaseController {
                         lastContact = lastContact[0].dataValues;
                         stringId = lastContact.id;
                     }
+                    // end finding last contacts.
 
                     //---------------------------Phone---------------
                     if (phone != "") {

@@ -79,8 +79,8 @@ const server = require('http').createServer(app)
 server.listen(PORT, () => {
     console.log("Server is running in port "+ PORT);
 })
-// Bull - Redis sendmail:
+// Bull - Redis sendmail: Task queue
 require('./app/queue/bull');
 
-// Cronjob:
+// Cronjob: Task Scheduler
 require('./app/cronjob')
