@@ -63,6 +63,9 @@ class MemberController extends BaseController{
             let data = req.body;
             data.id = newIdmember;
             data.password = hashedPassword;
+            //link image
+            data.urlImage = `http://${process.env.HOST}:${process.env.PORT}/${req.file.filename}`
+            
             let memberInserted = await db.members.create(data);
             if (memberInserted != null) message.member="member OK"; else message.member="member Fail"
         } 

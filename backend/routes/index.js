@@ -28,7 +28,7 @@ const PermissonMiddleware = require('../middleware/permission.middleware');
 // Routes for register and login;
 router.group( router => {
     router.post('/login', MemberController.login);
-    router.post('/register', MemberController.register);
+    router.post('/register',upload.single('avatar'), MemberController.register);
 }
 ).prefix('/api');
 // Routes need check roles

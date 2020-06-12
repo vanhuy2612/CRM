@@ -43,19 +43,19 @@ class Register extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      selectedFile: null
     }
   }
   // khai báo upload image
-  getFiles = (files) => {
-    if (typeof files[0] === 'object') {
-        this.setState({ url: files[0].base64 })
-    }
-}
+  getFiles(files){
+    this.setState({ selectedFile: files[0].file })
+    console.log(files)
+  }
 
   handleSignUp = element => {
-    let { username, password, branchId, role, phone, email, url, name, position, birthDate } = this.state
+    let { username, password, branchId, role, phone, email, selectedFile, name, position, birthDate } = this.state
     let dem = 0
-    console.log(username, password, branchId, role, phone, email, url, name, position, birthDate )
+    //console.log(username, password, branchId, role, phone, email, selectedFile, name, position, birthDate )
      // check validate birthDate
      if (birthDate == undefined || birthDate.length == 0) {
       dem = parseInt(dem) + 1
@@ -184,18 +184,23 @@ class Register extends Component {
     }
     if(dem == -9){
       console.log('OKKKK')
-      axios.post('http://localhost:3000/api/register/',{
-        username: username,
-        password: password,
-        branchId: branchId,
-        roleId: role,
-        phone: phone,
-        email: email,
-        urlImage: url || 'something',
-        name: name,
-        position: position,
-        birthDate: birthDate
-      })
+      // create formdata
+      let formdata = new FormData() 
+      formdata.append('avatar', this.state.selectedFile)
+      formdata.append('username', username);
+      formdata.append('password',password)
+      formdata.append('birthDate',birthDate)
+      formdata.append('roleId',role)
+      formdata.append('name',name)
+      formdata.append('position',position)
+      formdata.append('branchId',branchId)
+      formdata.append('phone',phone)
+      formdata.append('email',email)
+      let options = { content: formdata}
+      //console.log('form-data',formdata.getAll('avatar'))
+      // end create formdata
+      let URL = process.env.REACT_APP_BASE_URL + '/api/register/';
+      axios.post(URL, formdata)
       .then(function (response) {
         console.log(response.data)
       })
