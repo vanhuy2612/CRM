@@ -11,7 +11,7 @@ class image extends Component {
     this.state = {
 		fileList: [],
 		dataTotalReturn: [],
-		dataTotal: []
+		dataTotalNoReturn: []
     }
   }
   toggleDataSeries = (e) => {
@@ -25,8 +25,7 @@ class image extends Component {
 	}
   render() {
 	const {data} = this.props
-	const {dataTotalReturn,dataTotal } = this.state
-	console.log('data', data)
+	const {dataTotalReturn,dataTotalNoReturn } = this.state
 	if(data){
 		data.map((element) =>{
 			dataTotalReturn.push({
@@ -35,14 +34,14 @@ class image extends Component {
 			})
 		})
 		data.map((element) =>{
-			dataTotal.push({
+			dataTotalNoReturn.push({
 				label: element.name,
-				y: element.total
+				y: element.total - element.totalReturn
 			})
 		})
 	}
 	console.log('dataTotalReturn', dataTotalReturn) 
-	console.log('dataTotal', dataTotal)  
+	console.log('dataTotalNoReturn', dataTotalNoReturn)  
     const props = {
       action: '//jsonplaceholder.typicode.com/posts/',
       listType: 'picture',
@@ -78,7 +77,7 @@ class image extends Component {
 				name: "total",
 				showInLegend: true,
 				color: "#C0C0C0",
-				dataPoints: dataTotal
+				dataPoints: dataTotalNoReturn
 			},
 			]
 		}
