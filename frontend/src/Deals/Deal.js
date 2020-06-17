@@ -148,13 +148,15 @@ class RecentDeals extends Component {
         this.props.history.push(`/Maketing/${element}`)
       }
 
-    // lấy data order
-    // async componentDidMount() {
-    //     let dataOrder = await (axios.get('http://localhost:3000/api/user/'))
-    //     let data = _.get(dataOrder, "data", [])
-    //     console.log('data', data)
-    //     this.setState({ dataUser: data })
-    // }
+    // lấy data deals
+    async componentDidMount() {
+        let token = localStorage.getItem('token')
+        axios.defaults.headers.common['Authorization'] = token;
+        let URL = process.env.REACT_APP_BASE_URL + '/api/invoice/customer/rate/';
+        let dataDeals = await (axios.get(URL))
+        let data = _.get(dataDeals, "data", [])
+        this.setState({ dataDeals: data })
+    }
     render() {
         const { open } = this.state
         const { classes } = this.props
@@ -218,7 +220,7 @@ class RecentDeals extends Component {
                         <Grid container spacing={3}>
                             {/* Recent Orders */}
                             <Grid item xs={12}>
-                                <TblDeals />
+                                <TblDeals data={this.state.dataDeals}/>
                             </Grid>
                         </Grid>
                     </Container>
