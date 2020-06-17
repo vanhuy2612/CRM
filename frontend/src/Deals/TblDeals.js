@@ -67,14 +67,14 @@ class image extends Component {
 			data: [
 			{
 				type: "stackedColumn100",
-				name: "totalReturn",
+				name: "Khách hàng đã trả",
 				showInLegend: true,
 				color: "#D4AF37",
 				dataPoints: dataTotalReturn
 			},
 			{
 				type: "stackedColumn100",
-				name: "total",
+				name: "Khách hàng chưa trả",
 				showInLegend: true,
 				color: "#C0C0C0",
 				dataPoints: dataTotalNoReturn
