@@ -265,9 +265,9 @@ class RecentReport extends Component {
                         <Grid container spacing={3}>
                             {/* report doanh thu 12 tháng gần đây */}
                             <Grid item xs={12}>
-                                <Paper className={fixedHeightPaper}>
+                                {/* <Paper className={fixedHeightPaper}> */}
                                     <Chart data={this.state.dataOrderChart} />
-                                </Paper>
+                                {/* </Paper> */}
                             </Grid>
                             {/* report doanh thu 10 năm gần đây */}
                             <Grid item xs={12}>
