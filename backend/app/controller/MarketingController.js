@@ -72,7 +72,31 @@ class MarketingController extends BaseController {
         else res.json(insertedMark)
 
     }
-
+    async detail(req, res, next) {
+        let id = req.params.id
+        let [ err, result] = await to(
+            db.marketings.findAll({
+                where: {
+                    id: id
+                },
+                include: [{
+                    attributes: ['name'],
+                    model: db.branchs
+                }, {
+                    attributes: ['id', 'name', 'urlImage', 'type'],
+                    model: db.customers,
+                    include: [{
+                        model: db.contacts
+                    }],
+                    through: {
+                        attributes: []
+                    }
+                }]
+            })
+        )
+        if(err) res.json({ message: `Fail to get detail of marketing with id=${id}`})
+        res.json(result)
+    }
     async delete(req, res, next) {
         let id = req.params.id;
         let [err, deletedMark] = await to(

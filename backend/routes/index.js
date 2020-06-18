@@ -24,6 +24,7 @@ còn get, pop, put thì phải dùng : router.get('',[middleware], func);
 
 const AuthMiddleware = require('../middleware/auth.middleware')
 const PermissonMiddleware = require('../middleware/permission.middleware');
+const permissionMiddleware = require('../middleware/permission.middleware');
 
 // Routes for register and login;
 router.group( router => {
@@ -106,6 +107,7 @@ router.group('/api', router => {
     // Routes for Marketing:
     router.group('marketing', router => {
         router.get('/', [PermissonMiddleware('GetAllMarketing')], MarketingController.index)
+        router.get('/:id', [PermissonMiddleware('DetailMarketing')], MarketingController.detail)
         router.post('/', [PermissonMiddleware('StoreMarketing')], upload.single('avatar'), MarketingController.store)
         router.delete('/delete/:id', [PermissonMiddleware('DeleteMarketing')], MarketingController.delete)
         router.put('/:id', [PermissonMiddleware('UpdateMarketing')], upload.single('avatar'), MarketingController.update)
