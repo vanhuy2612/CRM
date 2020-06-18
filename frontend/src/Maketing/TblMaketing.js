@@ -1,6 +1,11 @@
 import React, { Component } from "react"
 import Board from "@lourenci/react-kanban"
 import '@lourenci/react-kanban/dist/styles.css'
+import axios from 'axios'
+import _ from 'lodash'
+import { confirmAlert }  from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+
 
 class DragAndDrop extends Component {
   constructor(props) {
@@ -13,6 +18,28 @@ class DragAndDrop extends Component {
       dataLose: []
     }
   }
+  async changeStatusMarketing(data) {
+    let token = localStorage.getItem('token')
+    axios.defaults.headers.common['Authorization'] = token;
+    let URL = process.env.REACT_APP_BASE_URL + '/api/marketing/' + data.id;
+    let result = await (axios.put(URL, data))
+    let dataRev = _.get(result, "data", [])
+    let response = dataRev.message
+    console.log('Change Status Marketing:', response)
+  }
+  async deleteMarketing(id) {
+    let token = localStorage.getItem('token')
+    axios.defaults.headers.common['Authorization'] = token;
+    let URL = process.env.REACT_APP_BASE_URL + '/api/marketing/delete/' + id;
+    let result = await (axios.delete(URL))
+    let dataRev = _.get(result, "data", [])
+    let response = dataRev.message
+    console.log('Delete Status Marketing:', response)
+  }
+  async detailMarkerting(e){
+    console.log("detailMarkerting")
+  }
+
   render() {
     const { data } = this.props
     const { dataStart, dataDoing, dataComplete, dataExprired, dataLose } = this.state
@@ -23,7 +50,8 @@ class DragAndDrop extends Component {
           dataStart.push({
             id: index,
             title: element.name,
-            description: element.contents
+            description: element.subject,
+            data: element
           })
         }
       })
@@ -33,7 +61,8 @@ class DragAndDrop extends Component {
           dataDoing.push({
             id: index,
             title: element.name,
-            description: element.contents
+            description: element.subject,
+            data: element
           })
         }
       })
@@ -43,7 +72,8 @@ class DragAndDrop extends Component {
           dataExprired.push({
             id: index,
             title: element.name,
-            description: element.contents
+            description: element.subject,
+            data: element
           })
         }
       })
@@ -53,7 +83,8 @@ class DragAndDrop extends Component {
           dataComplete.push({
             id: index,
             title: element.name,
-            description: element.contents
+            description: element.subject,
+            data: element
           })
         }
       })
@@ -63,7 +94,8 @@ class DragAndDrop extends Component {
           dataLose.push({
             id: index,
             title: element.name,
-            description: element.contents
+            description: element.subject,
+            data: element
           })
         }
       })
@@ -71,27 +103,27 @@ class DragAndDrop extends Component {
     const board = {
       columns: [
         {
-          id: 1,
+          id: "start",
           title: "Start",
           cards: dataStart
         },
         {
-          id: 2,
+          id: "doing",
           title: 'Doing',
           cards: dataDoing
         },
         {
-          id: 3,
+          id: "exprired",
           title: 'Exprired',
           cards: dataExprired
         },
         {
-          id: 4,
+          id: "complete",
           title: 'Complete',
           cards: dataComplete
         },
         {
-          id: 5,
+          id: "lose",
           title: 'Lose',
           cards: dataLose
         }
@@ -99,21 +131,58 @@ class DragAndDrop extends Component {
     }
     return (
       <>
-          <Board
-              allowRemoveLane
-              allowRenameColumn
-              allowRemoveCard
-              onLaneRemove={console.log}
-              onCardRemove={console.log}
-              onLaneRename={console.log}
-              initialBoard={board}
-              allowAddCard={{ on: "top" }}
-              onNewCardConfirm={draftCard => ({
-                  id: new Date().getTime(),
-                  ...draftCard
-              })}
-              onCardNew={console.log}
-          />
+        <Board
+          // renderCard={({ content }, { removeCard, dragging }) => (
+          //   <YourCard dragging={dragging}>
+          //     {content}
+          //     <button type="button" onClick={this.detailMarkerting(e)}>Detail</button>
+          //   </YourCard>
+          // )}
+          allowRemoveLane
+          allowRenameColumn
+          allowRemoveCard
+          onLaneRemove={console.log}
+          onCardRemove={ (board, column, card) => {
+            console.log('Remove Card', card)
+            
+            confirmAlert({
+              title: 'Confirm to submit',
+              message: 'Are you sure to delete this.',
+              buttons: [
+                {
+                  label: 'confirm',
+                  onClick: () => {
+                    console.log( card.data.id)
+                    this.deleteMarketing(card.data.id)
+                  }
+                },
+                {
+                  label: 'cancel',
+                  onClick: () => {}
+                }
+              ]
+            });
+          }}
+          onLaneRename={console.log}
+          initialBoard={board}
+          allowAddCard={{ on: "top" }}
+          onNewCardConfirm={draftCard => ({
+            id: new Date().getTime(),
+            ...draftCard
+          })}
+          onCardNew={console.log}
+          onCardDragEnd={(board, card, source, destination) => {
+            //console.log(destination)
+            // Thay đổi status cho marketing:
+            let DataChange = {
+              id: card.data.id,
+              status: destination.toColumnId
+            }
+            //console.log(DataChange)
+            // Update Status of Marketing:
+            this.changeStatusMarketing(DataChange);
+          }}
+        />
       </>
       // <Board
       //   renderCard={({ cards }, { removeCard, dragging }) => (

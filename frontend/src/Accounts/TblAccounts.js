@@ -11,6 +11,7 @@ class TblAccounts extends Component {
             { title: 'Chức vụ', field: 'role', type: "String" },
             { title: 'Chi nhánh', field: 'branchId', type: "String" },
             { title: 'Vị trí', field: 'position', type: "String" },
+            { title: 'Role', field: 'roleId', type: "String" },
             { title: 'Phone', field: 'phone', type: "Interger" },
             { title: 'Email', field: 'email', type: "String" },
             { title: 'Ngày tạo', field: 'createdAt', type: 'Date' },

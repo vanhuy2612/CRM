@@ -151,7 +151,7 @@ class RecentMaketing extends Component {
     this.props.history.push(`/Maketing/${element}`)
   }
 
-  // lấy data order
+  // lấy danh sách marketing
   async componentDidMount() {
     let token = localStorage.getItem('token')
     axios.defaults.headers.common['Authorization'] = token;
