@@ -5,6 +5,7 @@ class TblCustomers extends Component {
     constructor(props) {
         super(props)
         this.columns = [
+            { title: 'Avatar', field: 'urlImage', type: "String", render: rowData => <img src={rowData.urlImage} style={{width: 50, borderRadius: '50%'}}/> },
             { title: 'Name', field: 'name', type: "String" },
             { title: 'Address', field: 'address', type: "String" },
             { title: 'Phone', field: 'phone', type: "String" },
@@ -13,7 +14,6 @@ class TblCustomers extends Component {
             { title: 'Chi nhánh', field: 'branchId', type: "String" },
             { title: 'Ngày tạo', field: 'createdAt', type: 'Date' },
             { title: 'Thay đổi gần nhất', field: 'createdAt', type: 'Date' },
-            { title: 'Avatar', field: 'urlImage', type: "String", render: rowData => <img src={rowData.urlImage} style={{width: 50, borderRadius: '50%'}}/> },
         ]
     }
 

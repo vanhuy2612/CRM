@@ -11,6 +11,7 @@ import axios from 'axios'
 import _ from 'lodash'
 import Send from './TblReportCostomers'
 import Chart from './Chart'
+import Chart10year from './Chart10years'
 import moment from 'moment'
 
 const drawerWidth = 240;
@@ -101,7 +102,8 @@ class RecentReport extends Component {
         this.state = {
             open: true,
             dataCustomer: [],
-            dataOrderChart: []
+            dataOrderChart: [],
+            dataReport10year: []
         }
     }
 
@@ -180,43 +182,20 @@ class RecentReport extends Component {
                 }
             })
         }
-        // get data Chart Order
-        let URLOrder = process.env.REACT_APP_BASE_URL + '/api/order/';
+        // get data return of 12 months
+        let URLOrder = process.env.REACT_APP_BASE_URL + '/api/invoice/12months';
         let dataOrder = await (axios.get(URLOrder))
         let dataReport = _.get(dataOrder, "data", [])
 
-
-        for (let i = 0; i < dataReport.length; i++) {
-            let time = (((_.get(dataReport[i], "createdAt", 0)).split('T')[0]).split('-')[2])
-            let price = _.get(data[i], "items.orderdetails.price", 0)
-            console.log('price', price)
-            let quantity = _.get(data[i], "items.orderdetails.quantity", 0)
-            console.log('quantity', quantity)
-            let amount = parseInt(price) * parseInt(quantity)
-            console.log('amount', amount)
-            console.log('time', time)
-            if (lengthdataReport == 0) {
-                dataOrderChart.push({ time: time, amount: amount })
-                lengthdataReport++
-            }
-            else {
-                let index = -1;
-                dataOrderChart.forEach(ele => {
-                    if (ele.time == time) {
-                        index = dataOrderChart.indexOf(ele);
-                    }
-                })
-                if (index == - 1) {
-                    dataOrderChart.push({ time: time, amount: amount })
-                } else {
-                    dataOrderChart[index].amount += amount
-                }
-            }
-        }
+        // get data return of 10 years
+        let URLReport10year = process.env.REACT_APP_BASE_URL + '/api/invoice/10years';
+        let dataReport10year = await (axios.get(URLReport10year))
+            dataReport10year = _.get(dataReport10year, "data", [])
 
         this.setState({
             dataCustomer: dataVip,
-            dataOrderChart: dataOrderChart
+            dataOrderChart: dataReport,
+            dataReport10year: dataReport10year
         })
     }
 
@@ -284,16 +263,23 @@ class RecentReport extends Component {
                     <div className={classes.appBarSpacer} />
                     <Container maxWidth="lg" className={classes.container}>
                         <Grid container spacing={3}>
-                            {/* report doanh thu  */}
+                            {/* report doanh thu 12 tháng gần đây */}
                             <Grid item xs={12}>
                                 <Paper className={fixedHeightPaper}>
                                     <Chart data={this.state.dataOrderChart} />
+                                </Paper>
+                            </Grid>
+                            {/* report doanh thu 10 năm gần đây */}
+                            <Grid item xs={12}>
+                                <Paper className={fixedHeightPaper}>
+                                    <Chart10year data={this.state.dataReport10year} />
                                 </Paper>
                             </Grid>
                             {/* report khach hang tiem nang */}
                             <Grid item xs={12}>
                                 <Send data={this.state.dataCustomer} />
                             </Grid>
+                            
                         </Grid>
                     </Container>
                 </main>

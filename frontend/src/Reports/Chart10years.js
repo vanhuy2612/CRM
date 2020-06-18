@@ -6,10 +6,10 @@ import Title from '../Dashboard/Title';
 export default function Chart(props) {
   const theme = useTheme();
   const {data} = props
-  console.log('data Report Order', data)
+  console.log('data Report 10 years', data)
   return (
     <React.Fragment>
-      <Title>Month</Title>
+      <Title>Year</Title>
       <ResponsiveContainer>
         <LineChart
           data={data}
@@ -20,7 +20,7 @@ export default function Chart(props) {
             left: 24,
           }}
         >
-          <XAxis dataKey="month" stroke={theme.palette.text.secondary} />
+          <XAxis dataKey="year" stroke={theme.palette.text.secondary} />
           <YAxis stroke={theme.palette.text.secondary}>
             <Label
               angle={270}

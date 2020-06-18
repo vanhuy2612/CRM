@@ -90,7 +90,7 @@ router.group('/api', router => {
         router.get('/today/customer',[PermissonMiddleware('RevenueStatisticsByCustomerToday')], InvoiceController.revenueStatisticsByCustomerToday)
         router.get('/today/revenue',[PermissonMiddleware('RevenueStatisticsToday')], InvoiceController.revenueStatisticsToday)
         router.get('/customer/rate',[PermissonMiddleware('TurnoverRatioByCustomer')], InvoiceController.turnoverRatioByCustomer)
-        router.get('/12mouths',[PermissonMiddleware('Revenue12Months')], InvoiceController.revenue12Months)
+        router.get('/12months',[PermissonMiddleware('Revenue12Months')], InvoiceController.revenue12Months)
         router.get('/10years',[PermissonMiddleware('Revenue10years')], InvoiceController.revenue10years)
 
     })
