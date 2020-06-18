@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
 import { IconButton, Tooltip } from '@material-ui/core';
 import AccountCircle from '@material-ui/icons/AccountCircle'
+import logo from '../logoCRM.png'
 
 const drawerWidth = 240;
 
@@ -20,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
+    backgroundColor: 'greenyellow'
   },
   appBarShift: {
     width: `calc(100% - ${drawerWidth}px)`,
@@ -64,7 +66,7 @@ export default function PersistentDrawerRight(props) {
       >
         <Toolbar>
           <Typography variant="h5" noWrap className={classes.title} onClick={() => window.location.reload()}>
-            BiTrix24h
+            <img src={logo} style={{height: 100, width: 120}} />
           </Typography>
           <Typography variant="h6" noWrap className={classes.title}>
             {sections.map((element, index) => {

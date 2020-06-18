@@ -12,8 +12,6 @@ import deal from '../images/deal.PNG'
 import activiti from '../images/activitis.PNG'
 import report from '../images/report.PNG'
 import marketing from '../images/marketing.PNG'
-// icons
-import SupervisorAccount from '@material-ui/icons/SupervisorAccount'
 
 const useStyles = makeStyles((theme) => ({
   mainGrid: {
@@ -45,12 +43,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const sections = [
-  { title: 'Công cụ', url: '#' },
-  { title: 'Giá cả', url: '#' },
-  { title: 'Đối tác', url: '#' },
-  { title: 'Ứng dụng', url: '#' },
-  { title: 'Blog', url: '#' },
-  { title: 'Hỗ Trợ', url: '#' },
+  { title: 'Giới thiệu', url: '#' },
+  { title: 'Liên hệ', url: '#' },
+  {title: 'Tin tức sự kiện' , url: '#'},
+  {title: 'Các hoạt động', url: '#'}
 ];
 
 
