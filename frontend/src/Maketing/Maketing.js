@@ -10,7 +10,6 @@ import { Login, Dashboard, Order, Customers, Reports, Activity, Products, Deals,
 import axios from 'axios'
 import _ from 'lodash'
 import TblMaketing from './TblMaketing'
-
 const drawerWidth = 240;
 
 const styles = theme => ({
@@ -97,7 +96,7 @@ class RecentMaketing extends Component {
     super(props)
     this.state = {
       open: true,
-      dataUser: [],
+      dataMaketing: [],
     }
   }
 
@@ -154,11 +153,15 @@ class RecentMaketing extends Component {
 
   // lấy data order
   async componentDidMount() {
-    let dataOrder = await (axios.get('http://localhost:3000/api/user/'))
-    let data = _.get(dataOrder, "data", [])
-    console.log('data', data)
-    this.setState({ dataUser: data })
-  }
+    let token = localStorage.getItem('token')
+    axios.defaults.headers.common['Authorization'] = token;
+    let URL = process.env.REACT_APP_BASE_URL + '/api/marketing/';
+    let dataMaketing = await (axios.get(URL))
+    let data = _.get(dataMaketing, "data", [])
+    this.setState({
+      dataMaketing: data
+    })
+}
   render() {
     const { open } = this.state
     const { classes } = this.props
@@ -222,7 +225,7 @@ class RecentMaketing extends Component {
             <Grid container spacing={3}>
               {/* Recent Orders */}
               <Grid item xs={12}>
-                 <TblMaketing />
+                 <TblMaketing data={this.state.dataMaketing} />
               </Grid>
             </Grid>
           </Container>
