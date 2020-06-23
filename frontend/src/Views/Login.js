@@ -100,7 +100,11 @@ class Login extends Component {
         })
     }
     if(dem == -2){
-      axios.post('http://localhost:3000/api/login/',{
+      let token = localStorage.getItem('token')
+      axios.defaults.headers.common['Authorization'] = token;
+      let URL = process.env.REACT_APP_BASE_URL + '/api/login/';
+  
+      axios.post(URL,{
       username: email,
       password: password
     })
