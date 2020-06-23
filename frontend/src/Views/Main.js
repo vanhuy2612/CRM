@@ -42,15 +42,6 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const sections = [
-  { title: 'Giới thiệu', url: '#' },
-  { title: 'Liên hệ', url: '#' },
-  {title: 'Tin tức sự kiện' , url: '#'},
-  {title: 'Các hoạt động', url: '#'}
-];
-
-
-
 const mainFeaturedPost = {
   title: 'Your Company. United.',
   description:
@@ -75,7 +66,6 @@ export default function Blog(props) {
       <CssBaseline />
       <Container maxWidth="lg">
         <Header
-          sections={sections}
           link={props}
         />
         <main>

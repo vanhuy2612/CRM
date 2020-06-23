@@ -10,6 +10,7 @@ import { Login, Dashboard, Order, Customers, Reports, Activity, Products, Deals,
 import axios from 'axios'
 import _ from 'lodash'
 import TblMaketing from './TblMaketing'
+import BoardTrello from './BoardTrello'
 const drawerWidth = 240;
 
 const styles = theme => ({
@@ -148,7 +149,7 @@ class RecentMaketing extends Component {
     this.props.history.push(`/Contacts/${element}`)
   }
   handleToMaketing = element => {
-    this.props.history.push(`/Maketing/${element}`)
+    window.location.reload()
   }
 
   // lấy danh sách marketing
@@ -181,12 +182,7 @@ class RecentMaketing extends Component {
             </IconButton>
             <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
               Maketing
-                  </Typography>
-            <IconButton color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
+            </Typography>
             <Avatar />
           </Toolbar>
         </AppBar>
@@ -227,6 +223,9 @@ class RecentMaketing extends Component {
               <Grid item xs={12}>
                  <TblMaketing data={this.state.dataMaketing} />
               </Grid>
+              {/* <Grid item xs={12}>
+                 <BoardTrello data={this.state.dataMaketing} />
+              </Grid> */}
             </Grid>
           </Container>
         </main>

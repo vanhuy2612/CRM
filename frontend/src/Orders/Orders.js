@@ -4,14 +4,16 @@ import { withStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
+import Print from '@material-ui/icons/Print'
 import Avatar from '../Components/Avatar'
-import {IconButton, Tooltip, CssBaseline, Drawer,Box, AppBar,Toolbar, List, Typography,Divider, Badge, Container, Grid, Link} from '@material-ui/core';
+import { IconButton, Tooltip, CssBaseline, Drawer, Box, AppBar, Toolbar, List, Typography, Divider, Badge, Container, Grid, Link } from '@material-ui/core';
 import { Login, Dashboard, Order, Customers, Reports, Activity, Products, Deals, Contacts, Accounts, Maketing } from '../Components/ListItems';
 import TblCustomers from './TblOrders'
 import axios from 'axios'
 import _ from 'lodash'
 import moment from 'moment'
 import NumberFormat from 'react-number-format';
+import TableToExcel from "@linways/table-to-excel"
 
 const drawerWidth = 240;
 
@@ -120,7 +122,7 @@ class RecentOrder extends Component {
   }
   // rent to order or dashboard or ...
   handleToOrders = (element) => {
-    this.props.history.push(`/Orders/${element}`)
+    window.location.reload()
   }
   handleToCustomers = (element) => {
     this.props.history.push(`/Customers/${element}`)
@@ -149,6 +151,13 @@ class RecentOrder extends Component {
   handleToMaketing = element => {
     this.props.history.push(`/Maketing/${element}`)
   }
+  // Print Table To Excel
+  PrintTableToExcel = element => {
+    let table = document.querySelector('table')
+    TableToExcel.convert(table ,{
+      name: 'Order.xlsx'
+    })
+}
 
   // lấy data order
   async componentDidMount() {
@@ -157,9 +166,9 @@ class RecentOrder extends Component {
     let URL = process.env.REACT_APP_BASE_URL + '/api/order/';
     let dataOrder = await (axios.get(URL))
     let data = _.get(dataOrder, "data", [])
-    for(let i= 0;i<data.length;i++){
-      let price =  _.get(data[i], "items.orderdetails.price", 0)
-      data[i].price = <NumberFormat value={price} displayType={'text'} thousandSeparator={true}/>
+    for (let i = 0; i < data.length; i++) {
+      let price = _.get(data[i], "items.orderdetails.price", 0)
+      data[i].price = <NumberFormat value={price} displayType={'text'} thousandSeparator={true} />
     }
     this.setState({ dataOrder: data })
   }
@@ -182,12 +191,7 @@ class RecentOrder extends Component {
             </IconButton>
             <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
               Order
-                  </Typography>
-            <IconButton color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
+            </Typography>
             <Avatar />
           </Toolbar>
         </AppBar>
@@ -224,6 +228,14 @@ class RecentOrder extends Component {
           <div className={classes.appBarSpacer} />
           <Container maxWidth="lg" className={classes.container}>
             <Grid container spacing={3}>
+              {/* print table to excel */}
+              <Grid item xs={12}>
+                <Tooltip title="Print to Excel">
+                  <IconButton onClick={this.PrintTableToExcel}>
+                    <Print />
+                  </IconButton>
+                </Tooltip>
+              </Grid>
               {/* Recent Orders */}
               <Grid item xs={12}>
                 <TblCustomers data={this.state.dataOrder} />

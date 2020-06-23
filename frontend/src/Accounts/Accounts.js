@@ -4,11 +4,13 @@ import { withStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
+import Print from '@material-ui/icons/Print'
 import Avatar from '../Components/Avatar'
 import { IconButton, Tooltip, CssBaseline, Drawer, Box, AppBar, Toolbar, List, Typography, Divider, Badge, Container, Grid, Link } from '@material-ui/core';
 import { Login, Dashboard, Order, Customers, Reports, Activity, Products, Deals, Contacts, Accounts, Maketing } from '../Components/ListItems';
 import axios from 'axios'
 import _ from 'lodash'
+import TableToExcel from '@linways/table-to-excel'
 import TblAccounts from './TblAccounts'
 
 const drawerWidth = 240;
@@ -130,7 +132,7 @@ class RecentOrder extends Component {
     this.props.history.push(`/Reports/${element}`)
   }
   handleToAccounts = (element) => {
-    this.props.history.push(`/Accounts/${element}`)
+    window.location.reload()
   }
   handleToActivity = (element) => {
     this.props.history.push(`/Activity/${element}`)
@@ -146,6 +148,13 @@ class RecentOrder extends Component {
   }
   handleToMaketing = element => {
     this.props.history.push(`/Maketing/${element}`)
+  }
+  // Print Table To Excel
+  PrintTableToExcel = element => {
+    let table = document.querySelector('table')
+    TableToExcel.convert(table, {
+      name: 'Account.xlsx'
+    })
   }
 
   // lấy data order
@@ -180,12 +189,7 @@ class RecentOrder extends Component {
             </IconButton>
             <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
               Accounts
-                  </Typography>
-            <IconButton color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
+            </Typography>
             <Avatar />
           </Toolbar>
         </AppBar>
@@ -222,6 +226,14 @@ class RecentOrder extends Component {
           <div className={classes.appBarSpacer} />
           <Container maxWidth="lg" className={classes.container}>
             <Grid container spacing={3}>
+              {/* print table to excel */}
+              <Grid item xs={12}>
+                <Tooltip title="Print to Excel">
+                  <IconButton onClick={this.PrintTableToExcel}>
+                    <Print />
+                  </IconButton>
+                </Tooltip>
+              </Grid>
               {/* Recent Orders */}
               <Grid item xs={12}>
                 <TblAccounts data={this.state.dataUser} />

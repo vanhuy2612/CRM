@@ -133,7 +133,7 @@ class RecentReport extends Component {
         this.props.history.push(`/Dashboard/${element}`)
     }
     handleToDashReports = (element) => {
-        this.props.history.push(`/Reports/${element}`)
+        window.location.reload()
     }
     handleToAccounts = (element) => {
         this.props.history.push(`/Accounts/${element}`)
@@ -222,11 +222,6 @@ class RecentReport extends Component {
                         <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
                             Report
                   </Typography>
-                        <IconButton color="inherit">
-                            <Badge badgeContent={4} color="secondary">
-                                <NotificationsIcon />
-                            </Badge>
-                        </IconButton>
                         <Avatar />
                     </Toolbar>
                 </AppBar>

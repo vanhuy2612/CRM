@@ -4,7 +4,6 @@ import { makeStyles, useTheme, withTheme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import Link from '@material-ui/core/Link';
 import { IconButton, Tooltip } from '@material-ui/core';
 import AccountCircle from '@material-ui/icons/AccountCircle'
 import logo from '../logoCRM.png'
@@ -48,11 +47,26 @@ export default function PersistentDrawerRight(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-  const { sections } = props;
-  const preventDefault = (event) => event.preventDefault();
 
   function handleDrawerOpen(element) {
     props.link.history.push(`/Login/${element}`)
+  }
+  function handleReloadMain(){
+    props.link.history.push('/')
+  }
+
+
+  function ChangePageIntroduce(element) {
+    props.link.history.push(`/Introduce/${element}`)
+  }
+  function ChangePageContactMain(element) {
+    props.link.history.push(`/ContactMain/${element}`)
+  }
+  function ChangePageInformationEvent(element) {
+    props.link.history.push(`/InformationEvent/${element}`)
+  }
+  function ChangePageActivityMain(element) {
+    props.link.history.push(`/ActivityMain/${element}`)
   }
 
   return (
@@ -65,19 +79,30 @@ export default function PersistentDrawerRight(props) {
         })}
       >
         <Toolbar>
-          <Typography variant="h5" noWrap className={classes.title} onClick={() => window.location.reload()}>
-            <img src={logo} style={{height: 100, width: 120}} />
+          <Typography variant="h5" noWrap className={classes.title} onClick={handleReloadMain}>
+            <img src={logo} style={{ height: 100, width: 120 }} />
           </Typography>
           <Typography variant="h6" noWrap className={classes.title}>
-            {sections.map((element, index) => {
-              return (
-                <span style={{ textAlign: 'center', padding: 30, fontFamily: 'auto' }}>
-                  <Link href="#" onClick={preventDefault} color='inherit'>
-                    {element.title}
-                  </Link>
+            <span style={{ textAlign: 'center', padding: 30, fontFamily: 'auto' }}
+              onClick={ChangePageIntroduce}
+            >
+              Giới Thiệu
                 </span>
-              )
-            })}
+            <span style={{ textAlign: 'center', padding: 30, fontFamily: 'auto' }}
+              onClick={ChangePageContactMain}
+            >
+              Liên hệ
+                </span>
+            <span style={{ textAlign: 'center', padding: 30, fontFamily: 'auto' }}
+              onClick={ChangePageInformationEvent}
+            >
+              Tin tức sự kiện
+                </span>
+            <span style={{ textAlign: 'center', padding: 30, fontFamily: 'auto' }}
+              onClick={ChangePageActivityMain}
+            >
+              Các hoạt động
+                </span>
           </Typography>
           <Tooltip title="Đăng nhập" key="Login">
             <IconButton

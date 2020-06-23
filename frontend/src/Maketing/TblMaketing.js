@@ -26,6 +26,7 @@ class DragAndDrop extends Component {
     let dataRev = _.get(result, "data", [])
     let response = dataRev.message
     console.log('Change Status Marketing:', response)
+    window.location.reload()
   }
   async deleteMarketing(id) {
     let token = localStorage.getItem('token')
@@ -132,12 +133,6 @@ class DragAndDrop extends Component {
     return (
       <>
         <Board
-          // renderCard={({ content }, { removeCard, dragging }) => (
-          //   <YourCard dragging={dragging}>
-          //     {content}
-          //     <button type="button" onClick={this.detailMarkerting(e)}>Detail</button>
-          //   </YourCard>
-          // )}
           allowRemoveLane
           allowRenameColumn
           allowRemoveCard
@@ -172,28 +167,16 @@ class DragAndDrop extends Component {
           })}
           onCardNew={console.log}
           onCardDragEnd={(board, card, source, destination) => {
-            //console.log(destination)
             // Thay đổi status cho marketing:
             let DataChange = {
               id: card.data.id,
               status: destination.toColumnId
             }
-            //console.log(DataChange)
             // Update Status of Marketing:
             this.changeStatusMarketing(DataChange);
           }}
         />
       </>
-      // <Board
-      //   renderCard={({ cards }, { removeCard, dragging }) => (
-      //     <YourCard dragging={dragging}>
-      //       {cards}
-      //       <button type="button" onClick={removeCard}>Remove Card</button>
-      //     </YourCard>
-      //   )}
-      // >
-      //   {board}
-      // </Board>
     );
   }
 }

@@ -7,7 +7,7 @@ class TblMailContacts extends Component {
         this.columns = [
             { title: 'Người gửi', field: 'from', type: 'String' },
             { title: 'Người nhận', field: 'to', type: "String" },
-            { title: 'Chủ đề Muil', field: 'subject', type: "String" },
+            { title: 'Chủ đề Mail', field: 'subject', type: "String" },
             { title: 'Ngày gửi', field: 'date', type: "String" },
         ]
     }
@@ -17,6 +17,7 @@ class TblMailContacts extends Component {
                 icon: 'ViewColumn',
                 tooltip: 'View Email',
                 onClick: (event, rowData) => {
+                    console.log('subject', rowData.subject)
                     let subject = rowData.subject
                     console.log('subject', subject)
                     this.props.link.history.push({

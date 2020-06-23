@@ -8,7 +8,12 @@ import './index.css'
 import Main from './Views/Main'
 import Login from './Views/Login'// component đăng nhập
 import Register from './Views/Register'// component đăng ký
-import Drawer from './Components/Drawer'
+
+// danh sách tap trong main
+import Introduce from './Views/Introduce' // giới thiệu
+import ContactMain from './Views/ContactMain' // liên hệ vs CRM
+import InformationEvent from './Views/InformationEvent' // tin tức sự kiện
+import ActivityMain from './Views/Activity' // các hoạt động
 
 // danh sách component các option của thanh công cụ
 import Dashboard from './Dashboard/Dashboard'
@@ -31,7 +36,10 @@ ReactDOM.render(
         <Route exact path="/" component={Main} />
         <Route exact path="/Login/:id" component={Login} />
         <Route exact path="/Register/:id" component={Register} />
-        <Route exact path="/Drawer/:id" component={Drawer} />
+        <Route exact path="/Introduce/:id" component={Introduce} />
+        <Route exact path="/ContactMain/:id" component={ContactMain} />
+        <Route exact path="/InformationEvent/:id" component={InformationEvent} />
+        <Route exact path="/ActivityMain/:id" component={ActivityMain} />
 
 
         <Route exact path="/Dashboard/:id" component={Dashboard} />

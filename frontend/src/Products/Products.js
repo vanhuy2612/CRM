@@ -5,12 +5,14 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import AddIcon from '@material-ui/icons/Add'
+import Print from '@material-ui/icons/Print'
 import Avatar from '../Components/Avatar'
 import { IconButton, Tooltip, CssBaseline, Drawer, Box, AppBar, Toolbar, List, Typography, Divider, Badge, Container, Grid, Link } from '@material-ui/core';
 import { Login, Dashboard, Order, Customers, Reports, Activity, Products, Deals, Contacts, Accounts, Maketing } from '../Components/ListItems';
 import axios from 'axios'
 import _ from 'lodash'
 import moment from 'moment'
+import TableToExcel from '@linways/table-to-excel'
 import TblProduct from './TblProduct'
 
 const drawerWidth = 240;
@@ -138,7 +140,7 @@ class RecentProduct extends Component {
         this.props.history.push(`/Activity/${element}`)
     }
     handleToProducts = (element) => {
-        this.props.history.push(`/Products/${element}`)
+        window.location.reload()
     }
     handleToDeals = (element) => {
         this.props.history.push(`/Deals/${element}`)
@@ -148,7 +150,14 @@ class RecentProduct extends Component {
     }
     handleToMaketing = element => {
         this.props.history.push(`/Maketing/${element}`)
-      }
+    }
+    // Print Table To Excel
+    PrintTableToExcel = element => {
+        let table = document.querySelector('table')
+        TableToExcel.convert(table, {
+            name: 'Product.xlsx'
+        })
+    }
 
     // lấy data item
     async componentDidMount() {
@@ -186,11 +195,6 @@ class RecentProduct extends Component {
                         <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
                             Products
                   </Typography>
-                        <IconButton color="inherit">
-                            <Badge badgeContent={4} color="secondary">
-                                <NotificationsIcon />
-                            </Badge>
-                        </IconButton>
                         <Avatar />
                     </Toolbar>
                 </AppBar>
@@ -232,6 +236,12 @@ class RecentProduct extends Component {
                                 <Tooltip title="Add Item">
                                     <IconButton>
                                         <AddIcon />
+                                    </IconButton>
+                                </Tooltip>
+                                {/* print TableToExcel */}
+                                <Tooltip title="Print to Excel">
+                                    <IconButton onClick={this.PrintTableToExcel}>
+                                        <Print />
                                     </IconButton>
                                 </Tooltip>
                             </Grid>

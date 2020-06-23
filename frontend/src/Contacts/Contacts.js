@@ -145,7 +145,7 @@ class RecentContatcs extends Component {
         this.props.history.push(`/Deals/${element}`)
     }
     handleToContacts = (element) => {
-        this.props.history.push(`/Contacts/${element}`)
+        window.location.reload()
     }
     handleToMaketing = element => {
         this.props.history.push(`/Maketing/${element}`)
@@ -180,11 +180,6 @@ class RecentContatcs extends Component {
                         <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
                             Contatcs
                         </Typography>
-                        <IconButton color="inherit">
-                            <Badge badgeContent={4} color="secondary">
-                                <NotificationsIcon />
-                            </Badge>
-                        </IconButton>
                         <Avatar />
                     </Toolbar>
                 </AppBar>

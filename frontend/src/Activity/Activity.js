@@ -178,12 +178,7 @@ class RecentActivity extends Component {
             </IconButton>
             <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
               Activity
-                  </Typography>
-            <IconButton color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
+            </Typography>
             <Avatar />
           </Toolbar>
         </AppBar>

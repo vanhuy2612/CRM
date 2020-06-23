@@ -6,7 +6,9 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import AddIcon from '@material-ui/icons/Add'
+import Print from '@material-ui/icons/Print'
 import Avatar from '../Components/Avatar'
+import TableToExcel from "@linways/table-to-excel"
 import { Login, Dashboard, Order, Customers, Reports, Activity, Products, Deals, Contacts, Accounts, Maketing } from '../Components/ListItems';
 import TblCustomers from './TblCustomers'
 import axios from 'axios'
@@ -123,7 +125,7 @@ class RecentCustomers extends Component {
         this.props.history.push(`/Orders/${element}`)
     }
     handleToCustomers = (element) => {
-        this.props.history.push(`/Customers/${element}`)
+        window.location.reload()
     }
     handleToDashboard = (element) => {
         this.props.history.push(`/Dashboard/${element}`)
@@ -152,6 +154,13 @@ class RecentCustomers extends Component {
     // Add Customer
     AddCustomer = element => {
         this.props.history.push(`/AddCustomer/${element}`)
+    }
+    // Print Table To Excel
+    PrintTableToExcel = element => {
+        let table = document.querySelector('table')
+        TableToExcel.convert(table , {
+            name: 'Customer.xlsx'
+        })
     }
 
     // lấy data customers
@@ -194,11 +203,6 @@ class RecentCustomers extends Component {
                         <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
                             Customers
                   </Typography>
-                        <IconButton color="inherit">
-                            <Badge badgeContent={4} color="secondary">
-                                <NotificationsIcon />
-                            </Badge>
-                        </IconButton>
                         <Avatar />
                     </Toolbar>
                 </AppBar>
@@ -239,6 +243,11 @@ class RecentCustomers extends Component {
                                 <Tooltip title="Add Customer">
                                     <IconButton onClick={this.AddCustomer}>
                                         <AddIcon />
+                                    </IconButton>
+                                </Tooltip>
+                                <Tooltip title="Print to Excel">
+                                    <IconButton onClick={this.PrintTableToExcel}>
+                                        <Print />
                                     </IconButton>
                                 </Tooltip>
                             </Grid>
