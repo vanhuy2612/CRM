@@ -218,6 +218,11 @@ class BoardTrello extends Component {
                         this.props.link.history.push(`/MarketingDetail/${cardId}`)
                     }
                 }
+                onCardDelete = {
+                    (cardId, laneId) => {
+                        this.deleteMarketing(cardId)
+                    }
+                }
             />
         )
     }
