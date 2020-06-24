@@ -4,6 +4,7 @@ import { withStyles } from '@material-ui/core/styles'
 import MenuIcon from '@material-ui/icons/Menu'
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
 import NotificationsIcon from '@material-ui/icons/Notifications'
+import AddIcon from '@material-ui/icons/Add'
 import { Form, Input, Button, } from 'antd';
 import { RollbackOutlined, HighlightOutlined, SendOutlined } from '@ant-design/icons';
 import Avatar from '../Components/Avatar'
@@ -14,6 +15,7 @@ import _ from 'lodash'
 import PerformMarketing from './component/PerformMarketing'
 import TableMember from './component/TableMember'
 import TableCustomer from './component/TableCustomer'
+import FormUpDateMarketing from './component/FormUpdateMarketing'
 const drawerWidth = 240;
 
 const styles = theme => ({
@@ -185,12 +187,25 @@ class DetailMarketing extends Component {
         let URLDetailMarketing = process.env.REACT_APP_BASE_URL + `/api/marketing/${id}`
         let res = await axios.get(URLDetailMarketing);
         let data = res.data
-        this.setState({ detail: data});
+        this.setState({ detail: data });
     }
     componentDidMount = element => {
         const marketingId = this.props.match.params.id
         console.log('param', marketingId)
         this.detailMarketing(marketingId)
+    }
+
+    // Add Member To Marketing
+    AddMemberToMarketing = element => {
+        console.log('AddMemberToMarketing')
+    }
+    // Add Customer To Marketing
+    AddCustomerToMarketing = element => {
+        console.log('AddCustomerToMarketing')
+    }
+    // Update Detail Marketing
+    UpdateDetailMarketing = element => {
+        console.log('UpdateDetailMarketing')
     }
     render() {
         const layout = {
@@ -219,11 +234,6 @@ class DetailMarketing extends Component {
                         <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
                             Chi tiết chiếm lược Marketing
                         </Typography>
-                        <IconButton color="inherit">
-                            <Badge badgeContent={4} color="secondary">
-                                <NotificationsIcon />
-                            </Badge>
-                        </IconButton>
                         <Avatar />
                     </Toolbar>
                 </AppBar>
@@ -268,16 +278,37 @@ class DetailMarketing extends Component {
                                 <Button type="primary" icon={<RollbackOutlined />} size={'large'} onClick={(element) => this.props.history.push(`/Maketing/${element}`)}>
                                     Back
                                 </Button>
-                                <Button type="primary" icon={<HighlightOutlined />} size={'large'} style={{ marginLeft: 20 }}
+                                <Button type="primary" icon={<HighlightOutlined />} size={'large'} style={{ marginLeft: 20 }} onClick={() => this.setState({ display: !this.state.display })}
                                 >
-                                   Cập nhật
+                                    Cập nhật
                                 </Button>
                             </Grid>
+                            {/* From cập nhật thông tin marketing */}
+                            <Grid item xs={12} hidden={this.state.display}>
+                                <FormUpDateMarketing
+                                    data={this.state.detail}
+                                    link={this.props}
+                                />
+                            </Grid>
                             {/* Danh sách member có trong chiến dịch Marketing đó */}
+                            <Grid item xs={12}>
+                                <Tooltip title="Add Member To Marketing">
+                                    <IconButton onClick={this.AddMemberToMarketing}>
+                                        <AddIcon />
+                                    </IconButton>
+                                </Tooltip>
+                            </Grid>
                             <Grid item xs={12}>
                                 <TableMember data={this.state.detail} />
                             </Grid>
                             {/* Danh sách khách hàng có trong chiến dịch Marketing */}
+                            <Grid item xs={12}>
+                                <Tooltip title="Add Customer To Marketing">
+                                    <IconButton onClick={this.AddCustomerToMarketing}>
+                                        <AddIcon />
+                                    </IconButton>
+                                </Tooltip>
+                            </Grid>
                             <Grid item xs={12}>
                                 <TableCustomer data={this.state.detail} />
                             </Grid>
