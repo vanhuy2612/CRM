@@ -220,12 +220,15 @@ class RecentMaketing extends Component {
           <Container maxWidth="lg" className={classes.container}>
             <Grid container spacing={3}>
               {/* Recent Orders */}
-              <Grid item xs={12}>
-                 <TblMaketing data={this.state.dataMaketing} />
-              </Grid>
               {/* <Grid item xs={12}>
-                 <BoardTrello data={this.state.dataMaketing} />
+                 <TblMaketing data={this.state.dataMaketing} />
               </Grid> */}
+              <Grid item xs={12}>
+                 <BoardTrello 
+                  data={this.state.dataMaketing} 
+                  link={this.props}
+                 />
+              </Grid>
             </Grid>
           </Container>
         </main>

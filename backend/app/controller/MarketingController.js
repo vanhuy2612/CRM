@@ -26,6 +26,11 @@ class MarketingController extends BaseController {
                     through: {
                         attributes: []
                     }
+                }, {
+                    model: db.members,
+                    through: {
+                        attributes: []
+                    }
                 }],
                 order: [['createdAt', 'DESC']]
             })
@@ -83,11 +88,15 @@ class MarketingController extends BaseController {
                     attributes: ['name'],
                     model: db.branchs
                 }, {
-                    attributes: ['id', 'name', 'urlImage', 'type'],
                     model: db.customers,
                     include: [{
                         model: db.contacts
                     }],
+                    through: {
+                        attributes: []
+                    }
+                }, {
+                    model: db.members,
                     through: {
                         attributes: []
                     }
