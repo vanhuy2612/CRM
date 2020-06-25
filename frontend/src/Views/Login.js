@@ -4,20 +4,6 @@ import { withStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 import { I18n } from 'react-redux-i18n'
 import {Avatar, Button, CssBaseline, TextField, FormControlLabel, Checkbox,Link, Paper, Box, Grid, Typography } from '@material-ui/core';
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
-
 const styles = theme => ({
   root: {
     height: '100vh',
@@ -103,7 +89,6 @@ class Login extends Component {
       let token = localStorage.getItem('token')
       axios.defaults.headers.common['Authorization'] = token;
       let URL = process.env.REACT_APP_BASE_URL + '/api/login/';
-  
       axios.post(URL,{
       username: email,
       password: password
@@ -114,10 +99,10 @@ class Login extends Component {
       localStorage.setItem('token', messLogin)
       if(messLogin.message !== undefined){
         console.log('Fail', messLogin.message)
+        alert(`${messLogin.message} vui lòng nhập đúng`)
       }else{
           localStorage.setItem('token', messLogin)
-          console.log('Đăng nhập thành công')
-          props.history.push(`/Dashboard/${element}`)
+          props.history.push(`/Dashboard/${email}`)
       }
     })
     }
@@ -145,7 +130,7 @@ class Login extends Component {
                 required
                 fullWidth
                 id="email"
-                label="Email Address"
+                label="Tài khoản"
                 name="email"
                 autoComplete="email"
                 autoFocus
@@ -164,7 +149,7 @@ class Login extends Component {
                 required
                 fullWidth
                 name="password"
-                label="Password"
+                label="Mật khẩu"
                 type="password"
                 id="password"
                 autoComplete="current-password"
@@ -179,7 +164,7 @@ class Login extends Component {
               />
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
+                label="Lưu đăng nhập"
               />
               <Button
                 type="button"
@@ -194,18 +179,15 @@ class Login extends Component {
               <Grid container>
                 <Grid item xs>
                   <Link href="#" variant="body2">
-                    Forgot password?
+                    Quên mật khẩu
                 </Link>
                 </Grid>
                 <Grid item>
                   <Link onClick={this.handelRegister} variant="body2">
-                    {"Don't have an account? Sign Up"}
+                    {"Bạn chưa có tài khoản? Đăng ký"}
                   </Link>
                 </Grid>
               </Grid>
-              <Box mt={5}>
-                <Copyright />
-              </Box>
             </form>
           </div>
         </Grid>

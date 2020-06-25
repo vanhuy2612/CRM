@@ -1,27 +1,7 @@
-// import './App.css'
-
 import React, { Component } from 'react'
 import Board from 'react-trello'
 import axios from 'axios'
 import _ from 'lodash'
-import { confirmAlert }  from 'react-confirm-alert';
-
-
-// const data = require('./data.json')
-
-const handleDragStart = (cardId, laneId) => {
-    // console.log('drag started')
-    // console.log(`cardId: ${cardId}`)
-    // console.log(`laneId: ${laneId}`)
-}
-
-const handleDragEnd = (cardId, sourceLaneId, targetLaneId) => {
-    // console.log('drag ended')
-    // console.log(`cardId: ${cardId}`)
-    // console.log(`sourceLaneId: ${sourceLaneId}`)
-    // console.log(`targetLaneId: ${targetLaneId}`)
-}
-
 class BoardTrello extends Component {
     state = {
         dataStart: [],
@@ -38,7 +18,6 @@ class BoardTrello extends Component {
         let dataRev = _.get(result, "data", [])
         let response = dataRev.message
         console.log('Change Status Marketing:', response)
-        window.location.reload()
     }
     async deleteMarketing(id) {
         let token = localStorage.getItem('token')
@@ -55,37 +34,6 @@ class BoardTrello extends Component {
 
     setEventBus = (eventBus) => {
         this.setState({ eventBus })
-    }
-
-    completeCard = () => {
-        this.state.eventBus.publish({
-            type: 'ADD_CARD',
-            laneId: 'COMPLETED',
-            card: {
-                id: 'Milk',
-                title: 'Buy Milk',
-                label: '15 mins',
-                description: 'Use Headspace app',
-            },
-        })
-        this.state.eventBus.publish({
-            type: 'REMOVE_CARD',
-            laneId: 'PLANNED',
-            cardId: 'Milk',
-        })
-    }
-
-    addCard = () => {
-        this.state.eventBus.publish({
-            type: 'ADD_CARD',
-            laneId: 'BLOCKED',
-            card: {
-                id: 'Ec2Error',
-                title: 'EC2 Instance Down',
-                label: '30 mins',
-                description: 'Main EC2 instance down',
-            },
-        })
     }
 
     shouldReceiveNewData = (nextData) => {
@@ -204,7 +152,7 @@ class BoardTrello extends Component {
                 draggable
                 onDataChange={this.shouldReceiveNewData}
                 eventBusHandle={this.setEventBus}
-                handleDragStart={handleDragStart}
+                // handleDragStart={handleDragStart}
                 handleDragEnd={(cardId, sourceLaneId, targetLaneId) => {
                     let DataChange = {
                         id: cardId,                      

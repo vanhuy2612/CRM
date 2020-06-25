@@ -8,7 +8,7 @@ import { Form, Input, Button, } from 'antd';
 import { RollbackOutlined, HighlightOutlined, SendOutlined } from '@ant-design/icons';
 import Avatar from '../Components/Avatar'
 import { IconButton, Tooltip, CssBaseline, Drawer, Box, AppBar, Toolbar, List, Typography, Divider, Badge, Container, Grid } from '@material-ui/core';
-import { Login, Dashboard, Order, Customers, Reports, Activity, Products, Deals, Contacts, Accounts } from '../Components/ListItems';
+import { Login, Dashboard, Order, Customers, Reports, Products, Deals, Contacts, Accounts } from '../Components/ListItems';
 import axios from 'axios'
 const drawerWidth = 240;
 
@@ -125,31 +125,39 @@ class ViewMails extends Component {
     }
     // rent to order or dashboard or ...
     handleToOrders = (element) => {
-        this.props.history.push(`/Orders/${element}`)
+        const {user} = this.props.location.state
+        this.props.history.push(`/Orders/${user}`)
     }
     handleToCustomers = (element) => {
-        this.props.history.push(`/Customers/${element}`)
+        const {user} = this.props.location.state
+        this.props.history.push(`/Customers/${user}`)
     }
     handleToDashboard = (element) => {
-        this.props.history.push(`/Dashboard/${element}`)
+        const {user} = this.props.location.state
+        this.props.history.push(`/Dashboard/${user}`)
     }
     handleToDashReports = (element) => {
-        this.props.history.push(`/Reports/${element}`)
+        const {user} = this.props.location.state
+        this.props.history.push(`/Reports/${user}`)
     }
     handleToAccounts = (element) => {
-        this.props.history.push(`/Accounts/${element}`)
+        const {user} = this.props.location.state
+        this.props.history.push(`/Accounts/${user}`)
     }
-    handleToActivity = (element) => {
-        this.props.history.push(`/Activity/${element}`)
-    }
+    // handleToActivity = (element) => {
+    //     this.props.history.push(`/Activity/${element}`)
+    // }
     handleToProducts = (element) => {
-        this.props.history.push(`/Products/${element}`)
+        const {user} = this.props.location.state
+        this.props.history.push(`/Products/${user}`)
     }
     handleToDeals = (element) => {
-        this.props.history.push(`/Deals/${element}`)
+        const {user} = this.props.location.state
+        this.props.history.push(`/Deals/${user}`)
     }
     handleToContacts = (element) => {
-        this.props.history.push(`/Contacts/${element}`)
+        const {user} = this.props.location.state
+        this.props.history.push(`/Contacts/${user}`)
     }
     // Send Mail
     sendMail = element => {
@@ -180,7 +188,9 @@ class ViewMails extends Component {
         }
         const { open, subject, content } = this.state
         const { classes } = this.props
-        const { data } = this.props.location.state
+        // const {user} = this.props.location.user
+        const { data , user} = this.props.location.state
+        console.log('user', user)
         return (
             <div className={classes.root}>
                 <CssBaseline />
@@ -198,11 +208,6 @@ class ViewMails extends Component {
                         <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
                             Contatcs
                         </Typography>
-                        <IconButton color="inherit">
-                            <Badge badgeContent={4} color="secondary">
-                                <NotificationsIcon />
-                            </Badge>
-                        </IconButton>
                         <Avatar />
                     </Toolbar>
                 </AppBar>
@@ -228,7 +233,7 @@ class ViewMails extends Component {
                     <List onClick={this.handleToCustomers}>{Customers}</List>
                     <List onClick={this.handleToDashReports}>{Reports}</List>
                     <Divider />
-                    <List onClick={this.handleToActivity}>{Activity}</List>
+                    {/* <List onClick={this.handleToActivity}>{Activity}</List> */}
                     <List onClick={this.handleToProducts}>{Products}</List>
                     <List onClick={this.handleToDeals}>{Deals}</List>
                     <List onClick={this.handleToContacts}>{Contacts}</List>
@@ -243,7 +248,7 @@ class ViewMails extends Component {
                                 <div dangerouslySetInnerHTML={{ __html: data.html }} />
                             </Grid>
                             <Grid item xs={12} className={classes.ButtonMail}>
-                                <Button type="primary" icon={<RollbackOutlined />} size={'large'} onClick={(element) => this.props.history.push(`/Contacts/${element}`)}>
+                                <Button type="primary" icon={<RollbackOutlined />} size={'large'} onClick={this.handleToContacts}>
                                     Back
                                 </Button>
                                 <Button type="primary" icon={<HighlightOutlined />} size={'large'} style={{ marginLeft: 20 }}

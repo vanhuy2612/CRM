@@ -6,7 +6,6 @@ import GitHubIcon from '@material-ui/icons/GitHub'
 import FacebookIcon from '@material-ui/icons/Facebook'
 import TwitterIcon from '@material-ui/icons/Twitter'
 import Sidebar from '../Components/Sidebar'
-// import Map from './Map'
 const style = theme => ({
   footer: {
     backgroundColor: '#20c997',
@@ -29,7 +28,6 @@ const style = theme => ({
     color:'#6c757d'
   },
 })
-
 const sidebar = {
   social: [
     { name: 'GitHub', icon: GitHubIcon },
@@ -37,8 +35,6 @@ const sidebar = {
     { name: 'Facebook', icon: FacebookIcon },
   ],
 };
-
-
 class Footer extends Component {
   constructor(props) {
     super(props);
@@ -58,8 +54,8 @@ class Footer extends Component {
         <Col md="12" xs="12" className={classes.footer}>
           <Grid container className={classes.root} spacing={2} >
             <Grid item md={2} className={classes.service}>
-              <span style={{color: '#6c757d'}}>BITRIX</span>
-              <p>Bitrix24h</p>
+              <span style={{color: '#6c757d'}}>CRM Team</span>
+              <p>CRM Team</p>
               <p>Giá cả</p>
               <p>Giới thiệu</p>
               <p>Công cụ báo chí</p>
@@ -73,7 +69,7 @@ class Footer extends Component {
               <p>Video hướng dẫn</p>
               <p>Liên kết với bộ phận hỗ trợ</p>
               <p>Xếp lịch demo</p>
-              <p>Trang trạng thái Bitrix24</p> 
+              <p>Trang trạng thái CRM Team</p> 
             </Grid>
             <Grid item md={2} className={classes.service}>
               <span style={{color: '#6c757d'}}>TÀI NGUYÊN</span>

@@ -7,7 +7,7 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import Print from '@material-ui/icons/Print'
 import Avatar from '../Components/Avatar'
 import { IconButton, Tooltip, CssBaseline, Drawer, Box, AppBar, Toolbar, List, Typography, Divider, Badge, Container, Grid, Link } from '@material-ui/core';
-import { Login, Dashboard, Order, Customers, Reports, Activity, Products, Deals, Contacts, Accounts, Maketing } from '../Components/ListItems';
+import { Login, Dashboard, Order, Customers, Reports, Products, Deals, Contacts, Accounts, Maketing } from '../Components/ListItems';
 import TblCustomers from './TblOrders'
 import axios from 'axios'
 import _ from 'lodash'
@@ -125,31 +125,40 @@ class RecentOrder extends Component {
     window.location.reload()
   }
   handleToCustomers = (element) => {
-    this.props.history.push(`/Customers/${element}`)
+    let user = this.props.match.params.id
+    this.props.history.push(`/Customers/${user}`)
   }
   handleToDashboard = (element) => {
-    this.props.history.push(`/Dashboard/${element}`)
+    let user = this.props.match.params.id
+    this.props.history.push(`/Dashboard/${user}`)
   }
   handleToDashReports = (element) => {
-    this.props.history.push(`/Reports/${element}`)
+    let user = this.props.match.params.id
+    this.props.history.push(`/Reports/${user}`)
   }
   handleToAccounts = (element) => {
-    this.props.history.push(`/Accounts/${element}`)
+    let user = this.props.match.params.id
+    this.props.history.push(`/Accounts/${user}`)
   }
-  handleToActivity = (element) => {
-    this.props.history.push(`/Activity/${element}`)
-  }
+  // handleToActivity = (element) => {
+  //   let user = this.props.match.params.id
+  //   this.props.history.push(`/Activity/${user}`)
+  // }
   handleToProducts = (element) => {
-    this.props.history.push(`/Products/${element}`)
+    let user = this.props.match.params.id
+    this.props.history.push(`/Products/${user}`)
   }
   handleToDeals = (element) => {
-    this.props.history.push(`/Deals/${element}`)
+    let user = this.props.match.params.id
+    this.props.history.push(`/Deals/${user}`)
   }
   handleToContacts = (element) => {
-    this.props.history.push(`/Contacts/${element}`)
+    let user = this.props.match.params.id
+    this.props.history.push(`/Contacts/${user}`)
   }
   handleToMaketing = element => {
-    this.props.history.push(`/Maketing/${element}`)
+    let user = this.props.match.params.id
+    this.props.history.push(`/Maketing/${user}`)
   }
   // Print Table To Excel
   PrintTableToExcel = element => {
@@ -218,7 +227,7 @@ class RecentOrder extends Component {
           <List onClick={this.handleToDashReports}>{Reports}</List>
           <Divider />
           <List onClick={this.handleToMaketing}>{Maketing}</List>
-          <List onClick={this.handleToActivity}>{Activity}</List>
+          {/* <List onClick={this.handleToActivity}>{Activity}</List> */}
           <List onClick={this.handleToProducts}>{Products}</List>
           <List onClick={this.handleToDeals}>{Deals}</List>
           <List onClick={this.handleToContacts}>{Contacts}</List>

@@ -49,7 +49,7 @@ export default function PersistentDrawerRight(props) {
   const [open, setOpen] = React.useState(false);
 
   function handleDrawerOpen(element) {
-    props.link.history.push(`/Login/${element}`)
+    props.link.history.push(`/Login/login`)
   }
   function handleReloadMain(){
     props.link.history.push('/')
@@ -57,16 +57,16 @@ export default function PersistentDrawerRight(props) {
 
 
   function ChangePageIntroduce(element) {
-    props.link.history.push(`/Introduce/${element}`)
+    props.link.history.push(`/Introduce/Introduce`)
   }
   function ChangePageContactMain(element) {
-    props.link.history.push(`/ContactMain/${element}`)
+    props.link.history.push(`/ContactMain/ContactMain`)
   }
   function ChangePageInformationEvent(element) {
-    props.link.history.push(`/InformationEvent/${element}`)
+    props.link.history.push(`/InformationEvent/InformationEvent`)
   }
   function ChangePageActivityMain(element) {
-    props.link.history.push(`/ActivityMain/${element}`)
+    props.link.history.push(`/ActivityMain/ActivityMain`)
   }
 
   return (

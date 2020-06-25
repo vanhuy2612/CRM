@@ -17,13 +17,14 @@ class TblMailContacts extends Component {
                 icon: 'ViewColumn',
                 tooltip: 'View Email',
                 onClick: (event, rowData) => {
+                    const {user} = this.props
                     console.log('subject', rowData.subject)
                     let subject = rowData.subject
                     console.log('subject', subject)
                     this.props.link.history.push({
                         pathname: `/ViewMail/${subject}`,
                         search: '?query=abc',
-                        state: { data: rowData }
+                        state: { data: rowData, user: user },
                     })
                 }
             }

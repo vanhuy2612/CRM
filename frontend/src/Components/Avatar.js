@@ -41,9 +41,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function BadgeAvatars() {
+export default function BadgeAvatars(props) {
   const classes = useStyles();
-
+  
   return (
     <div className={classes.root}>
       <StyledBadge
@@ -54,7 +54,7 @@ export default function BadgeAvatars() {
         }}
         variant="dot"
       >
-        <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+        <Avatar alt="Remy Sharp" src={props.data} />
       </StyledBadge>
     </div>
   );

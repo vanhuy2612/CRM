@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import MaterialTable from 'material-table';
 import axios from 'axios'
 import _ from 'lodash'
-
 class TblAccounts extends Component {
     constructor(props) {
         super(props)
@@ -20,8 +19,6 @@ class TblAccounts extends Component {
             { title: 'Thay đổi gần nhất', field: 'createdAt', type: 'Date' },
         ]
     }
-
-
     render() {
         const { columns } = this
         const { data } = this.props
@@ -39,8 +36,6 @@ class TblAccounts extends Component {
                                 if (oldData) {
                                     let token = localStorage.getItem('token')
                                     axios.defaults.headers.common['Authorization'] = token;
-
-                                   
                                     let URLUpdateMember = process.env.REACT_APP_BASE_URL + '/api/member/' + oldData.id;
                                     let response = await (axios.put(URLUpdateMember, newData))
                                     let dataUpdated = _.get(response, "data", [])
@@ -55,8 +50,6 @@ class TblAccounts extends Component {
                                 resolve();
                                     let token = localStorage.getItem('token')
                                     axios.defaults.headers.common['Authorization'] = token;
-
-                                   
                                     let URLDeleteWorkon = process.env.REACT_APP_BASE_URL + '/api/member/' + oldData.id;
                                     let dataMaketing = await (axios.delete(URLDeleteWorkon))
                                     let data = _.get(dataMaketing, "data", [])

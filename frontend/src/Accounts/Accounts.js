@@ -3,18 +3,15 @@ import clsx from 'clsx';
 import { withStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import NotificationsIcon from '@material-ui/icons/Notifications';
 import Print from '@material-ui/icons/Print'
 import Avatar from '../Components/Avatar'
-import { IconButton, Tooltip, CssBaseline, Drawer, Box, AppBar, Toolbar, List, Typography, Divider, Badge, Container, Grid, Link } from '@material-ui/core';
-import { Login, Dashboard, Order, Customers, Reports, Activity, Products, Deals, Contacts, Accounts, Maketing } from '../Components/ListItems';
+import { IconButton, Tooltip, CssBaseline, Drawer, Box, AppBar, Toolbar, List, Typography, Divider, Container, Grid, Link } from '@material-ui/core';
+import { Login, Dashboard, Order, Customers, Reports, Products, Deals, Contacts, Accounts, Maketing } from '../Components/ListItems';
 import axios from 'axios'
 import _ from 'lodash'
 import TableToExcel from '@linways/table-to-excel'
 import TblAccounts from './TblAccounts'
-
 const drawerWidth = 240;
-
 const styles = theme => ({
   root: {
     display: 'flex',
@@ -102,7 +99,6 @@ class RecentOrder extends Component {
       dataUser: [],
     }
   }
-
   handleDrawerOpen = () => {
     this.setState({
       open: true
@@ -113,41 +109,49 @@ class RecentOrder extends Component {
       open: false
     })
   };
-
   // login 
   handleLogOut = () => {
     this.props.history.push('/')
   }
   // rent to order or dashboard or ...
   handleToOrders = (element) => {
-    this.props.history.push(`/Orders/${element}`)
+    let user = this.props.match.params.id
+    this.props.history.push(`/Orders/${user}`)
   }
   handleToCustomers = (element) => {
-    this.props.history.push(`/Customers/${element}`)
+    let user = this.props.match.params.id
+    this.props.history.push(`/Customers/${user}`)
   }
   handleToDashboard = (element) => {
-    this.props.history.push(`/Dashboard/${element}`)
+    let user = this.props.match.params.id
+    this.props.history.push(`/Dashboard/${user}`)
   }
   handleToDashReports = (element) => {
-    this.props.history.push(`/Reports/${element}`)
+    let user = this.props.match.params.id
+    this.props.history.push(`/Reports/${user}`)
   }
   handleToAccounts = (element) => {
     window.location.reload()
   }
-  handleToActivity = (element) => {
-    this.props.history.push(`/Activity/${element}`)
-  }
+  // handleToActivity = (element) => {
+  //   let user = this.props.match.params.id
+  //   this.props.history.push(`/Activity/${user}`)
+  // }
   handleToProducts = (element) => {
-    this.props.history.push(`/Products/${element}`)
+    let user = this.props.match.params.id
+    this.props.history.push(`/Products/${user}`)
   }
   handleToDeals = (element) => {
-    this.props.history.push(`/Deals/${element}`)
+    let user = this.props.match.params.id
+    this.props.history.push(`/Deals/${user}`)
   }
   handleToContacts = (element) => {
-    this.props.history.push(`/Contacts/${element}`)
+    let user = this.props.match.params.id
+    this.props.history.push(`/Contacts/${user}`)
   }
   handleToMaketing = element => {
-    this.props.history.push(`/Maketing/${element}`)
+    let user = this.props.match.params.id
+    this.props.history.push(`/Maketing/${user}`)
   }
   // Print Table To Excel
   PrintTableToExcel = element => {
@@ -156,9 +160,9 @@ class RecentOrder extends Component {
       name: 'Account.xlsx'
     })
   }
-
   // lấy data order
-  async componentDidMount() {
+  async componentDidMount(props) {
+    let user = this.props.match.params.id
     let token = localStorage.getItem('token')
     axios.defaults.headers.common['Authorization'] = token;
     let URL = process.env.REACT_APP_BASE_URL + '/api/member/';
@@ -166,12 +170,16 @@ class RecentOrder extends Component {
     let data = _.get(dataCustomer, "data", [])
     for (let i = 0; i < data.length; i++) {
       data[i].role = data[i].role.name
+      if(data[i].username = user){
+        this.setState({
+          urlAvatar: data[i].urlImage
+        })
+      }
     }
-    console.log('data', data)
     this.setState({ dataUser: data })
   }
   render() {
-    const { open } = this.state
+    const { open , urlAvatar} = this.state
     const { classes } = this.props
     return (
       <div className={classes.root}>
@@ -190,7 +198,7 @@ class RecentOrder extends Component {
             <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
               Accounts
             </Typography>
-            <Avatar />
+            <Avatar data = {urlAvatar} />
           </Toolbar>
         </AppBar>
         <Drawer
@@ -216,7 +224,7 @@ class RecentOrder extends Component {
           <List onClick={this.handleToDashReports}>{Reports}</List>
           <Divider />
           <List onClick={this.handleToMaketing}>{Maketing}</List>
-          <List onClick={this.handleToActivity}>{Activity}</List>
+          {/* <List onClick={this.handleToActivity}>{Activity}</List> */}
           <List onClick={this.handleToProducts}>{Products}</List>
           <List onClick={this.handleToDeals}>{Deals}</List>
           <List onClick={this.handleToContacts}>{Contacts}</List>
@@ -245,5 +253,4 @@ class RecentOrder extends Component {
     );
   }
 }
-
 export default withStyles(styles)(RecentOrder);

@@ -3,10 +3,9 @@ import clsx from 'clsx';
 import { withStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import NotificationsIcon from '@material-ui/icons/Notifications';
 import Avatar from '../Components/Avatar'
 import {IconButton, Tooltip, CssBaseline, Drawer,Box, AppBar,Toolbar, List, Typography,Divider, Badge, Container, Grid, Link} from '@material-ui/core';
-import { Login, Dashboard, Order, Customers, Reports, Activity, Products, Deals, Contacts, Accounts, Maketing } from '../Components/ListItems';
+import { Login, Dashboard, Order, Customers, Reports, Products, Deals, Contacts, Accounts, Maketing } from '../Components/ListItems';
 import axios from 'axios'
 import _ from 'lodash'
 import TblMailContacts from './TblMailContacts'
@@ -121,34 +120,43 @@ class RecentContatcs extends Component {
     }
     // rent to order or dashboard or ...
     handleToOrders = (element) => {
-        this.props.history.push(`/Orders/${element}`)
+        let user = this.props.match.params.id
+        this.props.history.push(`/Orders/${user}`)
     }
     handleToCustomers = (element) => {
-        this.props.history.push(`/Customers/${element}`)
+        let user = this.props.match.params.id
+        this.props.history.push(`/Customers/${user}`)
     }
     handleToDashboard = (element) => {
-        this.props.history.push(`/Dashboard/${element}`)
+        let user = this.props.match.params.id
+        this.props.history.push(`/Dashboard/${user}`)
     }
     handleToDashReports = (element) => {
-        this.props.history.push(`/Reports/${element}`)
+        let user = this.props.match.params.id
+        this.props.history.push(`/Reports/${user}`)
     }
     handleToAccounts = (element) => {
-        this.props.history.push(`/Accounts/${element}`)
+        let user = this.props.match.params.id
+        this.props.history.push(`/Accounts/${user}`)
     }
-    handleToActivity = (element) => {
-        this.props.history.push(`/Activity/${element}`)
-    }
+    // handleToActivity = (element) => {
+    //     let user = this.props.match.params.id
+    //     this.props.history.push(`/Activity/${user}`)
+    // }
     handleToProducts = (element) => {
-        this.props.history.push(`/Products/${element}`)
+        let user = this.props.match.params.id
+        this.props.history.push(`/Products/${user}`)
     }
     handleToDeals = (element) => {
-        this.props.history.push(`/Deals/${element}`)
+        let user = this.props.match.params.id
+        this.props.history.push(`/Deals/${user}`)
     }
     handleToContacts = (element) => {
         window.location.reload()
     }
     handleToMaketing = element => {
-        this.props.history.push(`/Maketing/${element}`)
+        let user = this.props.match.params.id
+        this.props.history.push(`/Maketing/${user}`)
       }
     // lấy data order
     async componentDidMount() {
@@ -206,7 +214,7 @@ class RecentContatcs extends Component {
                     <List onClick={this.handleToDashReports}>{Reports}</List>
                     <Divider />
                     <List onClick={this.handleToMaketing}>{Maketing}</List>
-                    <List onClick={this.handleToActivity}>{Activity}</List>
+                    {/* <List onClick={this.handleToActivity}>{Activity}</List> */}
                     <List onClick={this.handleToProducts}>{Products}</List>
                     <List onClick={this.handleToDeals}>{Deals}</List>
                     <List onClick={this.handleToContacts}>{Contacts}</List>
@@ -218,7 +226,7 @@ class RecentContatcs extends Component {
                         <Grid container spacing={3}>
                             {/* Recent Orders */}
                             <Grid item xs={12}>
-                                <TblMailContacts data={this.state.dataMail}  link={this.props}/>
+                                <TblMailContacts data={this.state.dataMail}  link={this.props} user = {this.props.match.params.id}/>
                             </Grid>
                         </Grid>
                     </Container>
