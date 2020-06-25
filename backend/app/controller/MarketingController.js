@@ -63,6 +63,7 @@ class MarketingController extends BaseController {
 
         let data = req.body;
         data.id = newId;
+        data.branchId = process.env.BRANCH_ID
         //link image
         data.urlImage = `http://${process.env.HOST}:${process.env.PORT}/${req.file.filename}`
 
@@ -175,6 +176,38 @@ class MarketingController extends BaseController {
         let deletedCus = await db.marketingdetails.destroy({ where: data});
         if(deletedCus !=0) res.json({ message: "Delete successfully", deletedCus: data.customerId});
         else res.json({message: "Faild"})
+    }
+    async addMemberToMarketing(req, res, next) {
+        let message = {
+            memExist: [],
+            memInserted: []
+        }
+        let marketingId = req.body.marketingId
+        let membersId = req.body.membersId
+        // loại bỏ phần tử trùng nhau: 
+        membersId = membersId.filter((item, index) => {
+            return membersId.indexOf(item) === index
+        })
+        console.log('membersId: ', membersId)
+
+        // Insert to table marketingdetails
+       
+        for (let i = 0; i < membersId.length; i++) {
+            let data = {
+                marketingId: marketingId,
+                memberId: membersId[i]
+            }
+            // check marketingdetails exist:
+            let workonExist = await db.workons.findAll({ where: data })
+            if (workonExist.length == 0) {
+                let insertedWorkonDetail = await db.workons.create(data)
+                message.memInserted.push(membersId[i])
+            } else {
+                message.memExist.push(membersId[i])
+            }
+            console.log(message)
+        };
+        res.json({ status: "Add Member Successfully", message: message })
     }
 }
 

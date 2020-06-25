@@ -5,12 +5,15 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import Avatar from '../Components/Avatar'
-import {IconButton, Tooltip, CssBaseline, Drawer, AppBar,Toolbar, List, Typography,Divider, Badge, Container, Grid, Link} from '@material-ui/core';
+import { IconButton, Tooltip, CssBaseline, Drawer, AppBar, Toolbar, List, Typography, Divider, Badge, Container, Grid, Link } from '@material-ui/core';
 import { Login, Dashboard, Order, Customers, Reports, Activity, Products, Deals, Contacts, Accounts, Maketing } from '../Components/ListItems';
 import axios from 'axios'
 import _ from 'lodash'
 import TblMaketing from './TblMaketing'
 import BoardTrello from './BoardTrello'
+import FormAddMarketing from './component/FormAddMarketing'
+import AddIcon from '@material-ui/icons/Add'
+
 const drawerWidth = 240;
 
 const styles = theme => ({
@@ -98,9 +101,10 @@ class RecentMaketing extends Component {
     this.state = {
       open: true,
       dataMaketing: [],
+      showFormAddMarketing: true
     }
   }
-
+ 
   handleDrawerOpen = () => {
     this.setState({
       open: true
@@ -162,7 +166,7 @@ class RecentMaketing extends Component {
     this.setState({
       dataMaketing: data
     })
-}
+  }
   render() {
     const { open } = this.state
     const { classes } = this.props
@@ -219,15 +223,24 @@ class RecentMaketing extends Component {
           <div className={classes.appBarSpacer} />
           <Container maxWidth="lg" className={classes.container}>
             <Grid container spacing={3}>
-              {/* Recent Orders */}
-              {/* <Grid item xs={12}>
-                 <TblMaketing data={this.state.dataMaketing} />
-              </Grid> */}
+              {/* Form Add Marketing */}
               <Grid item xs={12}>
-                 <BoardTrello 
-                  data={this.state.dataMaketing} 
+                <Tooltip title="Add Marketing">
+                  <IconButton onClick={() => this.setState({ showFormAddMarketing: !this.state.showFormAddMarketing })}>
+                    <AddIcon />
+                  </IconButton>
+                </Tooltip>
+                <Grid item xs={12} hidden={this.state.showFormAddMarketing}>
+                  <FormAddMarketing />
+                </Grid>
+              </Grid>
+              {/* ------------------- */}
+              {/* List of Marketing */}
+              <Grid item xs={12}>
+                <BoardTrello
+                  data={this.state.dataMaketing}
                   link={this.props}
-                 />
+                />
               </Grid>
             </Grid>
           </Container>

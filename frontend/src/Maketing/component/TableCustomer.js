@@ -5,7 +5,12 @@ import { Form, Input, Button, } from 'antd';
 import { RollbackOutlined, HighlightOutlined, SendOutlined } from '@ant-design/icons'
 import axios from 'axios'
 import { withStyles } from '@material-ui/core/styles'
+import { Select } from 'antd';
+import 'antd/dist/antd.css';
+import _ from 'lodash'
 
+
+const { Option } = Select;
 const drawerWidth = 240;
 const styles = theme => ({
     root: {
@@ -94,12 +99,22 @@ const styles = theme => ({
 class TblCustomers extends Component {
     constructor(props) {
         super(props)
-        this.showSendMailForm = this.showSendMailForm.bind(this);
-        this.sendMail = this.sendMail.bind(this);
-
+        this.showSendMailForm = this.showSendMailForm.bind(this)
+        this.sendMail = this.sendMail.bind(this)
+        this.onAddCustomerToMarketing = this.onAddCustomerToMarketing.bind(this)
+        this.handleChange = this.handleChange.bind(this)
         this.state = {
             open: true,
-            display: true
+            display: true,
+            // -----------------------
+            optionsCustomer: [
+                { id: 1, name: 'Apples' },
+                { id: 2, name: 'Nails' },
+                { id: 3, name: 'Bananas' },
+                { id: 4, name: 'Helicopters' }
+            ],
+            selectedCustomer: []
+            // --------------------------
         }
         this.columns = [
             { title: 'Avatar', field: 'urlImage', type: "String", render: rowData => <img src={rowData.urlImage} style={{ width: 50, borderRadius: '50%' }} /> },
@@ -113,6 +128,45 @@ class TblCustomers extends Component {
             { title: 'Ngày tạo', field: 'createdAt', type: 'Date' },
             { title: 'Thay đổi gần nhất', field: 'createdAt', type: 'Date' },
         ]
+    }
+    async getAllCustomer() {
+        let token = localStorage.getItem('token')
+        axios.defaults.headers.common['Authorization'] = token;
+        let URLGetAllCustomer = process.env.REACT_APP_BASE_URL + '/api/customer';
+        let listCus = await axios.get(URLGetAllCustomer)
+        let data = _.get(listCus, 'data', []);
+        this.setState({
+            optionsCustomer: data
+        })
+    }
+    // Hàm lắng nghe sự kiện onclick
+    onAddCustomerToMarketing(){
+        let marketingId = this.props.data[0]["id"]
+        console.log(marketingId)
+        this.addCustomerToMarketing(this.state.selectedCustomer, marketingId)
+    }
+    // hàm thực thi thêm khách hàng vào marketing
+    async addCustomerToMarketing(listCustomer, marketingId) {
+        let token = localStorage.getItem('token')
+        axios.defaults.headers.common['Authorization'] = token;
+        let URLGetAllCustomer = process.env.REACT_APP_BASE_URL + '/api/marketing/addcustomer';
+        let dataInsert = {
+            marketingId: marketingId,
+            customersId: listCustomer
+        }
+        let listCus = await axios.post(URLGetAllCustomer, dataInsert)
+        let data = _.get(listCus, 'data', []);
+        console.log(data)
+        window.location.reload()
+    }
+    componentDidMount() {
+        this.getAllCustomer()
+    }
+    handleChange(value) {
+        console.log(value);
+        this.setState({
+            selectedCustomer: value
+        })
     }
     // Send Mail
     sendMail = element => {
@@ -139,6 +193,9 @@ class TblCustomers extends Component {
         })
     }
     render() {
+        // ------------------------
+
+        //--------------------------
         const layout = {
             labelCol: { span: 8 },
             wrapperCol: { span: 16 },
@@ -168,11 +225,40 @@ class TblCustomers extends Component {
             })
 
         })
-        console.log("customers:", customers)
-        console.log("list email:", listEmail)
+        // console.log("customers:", customers)
+        // console.log("list email:", listEmail)
 
         return (
             <>
+                <Grid item xs={12}>
+                    <Select
+                        mode="multiple"
+                        style={{ width: '100%' }}
+                        placeholder="choose customer"
+                        // defaultValue={""}
+                        onChange={this.handleChange}
+                        optionLabelProp="label"
+                    >
+                        {
+                            this.state.optionsCustomer.map((value, index) => {
+                                return (
+                                    <Option value={value.id} label={value.name}>
+                                        <div className="demo-option-label-item">
+                                            <span role="img" aria-label={value.name}>
+                                                {value.id}
+                                            </span>
+                                            {value.name}
+                                        </div>
+                                    </Option>
+                                )
+                            })
+                        }
+                    </Select>
+                    <Button type="primary" icon={<SendOutlined />} size={'large'} onClick={this.onAddCustomerToMarketing}>
+                        Store
+                    </Button>
+                </Grid>
+
                 <MaterialTable
                     title="Danh sách các khách hàng trong chiến dịch Marketing:"
                     columns={columns}

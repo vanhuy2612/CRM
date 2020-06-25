@@ -100,7 +100,11 @@ class BoardTrello extends Component {
 
     render() {
         const { data } = this.props
-        const { dataStart, dataDoing, dataComplete, dataExprired, dataLose } = this.state
+        const dataStart = []
+        const dataDoing = []
+        const dataComplete = []
+        const dataExprired = []
+        const dataLose = []
         if (data) {
             // data Start
             data.map((element, index) => {

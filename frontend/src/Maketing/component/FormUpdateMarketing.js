@@ -3,6 +3,8 @@ import { withStyles } from '@material-ui/core/styles'
 import { IconButton, Tooltip, CssBaseline, Drawer, Box, AppBar, Toolbar, List, Typography, Divider, Badge, Container, Grid } from '@material-ui/core';
 import { Form, Input, Button, } from 'antd';
 import { RollbackOutlined, HighlightOutlined, SendOutlined } from '@ant-design/icons';
+import axios from 'axios'
+import _ from 'lodash'
 
 const styles = theme => ({
     grid: {
@@ -19,30 +21,32 @@ const styles = theme => ({
 class FormUpdateMarketing extends Component {
     constructor(props) {
         super(props)
+        this.UpdateDetailMarketing = this.UpdateDetailMarketing.bind(this)
+        this.UpdateMarketing = this.UpdateMarketing.bind(this)
         this.state = {
         }
     }
-    UpdateDetailMarketing = element =>{
+    UpdateDetailMarketing(element){
         const {data} = this.props
         const  {subject, name, type, contents, startDate, endDate, status} = this.state
-        let select = []
-        select.push({   subject : subject,
-                        name: name, 
-                        type: type, 
-                        contents: contents, 
-                        startDate: startDate, 
-                        endDate : endDate, 
-                        status : status })
-        select.map((e) => {
-            console.log('element', e)
-            if(element == 'undefined'){
-                console.log(`${element} undefined`)
-            } else {
-                    // console.log(data[0])
-                    data[0].push({...element, e: e})
-            }
-        })
+       
+        let select = this.state
+        select.id = data[0].id       
+                    
+        // console.log(select)
+        this.UpdateMarketing(select)
+    }
+    async UpdateMarketing(data){
         console.log(data)
+        let token = localStorage.getItem('token')
+        axios.defaults.headers.common['Authorization'] = token;
+        let URL = process.env.REACT_APP_BASE_URL + '/api/marketing/' + data.id;
+        let dataCustomer = await (axios.put(URL, data))
+        let dataRecive = _.get(dataCustomer, "data", [])
+        
+        if(dataRecive.errors != undefined) {
+            console.log(dataRecive)           
+        } else window.location.reload()
     }
     render() {
         const layout = {
