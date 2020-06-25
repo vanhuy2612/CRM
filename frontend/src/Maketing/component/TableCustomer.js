@@ -264,20 +264,34 @@ class TblCustomers extends Component {
                     columns={columns}
                     data={customers}
                     editable={{
+                        // cập nhật thông tin khách hàng
                         onRowUpdate: (newData, oldData) =>
                             new Promise((resolve) => {
                                 setTimeout(() => {
                                     resolve();
                                     if (oldData) {
-                                        console.log('Chưa có api update customer')
+                                        console.log("new data:", newData)
                                     }
                                 }, 600);
                             }),
+                        // xóa khách hàng khỏi chiếm lược marketing:
                         onRowDelete: (oldData) =>
-                            new Promise((resolve) => {
-                                setTimeout(() => {
+                            new Promise( (resolve) => {
+                                setTimeout( async () => {
                                     resolve();
-                                    console.log('Chưa có api delete customer')
+                                    let token = localStorage.getItem('token')
+                                    axios.defaults.headers.common['Authorization'] = token;
+
+                                    let payload = {
+                                        marketingId: this.props.data[0]["id"],
+                                        customerId: oldData.id
+                                    }
+                                    console.log(payload)
+                                    let URLDeleteDetail = process.env.REACT_APP_BASE_URL + '/api/marketing/removecustomer';
+                                    let dataMaketing = await (axios.delete(URLDeleteDetail, {data:payload}))
+                                    let data = _.get(dataMaketing, "data", [])
+                                    if (data.errors != undefined) console.log(data)
+                                    else window.location.reload()
                                 }, 600);
                             }),
                     }}

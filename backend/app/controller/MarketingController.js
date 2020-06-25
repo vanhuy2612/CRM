@@ -172,9 +172,10 @@ class MarketingController extends BaseController {
     }
     async removeCustomerFromMarketing( req, res, next){
         
-        let data = req.body
-        let deletedCus = await db.marketingdetails.destroy({ where: data});
-        if(deletedCus !=0) res.json({ message: "Delete successfully", deletedCus: data.customerId});
+        let payload = req.body
+        console.log("payload:",payload)
+        let deletedCus = await db.marketingdetails.destroy({ where: payload});
+        if(deletedCus !=0) res.json({ message: "Delete successfully", deletedCus: payload.customerId});
         else res.json({message: "Faild"})
     }
     async addMemberToMarketing(req, res, next) {
