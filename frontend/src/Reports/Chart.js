@@ -29,7 +29,7 @@ class image extends Component {
 	if(data){
 		data.map((element) =>{
 			dataTotalReturn.push({
-				label: `tháng${element.month}`,
+				label: `tháng ${element.month}`,
 				y: element.total
 			})
 		})

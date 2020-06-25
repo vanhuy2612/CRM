@@ -170,6 +170,7 @@ class MarketingController extends BaseController {
         };
         res.json({ status: "Add Customer Successfully", message: message })
     }
+    // xoa khach hang khoi chien dich marketing
     async removeCustomerFromMarketing( req, res, next){
         
         let payload = req.body
@@ -178,6 +179,7 @@ class MarketingController extends BaseController {
         if(deletedCus !=0) res.json({ message: "Delete successfully", deletedCus: payload.customerId});
         else res.json({message: "Faild"})
     }
+    // them khach hang vao chien dich marketing
     async addMemberToMarketing(req, res, next) {
         let message = {
             memExist: [],
@@ -209,6 +211,15 @@ class MarketingController extends BaseController {
             console.log(message)
         };
         res.json({ status: "Add Member Successfully", message: message })
+    }
+    // Delete member from Marketing:
+    async removeMemberFromMarketing( req, res, next){
+        
+        let payload = req.body
+        console.log("payload:",payload)
+        let deletedMem = await db.workons.destroy({ where: payload});
+        if(deletedMem !=0) res.json({ message: "Delete successfully", deletedMem: payload.memberId});
+        else res.json({message: "Faild"})
     }
 }
 

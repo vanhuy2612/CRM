@@ -189,12 +189,22 @@ class TblAccounts extends Component {
                             this.state.optionsMember.map((value, index) => {
                                 return (
                                     <Option value={value.id} label={value.name}>
-                                        <div className="demo-option-label-item">
-                                            <span role="img" aria-label={value.name}>
-                                                {value.id}
-                                            </span>
-                                            {value.name}
-                                        </div>
+                                        <Grid container spacing={0} className="demo-option-label-item">
+                                            <Grid item xs={3}>
+                                                <span role="img" aria-label={value.name}>
+                                                    id: {value.id}
+                                                </span>
+                                            </Grid>
+                                            <Grid item xs={3}>
+                                                <img src={value.urlImage} style={{ height: 50, width: 50 }} />
+                                            </Grid>
+                                            <Grid item xs={3}>
+                                                Name: {value.name}
+                                            </Grid>
+                                            <Grid item xs={3}>
+                                                Positon: {value.position}
+                                            </Grid>
+                                        </Grid>
                                     </Option>
                                 )
                             })
@@ -220,9 +230,21 @@ class TblAccounts extends Component {
                             }),
                         onRowDelete: (oldData) =>
                             new Promise((resolve) => {
-                                setTimeout(() => {
+                                setTimeout( async () => {
                                     resolve();
-                                    console.log('Chưa có api delete ')
+                                    let token = localStorage.getItem('token')
+                                    axios.defaults.headers.common['Authorization'] = token;
+
+                                    let payload = {
+                                        marketingId: this.props.data[0]["id"],
+                                        memberId: oldData.id
+                                    }
+                                    console.log(payload)
+                                    let URLDeleteWorkon = process.env.REACT_APP_BASE_URL + '/api/marketing/removemember';
+                                    let dataMaketing = await (axios.delete(URLDeleteWorkon, {data:payload}))
+                                    let data = _.get(dataMaketing, "data", [])
+                                    if (data.errors != undefined) console.log(data)
+                                    else window.location.reload()
                                 }, 600);
                             }),
                     }}

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import MaterialTable from 'material-table';
+import axios from 'axios'
+import _ from 'lodash'
 
 class TblCustomers extends Component {
     constructor(props) {
@@ -30,18 +32,34 @@ class TblCustomers extends Component {
                 editable={{
                     onRowUpdate: (newData, oldData) =>
                         new Promise((resolve) => {
-                            setTimeout(() => {
+                            setTimeout(async () => {
                                 resolve();
                                 if (oldData) {
-                                    console.log('Chưa có api update customer')
+                                    let token = localStorage.getItem('token')
+                                    axios.defaults.headers.common['Authorization'] = token;
+
+                                   
+                                    let URLUpdateCustomer = process.env.REACT_APP_BASE_URL + '/api/customer/' + oldData.id;
+                                    let response = await (axios.put(URLUpdateCustomer, newData))
+                                    let dataUpdated = _.get(response, "data", [])
+                                    if (dataUpdated.errors != undefined) console.log(dataUpdated)
+                                    else window.location.reload()
                                 }
                             }, 600);
                         }),
                     onRowDelete: (oldData) =>
                         new Promise((resolve) => {
-                            setTimeout(() => {
+                            setTimeout( async () => {
                                 resolve();
-                                console.log('Chưa có api delete customer')
+                                    let token = localStorage.getItem('token')
+                                    axios.defaults.headers.common['Authorization'] = token;
+
+                                   
+                                    let URLDeleteCustomer = process.env.REACT_APP_BASE_URL + '/api/customer/' + oldData.id;
+                                    let dataMaketing = await (axios.delete(URLDeleteCustomer))
+                                    let data = _.get(dataMaketing, "data", [])
+                                    if (data.errors != undefined) console.log(data)
+                                    else window.location.reload()
                             }, 600);
                         }),
                 }}

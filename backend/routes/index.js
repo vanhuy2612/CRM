@@ -114,6 +114,8 @@ router.group('/api', router => {
         router.delete('/removecustomer', [PermissonMiddleware('RemoveCustomerToMarketing')], MarketingController.removeCustomerFromMarketing)
         router.post('/addcustomer', [PermissonMiddleware('AddCustomerToMarketing')], MarketingController.addCustomerToMarketing)
         router.post('/addmember', [PermissonMiddleware('AddMemberToMarketing')], MarketingController.addMemberToMarketing)
+        router.delete('/removemember', [PermissonMiddleware('RemoveMemberToMarketing')], MarketingController.removeMemberFromMarketing)
+
     })
 }).middleware([AuthMiddleware])
 

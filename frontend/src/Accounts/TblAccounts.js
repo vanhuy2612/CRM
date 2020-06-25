@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import MaterialTable from 'material-table';
+import axios from 'axios'
+import _ from 'lodash'
 
 class TblAccounts extends Component {
     constructor(props) {
@@ -32,18 +34,34 @@ class TblAccounts extends Component {
                 editable={{
                     onRowUpdate: (newData, oldData) =>
                         new Promise((resolve) => {
-                            setTimeout(() => {
+                            setTimeout(async () => {
                                 resolve();
                                 if (oldData) {
-                                    console.log('Chưa có api update')
+                                    let token = localStorage.getItem('token')
+                                    axios.defaults.headers.common['Authorization'] = token;
+
+                                   
+                                    let URLUpdateMember = process.env.REACT_APP_BASE_URL + '/api/member/' + oldData.id;
+                                    let response = await (axios.put(URLUpdateMember, newData))
+                                    let dataUpdated = _.get(response, "data", [])
+                                    if (dataUpdated.errors != undefined) console.log(dataUpdated)
+                                    else window.location.reload()
                                 }
                             }, 600);
                         }),
                     onRowDelete: (oldData) =>
                         new Promise((resolve) => {
-                            setTimeout(() => {
+                            setTimeout( async () => {
                                 resolve();
-                                console.log('Chưa có api delete ')
+                                    let token = localStorage.getItem('token')
+                                    axios.defaults.headers.common['Authorization'] = token;
+
+                                   
+                                    let URLDeleteWorkon = process.env.REACT_APP_BASE_URL + '/api/member/' + oldData.id;
+                                    let dataMaketing = await (axios.delete(URLDeleteWorkon))
+                                    let data = _.get(dataMaketing, "data", [])
+                                    if (data.errors != undefined) console.log(data)
+                                    else window.location.reload()
                             }, 600);
                         }),
                 }}

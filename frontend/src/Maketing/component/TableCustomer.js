@@ -140,7 +140,7 @@ class TblCustomers extends Component {
         })
     }
     // Hàm lắng nghe sự kiện onclick
-    onAddCustomerToMarketing(){
+    onAddCustomerToMarketing() {
         let marketingId = this.props.data[0]["id"]
         console.log(marketingId)
         this.addCustomerToMarketing(this.state.selectedCustomer, marketingId)
@@ -189,7 +189,7 @@ class TblCustomers extends Component {
     // Click send mail to show sendmail form:
     showSendMailForm() {
         this.setState({
-            display: false
+            display: !this.state.display
         })
     }
     render() {
@@ -242,14 +242,26 @@ class TblCustomers extends Component {
                         {
                             this.state.optionsCustomer.map((value, index) => {
                                 return (
+
                                     <Option value={value.id} label={value.name}>
-                                        <div className="demo-option-label-item">
-                                            <span role="img" aria-label={value.name}>
-                                                {value.id}
-                                            </span>
-                                            {value.name}
-                                        </div>
+                                        <Grid container spacing={0} className="demo-option-label-item">
+                                            <Grid item xs={3}>
+                                                <span role="img" aria-label={value.name}>
+                                                    id: {value.id}
+                                                </span>
+                                            </Grid>
+                                            <Grid item xs={3}>
+                                                <img src={value.urlImage} style={{ height: 50, width: 50 }} />
+                                            </Grid>
+                                            <Grid item xs={3}>
+                                                Name: {value.name}
+                                            </Grid>
+                                            <Grid item xs={3}>
+                                                Type: {value.type}
+                                            </Grid>
+                                        </Grid>
                                     </Option>
+
                                 )
                             })
                         }
@@ -276,8 +288,8 @@ class TblCustomers extends Component {
                             }),
                         // xóa khách hàng khỏi chiếm lược marketing:
                         onRowDelete: (oldData) =>
-                            new Promise( (resolve) => {
-                                setTimeout( async () => {
+                            new Promise((resolve) => {
+                                setTimeout(async () => {
                                     resolve();
                                     let token = localStorage.getItem('token')
                                     axios.defaults.headers.common['Authorization'] = token;
@@ -288,7 +300,7 @@ class TblCustomers extends Component {
                                     }
                                     console.log(payload)
                                     let URLDeleteDetail = process.env.REACT_APP_BASE_URL + '/api/marketing/removecustomer';
-                                    let dataMaketing = await (axios.delete(URLDeleteDetail, {data:payload}))
+                                    let dataMaketing = await (axios.delete(URLDeleteDetail, { data: payload }))
                                     let data = _.get(dataMaketing, "data", [])
                                     if (data.errors != undefined) console.log(data)
                                     else window.location.reload()
