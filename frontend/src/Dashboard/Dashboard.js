@@ -3,7 +3,6 @@ import clsx from 'clsx';
 import { withStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import NotificationsIcon from '@material-ui/icons/Notifications';
 import Avatar from '../Components/Avatar'
 import { IconButton, Tooltip, CssBaseline, Drawer, Box, AppBar, Toolbar, List, Typography, Divider, Badge, Container, Grid, Link, Paper } from '@material-ui/core';
 import { Login, Dashboard, Order, Customers, Reports, Products, Deals, Contacts, Accounts, Maketing } from '../Components/ListItems';
@@ -165,6 +164,21 @@ class DashboardToday extends Component {
 
   // get data thống kê doang thu theo khách hàng trong ngày and thống kê doanh thu trong ngày
   async componentDidMount() {
+    // get data urlAvatar
+    let user = this.props.match.params.id
+    let token = localStorage.getItem('token')
+    axios.defaults.headers.common['Authorization'] = token;
+    let URLUser = process.env.REACT_APP_BASE_URL + '/api/member/';
+    let dataUser = await (axios.get(URLUser))
+    let dataAvatar = _.get(dataUser, "data", [])
+    for (let i = 0; i < dataAvatar.length; i++) {
+      if(dataAvatar[i].username = user){
+        this.setState({
+          urlAvatar: dataAvatar[i].urlImage
+        })
+      }
+    }
+
     let SumOrderToday = 0
     let dataCharts = []
     let lenDataCharts = 0 // length dataChart
@@ -223,7 +237,7 @@ class DashboardToday extends Component {
   }
   render() {
     const { classes } = this.props
-    const { open } = this.state
+    const { open, urlAvatar } = this.state
     return (
       <div className={classes.root}>
         <CssBaseline />
@@ -243,7 +257,7 @@ class DashboardToday extends Component {
             <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
               Dashboard
             </Typography>
-            <Avatar />
+            <Avatar data = {urlAvatar} />
           </Toolbar>
         </AppBar>
         <Drawer

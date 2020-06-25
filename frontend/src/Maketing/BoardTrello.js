@@ -47,7 +47,7 @@ class BoardTrello extends Component {
     }
 
     render() {
-        const { data } = this.props
+        const { data, user } = this.props
         const dataStart = []
         const dataDoing = []
         const dataComplete = []
@@ -167,7 +167,10 @@ class BoardTrello extends Component {
                         console.log("cardId",cardId)
                         console.log("metadata", metadata)
                         console.log("laneId", laneId)
-                        this.props.link.history.push(`/MarketingDetail/${cardId}`)
+                        this.props.link.history.push({
+                            pathname: `/MarketingDetail/${cardId}`,
+                            state: {user: user },
+                        })
                     }
                 }
                 onCardDelete = {

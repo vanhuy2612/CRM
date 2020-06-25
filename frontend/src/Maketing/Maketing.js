@@ -175,9 +175,24 @@ class RecentMaketing extends Component {
     this.setState({
       dataMaketing: data
     })
+    // get url Avatar
+    let user = this.props.match.params.id
+    axios.defaults.headers.common['Authorization'] = token;
+    let URLAvatar = process.env.REACT_APP_BASE_URL + '/api/member/';
+    let dataMember = await (axios.get(URLAvatar))
+    let dataAvatar = _.get(dataMember, "data", [])
+    for (let i = 0; i < dataAvatar.length; i++) {
+      dataAvatar[i].role = dataAvatar[i].role.name
+      if(dataAvatar[i].username = user){
+        this.setState({
+          urlAvatar: dataAvatar[i].urlImage
+        })
+      }
+    }
   }
   render() {
-    const { open } = this.state
+    const user = this.props.match.params.id
+    const { open, urlAvatar } = this.state
     const { classes } = this.props
     return (
       <div className={classes.root}>
@@ -196,7 +211,7 @@ class RecentMaketing extends Component {
             <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
               Maketing
             </Typography>
-            <Avatar />
+            <Avatar data={urlAvatar} />
           </Toolbar>
         </AppBar>
         <Drawer
@@ -249,6 +264,7 @@ class RecentMaketing extends Component {
                 <BoardTrello
                   data={this.state.dataMaketing}
                   link={this.props}
+                  user = {user}
                 />
               </Grid>
             </Grid>

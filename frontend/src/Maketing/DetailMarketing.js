@@ -132,34 +132,44 @@ class DetailMarketing extends Component {
     }
     // rent to order or dashboard or ...
     handleToOrders = (element) => {
-        this.props.history.push(`/Orders/${element}`)
+        const {user} = this.props.location.state
+        this.props.history.push(`/Orders/${user}`)
     }
     handleToCustomers = (element) => {
-        this.props.history.push(`/Customers/${element}`)
+        const {user} = this.props.location.state
+        this.props.history.push(`/Customers/${user}`)
     }
     handleToDashboard = (element) => {
-        this.props.history.push(`/Dashboard/${element}`)
+        const {user} = this.props.location.state
+        this.props.history.push(`/Dashboard/${user}`)
     }
     handleToDashReports = (element) => {
-        this.props.history.push(`/Reports/${element}`)
+        const {user} = this.props.location.state
+        this.props.history.push(`/Reports/${user}`)
     }
     handleToAccounts = (element) => {
-        this.props.history.push(`/Accounts/${element}`)
+        const {user} = this.props.location.state
+        this.props.history.push(`/Accounts/${user}`)
     }
     handleToActivity = (element) => {
-        this.props.history.push(`/Activity/${element}`)
+        const {user} = this.props.location.state
+        this.props.history.push(`/Activity/${user}`)
     }
     handleToProducts = (element) => {
-        this.props.history.push(`/Products/${element}`)
+        const {user} = this.props.location.state
+        this.props.history.push(`/Products/${user}`)
     }
     handleToDeals = (element) => {
-        this.props.history.push(`/Deals/${element}`)
+        const {user} = this.props.location.state
+        this.props.history.push(`/Deals/${user}`)
     }
     handleToContacts = (element) => {
-        this.props.history.push(`/Contacts/${element}`)
+        const {user} = this.props.location.state
+        this.props.history.push(`/Contacts/${user}`)
     }
     handleToMaketing = element => {
-        this.props.history.push(`/Maketing/${element}`)
+        const {user} = this.props.location.state
+        this.props.history.push(`/Maketing/${user}`)
     }
     // Send Mail
     sendMail = element => {
