@@ -14,7 +14,8 @@ module.exports = (sequelize, DataTypes) => {
         position: {type: DataTypes.STRING},
         urlImage: {type: DataTypes.STRING}
     },{
-        freezeTableName: true
+        freezeTableName: true,
+        hasTrigger: true
     })
     return MemberModel
 }

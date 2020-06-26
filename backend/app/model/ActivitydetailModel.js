@@ -5,7 +5,8 @@ module.exports = (sequelize, DataTypes) => {
         activityId: {type: DataTypes.STRING},
         customerId: {type: DataTypes.STRING}
     },{
-        freezeTableName: true
+        freezeTableName: true,
+        hasTrigger: true
     })
     return ActivitydetailModel;
 }

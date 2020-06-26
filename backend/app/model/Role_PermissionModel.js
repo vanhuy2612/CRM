@@ -5,7 +5,8 @@ module.exports = (sequelize, DataTypes) => {
         roleId: {type: DataTypes.INTEGER},
         permissionId: {type: DataTypes.INTEGER}
     },{
-        freezeTableName: true
+        freezeTableName: true,
+        hasTrigger: true
     })
     return Role_PermissionModel;
 }

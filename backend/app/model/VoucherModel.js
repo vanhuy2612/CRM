@@ -7,7 +7,8 @@ module.exports = (sequelize, DataTypes) => {
         type: {type: DataTypes.STRING},
         discount: {type: DataTypes.FLOAT}
     },{
-        freezeTableName: true
+        freezeTableName: true,
+        hasTrigger: true
     })
     return VoucherModel;
 }

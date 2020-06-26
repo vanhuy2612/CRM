@@ -7,7 +7,8 @@ module.exports = (sequelize, DataTypes) => {
         bankName: { type: DataTypes.STRING},
         numberId: { type: DataTypes.STRING}
     },{
-        freezeTableName: true
+        freezeTableName: true,
+        hasTrigger: true
     })
     return PaymentModel;
 }

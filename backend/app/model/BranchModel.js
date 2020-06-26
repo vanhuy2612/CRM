@@ -8,7 +8,8 @@ module.exports = (sequelize, DataTypes) => {
         phone: {type: DataTypes.STRING},
         email: {type: DataTypes.STRING}
     },{
-        freezeTableName: true
+        freezeTableName: true,
+        hasTrigger: true
     })
     return BranchModel;
 }

@@ -42,45 +42,52 @@ class MarketingController extends BaseController {
         res.json(listMark);
     }
     async store(req, res, next) {
-        // find id for customer in a branch
-        let newId = process.env.DB_LOC + '1';
-        let local = process.env.DB_LOC + '%';
-        let lastMark = await db.marketings.findAll({
-            where: { id: { [Op.like]: local } },
-            order: [['createdAt', 'DESC']],
-            limit: 1,
-            offset: 0
-        }, {
-            raw: true
-        })
-        if (lastMark.length != 0) {
-            lastMark = lastMark[0].dataValues;
-            let stringId = lastMark.id;
-            let numberId = stringId.split(process.env.DB_LOC)[1];
-            numberId = parseInt(numberId, 10) + 1;
-            newId = process.env.DB_LOC + numberId;
+        try {
+            const result = await db.sequelize.transaction(async (t) => {
+                // find id for customer in a branch
+                let newId = process.env.DB_LOC + '1';
+                let local = process.env.DB_LOC + '%';
+                let lastMark = await db.marketings.findAll({
+                    where: { id: { [Op.like]: local } },
+                    order: [['createdAt', 'DESC']],
+                    limit: 1,
+                    offset: 0
+                }, {
+                    raw: true
+                })
+                if (lastMark.length != 0) {
+                    lastMark = lastMark[0].dataValues;
+                    let stringId = lastMark.id;
+                    let numberId = stringId.split(process.env.DB_LOC)[1];
+                    numberId = parseInt(numberId, 10) + 1;
+                    newId = process.env.DB_LOC + numberId;
+                }
+
+                let data = req.body;
+                data.id = newId;
+                data.branchId = process.env.BRANCH_ID
+                //link image
+                data.urlImage = `http://${process.env.HOST}:${process.env.PORT}/${req.file.filename}`
+
+                // insert to db marketings: 
+                let [err, insertedMark] = await to(
+                    db.marketings.create(data)
+                )
+                if (err) res.json({
+                    message: "Faild to insert marketing to db",
+                    errors: err
+                })
+                else res.json(insertedMark)
+
+            })
+        } catch (error) {
+
         }
-
-        let data = req.body;
-        data.id = newId;
-        data.branchId = process.env.BRANCH_ID
-        //link image
-        data.urlImage = `http://${process.env.HOST}:${process.env.PORT}/${req.file.filename}`
-
-        // insert to db marketings: 
-        let [err, insertedMark] = await to(
-            db.marketings.create(data)
-        )
-        if (err) res.json({
-            message: "Faild to insert marketing to db",
-            errors: err
-        })
-        else res.json(insertedMark)
 
     }
     async detail(req, res, next) {
         let id = req.params.id
-        let [ err, result] = await to(
+        let [err, result] = await to(
             db.marketings.findAll({
                 where: {
                     id: id
@@ -104,7 +111,7 @@ class MarketingController extends BaseController {
                 }]
             })
         )
-        if(err) res.json({ message: `Fail to get detail of marketing with id=${id}`})
+        if (err) res.json({ message: `Fail to get detail of marketing with id=${id}` })
         res.json(result)
     }
     async delete(req, res, next) {
@@ -152,7 +159,7 @@ class MarketingController extends BaseController {
         console.log('customersId: ', customersId)
 
         // Insert to table marketingdetails
-       
+
         for (let i = 0; i < customersId.length; i++) {
             let data = {
                 marketingId: marketingId,
@@ -171,13 +178,13 @@ class MarketingController extends BaseController {
         res.json({ status: "Add Customer Successfully", message: message })
     }
     // xoa khach hang khoi chien dich marketing
-    async removeCustomerFromMarketing( req, res, next){
-        
+    async removeCustomerFromMarketing(req, res, next) {
+
         let payload = req.body
-        console.log("payload:",payload)
-        let deletedCus = await db.marketingdetails.destroy({ where: payload});
-        if(deletedCus !=0) res.json({ message: "Delete successfully", deletedCus: payload.customerId});
-        else res.json({message: "Faild"})
+        console.log("payload:", payload)
+        let deletedCus = await db.marketingdetails.destroy({ where: payload });
+        if (deletedCus != 0) res.json({ message: "Delete successfully", deletedCus: payload.customerId });
+        else res.json({ message: "Faild" })
     }
     // them khach hang vao chien dich marketing
     async addMemberToMarketing(req, res, next) {
@@ -194,7 +201,7 @@ class MarketingController extends BaseController {
         console.log('membersId: ', membersId)
 
         // Insert to table marketingdetails
-       
+
         for (let i = 0; i < membersId.length; i++) {
             let data = {
                 marketingId: marketingId,
@@ -213,13 +220,13 @@ class MarketingController extends BaseController {
         res.json({ status: "Add Member Successfully", message: message })
     }
     // Delete member from Marketing:
-    async removeMemberFromMarketing( req, res, next){
-        
+    async removeMemberFromMarketing(req, res, next) {
+
         let payload = req.body
-        console.log("payload:",payload)
-        let deletedMem = await db.workons.destroy({ where: payload});
-        if(deletedMem !=0) res.json({ message: "Delete successfully", deletedMem: payload.memberId});
-        else res.json({message: "Faild"})
+        console.log("payload:", payload)
+        let deletedMem = await db.workons.destroy({ where: payload });
+        if (deletedMem != 0) res.json({ message: "Delete successfully", deletedMem: payload.memberId });
+        else res.json({ message: "Faild" })
     }
 }
 

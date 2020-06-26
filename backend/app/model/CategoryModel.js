@@ -6,7 +6,8 @@ module.exports = (sequelize, DataTypes) => {
         name: {type: DataTypes.STRING},
         des: {type: DataTypes.STRING}
     },{
-        freezeTableName: true
+        freezeTableName: true,
+        hasTrigger: true
     })
     return CategoryModel;
 }

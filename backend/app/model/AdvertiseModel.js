@@ -13,7 +13,8 @@ module.exports = (sequelize, DataTypes) => {
         branchId: {type: DataTypes.STRING},
         supplyId: {type: DataTypes.STRING}
     },{
-        freezeTableName: true
+        freezeTableName: true,
+        hasTrigger: true
     })
     return AdvertiseModel;
 }

@@ -7,7 +7,8 @@ module.exports = (sequelize, DataTypes) => {
         keyRoute: {type: DataTypes.STRING},
         link: {type: DataTypes.STRING}
     },{
-        freezeTableName: true
+        freezeTableName: true,
+        hasTrigger: true
     })
     return RoleModel;
 }

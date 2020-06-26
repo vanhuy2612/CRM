@@ -5,7 +5,8 @@ module.exports = (sequelize, DataTypes) => {
         memberId: {type: DataTypes.STRING},
         marketingId: {type: DataTypes.STRING}
     },{
-        freezeTableName: true
+        freezeTableName: true,
+        hasTrigger: true
     })
     return WorkonModel;
 }

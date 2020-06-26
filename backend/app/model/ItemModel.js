@@ -7,7 +7,8 @@ module.exports = (sequelize, DataTypes) => {
         price: {type: DataTypes.FLOAT},
         des: {type: DataTypes.STRING}
     },{
-        freezeTableName: true
+        freezeTableName: true,
+        hasTrigger: true
     })
     return ItemModel;
 }

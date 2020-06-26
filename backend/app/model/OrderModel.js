@@ -5,7 +5,8 @@ module.exports = (sequelize, DataTypes) => {
         id: {type: DataTypes.STRING, primaryKey: true},
         customerId: {type: DataTypes.STRING}
     },{
-        freezeTableName: true
+        freezeTableName: true,
+        hasTrigger: true
     })
     return OrderModel;
 }

@@ -14,7 +14,8 @@ module.exports = (sequelize, DataTypes) => {
         supplyId: {type: DataTypes.STRING},
         categoryId: {type: DataTypes.STRING}
     },{
-        freezeTableName: true
+        freezeTableName: true,
+        hasTrigger: true
     })
     return ProductModel;
 }

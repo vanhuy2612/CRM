@@ -8,7 +8,8 @@ module.exports = (sequelize, DataTypes) => {
         link: {type: DataTypes.STRING},
         username: {type: DataTypes.STRING}
     },{
-        freezeTableName: true
+        freezeTableName: true,
+        hasTrigger: true
     })
     return ContactModel;
 }

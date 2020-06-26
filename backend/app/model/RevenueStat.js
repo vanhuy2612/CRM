@@ -10,7 +10,8 @@ module.exports = (sequelize, DataTypes) => {
         createdAt: {type: DataTypes.DATE},
         updatedAt: {type: DataTypes.DATE}
     },{
-        freezeTableName: true
+        freezeTableName: true,
+        hasTrigger: true
     })
     return RevenueStat;
 }
