@@ -67,28 +67,29 @@ class CustomerController extends BaseController {
                         raw: true, transaction: t
                     });
                     // default id (string, int), and last stringId
-                    let newIdContact = process.env.DB_LOC + '1'; // default
-                    let numberId = 1;
-                    let stringId;
+                    let stringId = process.env.DB_LOC + '1'; // default
+                    let numberId = 1;                               // default
                     if (lastContact.length != 0) {
                         lastContact = lastContact[0].dataValues;
                         stringId = lastContact.id;
+                        numberId = stringId.split(process.env.DB_LOC)[1];
+                        numberId = parseInt(numberId, 10); // convert string to int and inc 1.
+                        console.log("origin Id:", numberId);
                     }
                     // end finding last contacts.
 
                     //---------------------------Phone---------------
                     if (phone != "") {
                         console.log("finding id for phone.........")
-
                         if (lastContact.length != 0) {
-                            numberId = stringId.split(process.env.DB_LOC)[1];
-                            numberId = parseInt(numberId, 10) + 1; // convert string to int and inc 1.
-                            newIdContact = process.env.DB_LOC + numberId;
-                            stringId = newIdContact
-                        }
+                            numberId += 1; // convert string to int and inc 1.
+                            stringId = process.env.DB_LOC + numberId;
+                        } 
+                        console.log('id for phone: ', numberId)
+
                         // insert contact phone to db:
                         let data = {
-                            id: newIdContact,
+                            id: stringId,
                             customerId: insertedCus.dataValues.id,
                             type: "phone",
                             username: insertedCus.dataValues.name,
@@ -101,16 +102,20 @@ class CustomerController extends BaseController {
                     //------------------------------Email------------------------
                     if (email != "") {
                         console.log("finding id for email.........")
-                       
+
                         if (lastContact.length != 0) {
-                            numberId = stringId.split(process.env.DB_LOC)[1];
-                            numberId = parseInt(numberId, 10) + 1; // convert string to int and inc 1.
-                            newIdContact = process.env.DB_LOC + numberId;
-                            stringId = newIdContact
+                            numberId += 1; // convert string to int and inc 1.
+                            stringId = process.env.DB_LOC + numberId;
                         }
+                        if(phone != '') {
+                            numberId += 1;
+                            stringId = process.env.DB_LOC + numberId;
+                        }
+                        console.log('id for email: ', numberId)
+
                         // insert contact email to db:
                         let data = {
-                            id: newIdContact,
+                            id: stringId,
                             customerId: insertedCus.dataValues.id,
                             type: "email",
                             username: insertedCus.dataValues.name,

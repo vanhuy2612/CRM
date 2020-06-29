@@ -7,7 +7,7 @@ const authConfig = require('../../config/authConfig');
 const bcrypt = require('bcrypt');
 const bcryptConfig = require('../../config/bcryptConfig');
 const SALT_ROUNDS =  10;
-
+const Op = db.Sequelize.Op
 class MemberController extends BaseController{
     constructor(){
         super(MemberController, db.members);
@@ -42,7 +42,9 @@ class MemberController extends BaseController{
         else {
             // find id for new member
             let newIdmember = process.env.DB_LOC + '1';
+            let local = process.env.DB_LOC + '%';
             let lastmember = await db.members.findAll({
+                where: { id: { [Op.like]: local } },
                 order: [ ['createdAt', 'DESC']], 
                 limit: 1, offset: 0
             }, { 

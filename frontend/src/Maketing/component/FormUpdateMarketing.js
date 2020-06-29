@@ -146,6 +146,17 @@ class FormUpdateMarketing extends Component {
                                             onChange={(element) => this.setState({status: element.currentTarget.value})}
                                         />
                                     </Form.Item>
+                                    <Form.Item
+                                        label="Ảnh đại diện"
+                                        name="urlImage"
+                                        initialValue={element.urlImage}
+                                        rules={[{ required: true, message: 'Vui lòng nhập đầy đủ thông tin' }]}
+                                    >
+                                        <Input  
+                                            value={element.status}
+                                            onChange={(element) => this.setState({urlImage: element.currentTarget.value})}
+                                        />
+                                    </Form.Item>
                                     <Form.Item {...tailLayout}>
                                         <Button type="primary" htmlType="submit" icon={<SendOutlined />}
                                             onClick={this.UpdateDetailMarketing}
