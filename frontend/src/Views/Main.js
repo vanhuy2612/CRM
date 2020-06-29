@@ -55,10 +55,10 @@ export default function Blog(props) {
   const classes = useStyles();
 
   function handleChangeRegister(element) {
-    props.history.push(`/Register/${element}`)
+    props.history.push(`/Register/register`)
   }
   function handleChangePage(element){
-    props.history.push(`Login/${element}`)
+    props.history.push(`Login/login`)
   }
 
   return (

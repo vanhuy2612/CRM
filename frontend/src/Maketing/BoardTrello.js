@@ -47,7 +47,7 @@ class BoardTrello extends Component {
     }
 
     render() {
-        const { data, user } = this.props
+        const { data, user, urlAvatar } = this.props
         const dataStart = []
         const dataDoing = []
         const dataComplete = []
@@ -169,7 +169,9 @@ class BoardTrello extends Component {
                         console.log("laneId", laneId)
                         this.props.link.history.push({
                             pathname: `/MarketingDetail/${cardId}`,
-                            state: {user: user },
+                            state: {user: user, 
+                                urlAvatar: urlAvatar 
+                            },
                         })
                     }
                 }

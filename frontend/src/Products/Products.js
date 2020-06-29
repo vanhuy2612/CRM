@@ -122,44 +122,76 @@ class RecentProduct extends Component {
 
     // login 
     handleToOrders = (element) => {
+        const {urlAvatar} = this.props.location.state
         let user = this.props.match.params.id
-        this.props.history.push(`/Orders/${user}`)
-    }
-    handleToCustomers = (element) => {
+        this.props.history.push({
+          pathname: `/Orders/${user}`,
+          state: {urlAvatar: urlAvatar },
+        })
+      }
+      handleToCustomers = element => {
+        const {urlAvatar} = this.props.location.state
         let user = this.props.match.params.id
-        this.props.history.push(`/Customers/${user}`)
-    }
-    handleToDashboard = (element) => {
+        this.props.history.push({
+          pathname: `/Customers/${user}`,
+          state: {urlAvatar: urlAvatar },
+        })
+      }
+      handleToDashboard = element => {
+        const {urlAvatar} = this.props.location.state
         let user = this.props.match.params.id
-        this.props.history.push(`/Dashboard/${user}`)
-    }
-    handleToDashReports = (element) => {
+        this.props.history.push({
+          pathname: `/Dashboard/${user}`,
+          state: {urlAvatar: urlAvatar },
+        })
+      }
+      handleToDashReports = element => {
+        const {urlAvatar} = this.props.location.state
         let user = this.props.match.params.id
-        this.props.history.push(`/Reports/${user}`)
-    }
-    handleToAccounts = (element) => {
+        this.props.history.push({
+          pathname: `/Reports/${user}`,
+          state: {urlAvatar: urlAvatar },
+        })
+      }
+      handleToAccounts = element => {
+        const {urlAvatar} = this.props.location.state
         let user = this.props.match.params.id
-        this.props.history.push(`/Accounts/${user}`)
-    }
-    // handleToActivity = (element) => {
-    //     let user = this.props.match.params.id
-    //     this.props.history.push(`/Activity/${user}`)
-    // }
-    handleToProducts = (element) => {
-        window.location.reload()
-    }
-    handleToDeals = (element) => {
+        this.props.history.push({
+          pathname: `/Accounts/${user}`,
+          state: {urlAvatar: urlAvatar },
+        })
+      }
+      // handleToActivity = element => {
+      //   let user = this.props.match.params.id
+      //   this.props.history.push(`/Activity/${user}`)
+      // }
+      handleToProducts = element => {
+       window.location.reload()
+      }
+      handleToDeals = element => {
+        const {urlAvatar} = this.props.location.state
         let user = this.props.match.params.id
-        this.props.history.push(`/Deals/${user}`)
-    }
-    handleToContacts = (element) => {
+        this.props.history.push({
+          pathname: `/Deals/${user}`,
+          state: {urlAvatar: urlAvatar },
+        })
+      }
+      handleToContacts = element => {
+        const {urlAvatar} = this.props.location.state
         let user = this.props.match.params.id
-        this.props.history.push(`/Contacts/${user}`)
-    }
-    handleToMaketing = element => {
+        this.props.history.push({
+          pathname: `/Contacts/${user}`,
+          state: {urlAvatar: urlAvatar },
+        })
+      }
+      handleToMaketing = element => {
+        const {urlAvatar} = this.props.location.state
         let user = this.props.match.params.id
-        this.props.history.push(`/Maketing/${user}`)
-    }
+        this.props.history.push({
+          pathname: `/Maketing/${user}`,
+          state: {urlAvatar: urlAvatar },
+        })
+      }
     // Print Table To Excel
     PrintTableToExcel = element => {
         let table = document.querySelector('table')
@@ -187,6 +219,7 @@ class RecentProduct extends Component {
     render() {
         const { open } = this.state
         const { classes } = this.props
+        const {urlAvatar} = this.props.location.state
         return (
             <div className={classes.root}>
                 <CssBaseline />
@@ -204,7 +237,7 @@ class RecentProduct extends Component {
                         <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
                             Products
                   </Typography>
-                        <Avatar />
+                        <Avatar data={urlAvatar} />
                     </Toolbar>
                 </AppBar>
                 <Drawer

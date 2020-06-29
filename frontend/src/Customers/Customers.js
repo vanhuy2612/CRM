@@ -121,48 +121,82 @@ class RecentCustomers extends Component {
         this.props.history.push('/')
     }
     // rent to order or dashboard or ...
-     handleToOrders = (element) => {
+    handleToOrders = element => {
+        const {urlAvatar} = this.props.location.state
         let user = this.props.match.params.id
-        this.props.history.push(`/Orders/${user}`)
-    }
-    handleToCustomers = (element) => {
-        window.location.reload()
-    }
-    handleToDashboard = (element) => {
-        let user = this.props.match.params.id
-        this.props.history.push(`/Dashboard/${user}`)
-    }
-    handleToDashReports = (element) => {
-        let user = this.props.match.params.id
-        this.props.history.push(`/Reports/${user}`)
-    }
-    handleToAccounts = (element) => {
-        let user = this.props.match.params.id
-        this.props.history.push(`/Accounts/${user}`)
-    }
-    // handleToActivity = (element) => {
-    //     let user = this.props.match.params.id
-    //     this.props.history.push(`/Activity/${user}`)
-    // }
-    handleToProducts = (element) => {
-        let user = this.props.match.params.id
-        this.props.history.push(`/Products/${user}`)
-    }
-    handleToDeals = (element) => {
-        let user = this.props.match.params.id
-        this.props.history.push(`/Deals/${user}`)
-    }
-    handleToContacts = (element) => {
-        let user = this.props.match.params.id
-        this.props.history.push(`/Contact/${user}`)
-    }
-    handleToMaketing = element => {
-        let user = this.props.match.params.id
-        this.props.history.push(`/Maketing/${user}`)
+        this.props.history.push({
+           pathname: `/Orders/${user}`,
+           state : {urlAvatar: urlAvatar}
+       })
       }
+    handleToDashboard = element => {
+        const {urlAvatar} = this.props.location.state
+        let user = this.props.match.params.id
+        this.props.history.push({
+           pathname: `/Dashboard/${user}`,
+           state : {urlAvatar: urlAvatar}
+       })
+      }
+      handleToDashReports = element => {
+        const {urlAvatar} = this.props.location.state
+        let user = this.props.match.params.id
+        this.props.history.push({
+          pathname: `/Reports/${user}`,
+          state: {urlAvatar: urlAvatar},
+        })
+      }
+      handleToAccounts = element => {
+        const {urlAvatar} = this.props.location.state
+        let user = this.props.match.params.id
+        this.props.history.push({
+          pathname: `/Accounts/${user}`,
+          state: {urlAvatar: urlAvatar},
+        })
+      }
+      handleToCustomers = element =>{
+          window.location.reload()
+      }
+      // handleToActivity = element => {
+      //   let user = this.props.match.params.id
+      //   this.props.history.push(`/Activity/${user}`)
+      // }
+      handleToProducts = element => {
+        const {urlAvatar} = this.props.location.state
+        let user = this.props.match.params.id
+        this.props.history.push({
+          pathname: `/Products/${user}`,
+          state: {urlAvatar: urlAvatar },
+        })
+      }
+      handleToDeals = element => {
+        const {urlAvatar} = this.props.location.state
+        let user = this.props.match.params.id
+        this.props.history.push({
+          pathname: `/Deals/${user}`,
+          state: {urlAvatar: urlAvatar },
+        })
+      }
+      handleToContacts = element => {
+        const {urlAvatar} = this.props.location.state
+        let user = this.props.match.params.id
+        this.props.history.push({
+          pathname: `/Contacts/${user}`,
+          state: {urlAvatar: urlAvatar },
+        })
+      }
+      handleToMaketing = element => {
+        const {urlAvatar} = this.props.location.state
+        let user = this.props.match.params.id
+        this.props.history.push({
+          pathname: `/Maketing/${user}`,
+          state: {urlAvatar: urlAvatar },
+        })
+      }
+    
     // Add Customer
     AddCustomer = element => {
-        this.props.history.push(`/AddCustomer/${element}`)
+        let user = this.props.match.params.id
+        this.props.history.push(`/AddCustomer/${user}`)
     }
     // Print Table To Excel
     PrintTableToExcel = element => {
@@ -193,6 +227,7 @@ class RecentCustomers extends Component {
     }
 
     render() {
+        const {urlAvatar} = this.props.location.state
         const { open } = this.state
         const { classes } = this.props
         return (
@@ -212,7 +247,7 @@ class RecentCustomers extends Component {
                         <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
                             Customers
                   </Typography>
-                        <Avatar />
+                        <Avatar data={urlAvatar} />
                     </Toolbar>
                 </AppBar>
                 <Drawer

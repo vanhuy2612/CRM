@@ -125,40 +125,88 @@ class ViewMails extends Component {
     }
     // rent to order or dashboard or ...
     handleToOrders = (element) => {
-        const {user} = this.props.location.state
-        this.props.history.push(`/Orders/${user}`)
-    }
-    handleToCustomers = (element) => {
-        const {user} = this.props.location.state
-        this.props.history.push(`/Customers/${user}`)
-    }
-    handleToDashboard = (element) => {
-        const {user} = this.props.location.state
-        this.props.history.push(`/Dashboard/${user}`)
-    }
-    handleToDashReports = (element) => {
-        const {user} = this.props.location.state
-        this.props.history.push(`/Reports/${user}`)
-    }
-    handleToAccounts = (element) => {
-        const {user} = this.props.location.state
-        this.props.history.push(`/Accounts/${user}`)
-    }
-    // handleToActivity = (element) => {
-    //     this.props.history.push(`/Activity/${element}`)
-    // }
-    handleToProducts = (element) => {
-        const {user} = this.props.location.state
-        this.props.history.push(`/Products/${user}`)
-    }
-    handleToDeals = (element) => {
-        const {user} = this.props.location.state
-        this.props.history.push(`/Deals/${user}`)
-    }
-    handleToContacts = (element) => {
-        const {user} = this.props.location.state
-        this.props.history.push(`/Contacts/${user}`)
-    }
+        const {urlAvatar} = this.props.location.state
+        let user = this.props.match.params.id
+        this.props.history.push({
+          pathname: `/Orders/${user}`,
+          state: {urlAvatar: urlAvatar },
+        })
+      }
+      handleToCustomers = element => {
+        const {urlAvatar} = this.props.location.state
+        let user = this.props.match.params.id
+        this.props.history.push({
+          pathname: `/Customers/${user}`,
+          state: {urlAvatar: urlAvatar },
+        })
+      }
+      handleToDashboard = element => {
+        const {urlAvatar} = this.props.location.state
+        let user = this.props.match.params.id
+        this.props.history.push({
+          pathname: `/Dashboard/${user}`,
+          state: {urlAvatar: urlAvatar },
+        })
+      }
+      handleToDashReports = element => {
+        const {urlAvatar} = this.props.location.state
+        let user = this.props.match.params.id
+        this.props.history.push({
+          pathname: `/Reports/${user}`,
+          state: {urlAvatar: urlAvatar },
+        })
+      }
+      handleToAccounts = element => {
+        const {urlAvatar} = this.props.location.state
+        let user = this.props.match.params.id
+        this.props.history.push({
+          pathname: `/Accounts/${user}`,
+          state: {urlAvatar: urlAvatar },
+        })
+      }
+      // handleToActivity = element => {
+      //   let user = this.props.match.params.id
+      //   this.props.history.push(`/Activity/${user}`)
+      // }
+      handleToProducts = element => {
+        const {urlAvatar} = this.props.location.state
+        let user = this.props.match.params.id
+        this.props.history.push({
+          pathname: `/Products/${user}`,
+          state: {urlAvatar: urlAvatar },
+        })
+      }
+      handleToDeals = element => {
+        const {urlAvatar} = this.props.location.state
+        let user = this.props.match.params.id
+        this.props.history.push({
+          pathname: `/Deals/${user}`,
+          state: {urlAvatar: urlAvatar },
+        })
+      }
+      handleToContacts = element => {
+        const {urlAvatar} = this.props.location.state
+        let user = this.props.match.params.id
+        this.props.history.push({
+          pathname: `/Contacts/${user}`,
+          state: {urlAvatar: urlAvatar },
+        })
+      }
+      handleToMaketing = element => {
+        const {urlAvatar} = this.props.location.state
+        let user = this.props.match.params.id
+        this.props.history.push({
+          pathname: `/Maketing/${user}`,
+          state: {urlAvatar: urlAvatar },
+        })
+      }
+      BackToContacts = element => {
+        const {urlAvatar, user} = this.props.location.state
+        this.props.history.push({
+          pathname: `/Contacts/${user}`,
+          state: {urlAvatar: urlAvatar },
+        })
+      }
     // Send Mail
     sendMail = element => {
         let to = this.props.location.state.data.from
@@ -189,8 +237,7 @@ class ViewMails extends Component {
         const { open, subject, content } = this.state
         const { classes } = this.props
         // const {user} = this.props.location.user
-        const { data , user} = this.props.location.state
-        console.log('user', user)
+        const { data , user, urlAvatar} = this.props.location.state
         return (
             <div className={classes.root}>
                 <CssBaseline />
@@ -208,7 +255,7 @@ class ViewMails extends Component {
                         <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
                             Contatcs
                         </Typography>
-                        <Avatar />
+                        <Avatar data={urlAvatar} />
                     </Toolbar>
                 </AppBar>
                 <Drawer
@@ -248,7 +295,7 @@ class ViewMails extends Component {
                                 <div dangerouslySetInnerHTML={{ __html: data.html }} />
                             </Grid>
                             <Grid item xs={12} className={classes.ButtonMail}>
-                                <Button type="primary" icon={<RollbackOutlined />} size={'large'} onClick={this.handleToContacts}>
+                                <Button type="primary" icon={<RollbackOutlined />} size={'large'} onClick={this.BackToContacts}>
                                     Back
                                 </Button>
                                 <Button type="primary" icon={<HighlightOutlined />} size={'large'} style={{ marginLeft: 20 }}

@@ -124,41 +124,73 @@ class RecentOrder extends Component {
   handleToOrders = (element) => {
     window.location.reload()
   }
-  handleToCustomers = (element) => {
+  handleToCustomers = element => {
+    const {urlAvatar} = this.props.location.state
     let user = this.props.match.params.id
-    this.props.history.push(`/Customers/${user}`)
+    this.props.history.push({
+      pathname: `/Customers/${user}`,
+      state: {urlAvatar: urlAvatar },
+    })
   }
-  handleToDashboard = (element) => {
+  handleToDashboard = element => {
+    const {urlAvatar} = this.props.location.state
     let user = this.props.match.params.id
-    this.props.history.push(`/Dashboard/${user}`)
+    this.props.history.push({
+      pathname: `/Dashboard/${user}`,
+      state: {urlAvatar: urlAvatar },
+    })
   }
-  handleToDashReports = (element) => {
+  handleToDashReports = element => {
+    const {urlAvatar} = this.props.location.state
     let user = this.props.match.params.id
-    this.props.history.push(`/Reports/${user}`)
+    this.props.history.push({
+      pathname: `/Reports/${user}`,
+      state: {urlAvatar: urlAvatar },
+    })
   }
-  handleToAccounts = (element) => {
+  handleToAccounts = element => {
+    const {urlAvatar} = this.props.location.state
     let user = this.props.match.params.id
-    this.props.history.push(`/Accounts/${user}`)
+    this.props.history.push({
+      pathname: `/Accounts/${user}`,
+      state: {urlAvatar: urlAvatar },
+    })
   }
-  // handleToActivity = (element) => {
+  // handleToActivity = element => {
   //   let user = this.props.match.params.id
   //   this.props.history.push(`/Activity/${user}`)
   // }
-  handleToProducts = (element) => {
+  handleToProducts = element => {
+    const {urlAvatar} = this.props.location.state
     let user = this.props.match.params.id
-    this.props.history.push(`/Products/${user}`)
+    this.props.history.push({
+      pathname: `/Products/${user}`,
+      state: {urlAvatar: urlAvatar },
+    })
   }
-  handleToDeals = (element) => {
+  handleToDeals = element => {
+    const {urlAvatar} = this.props.location.state
     let user = this.props.match.params.id
-    this.props.history.push(`/Deals/${user}`)
+    this.props.history.push({
+      pathname: `/Deals/${user}`,
+      state: {urlAvatar: urlAvatar },
+    })
   }
-  handleToContacts = (element) => {
+  handleToContacts = element => {
+    const {urlAvatar} = this.props.location.state
     let user = this.props.match.params.id
-    this.props.history.push(`/Contacts/${user}`)
+    this.props.history.push({
+      pathname: `/Contacts/${user}`,
+      state: {urlAvatar: urlAvatar },
+    })
   }
   handleToMaketing = element => {
+    const {urlAvatar} = this.props.location.state
     let user = this.props.match.params.id
-    this.props.history.push(`/Maketing/${user}`)
+    this.props.history.push({
+      pathname: `/Maketing/${user}`,
+      state: {urlAvatar: urlAvatar },
+    })
   }
   // Print Table To Excel
   PrintTableToExcel = element => {
@@ -184,6 +216,7 @@ class RecentOrder extends Component {
   render() {
     const { open } = this.state
     const { classes } = this.props
+    const {urlAvatar} = this.props.location.state
     return (
       <div className={classes.root}>
         <CssBaseline />
@@ -201,7 +234,7 @@ class RecentOrder extends Component {
             <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
               Order
             </Typography>
-            <Avatar />
+            <Avatar data = {urlAvatar} />
           </Toolbar>
         </AppBar>
         <Drawer

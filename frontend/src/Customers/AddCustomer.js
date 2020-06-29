@@ -53,7 +53,7 @@ class AddCustomer extends Component {
     }
 
     handleSignUp = element => {
-        console.log("state:",this.state)
+        let user = this.props.match.params.id
         let { address, job, sex, type, phone, email, selectedFile, name, branchId, birthDate, country } = this.state
         let dem = 0
         // check validate birthDate
@@ -224,7 +224,7 @@ class AddCustomer extends Component {
                     console.log(error);
                 });
             window.location.reload(
-                this.props.history.push(`/Customers/${element}`)
+                this.props.history.push(`/Customers/${user}`)
             )
         }
     }

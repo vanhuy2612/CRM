@@ -126,40 +126,72 @@ class RecentMaketing extends Component {
   }
   // rent to order or dashboard or ...
   handleToOrders = (element) => {
+    const {urlAvatar} = this.props.location.state
     let user = this.props.match.params.id
-    this.props.history.push(`/Orders/${user}`)
+    this.props.history.push({
+      pathname: `/Orders/${user}`,
+      state: {urlAvatar: urlAvatar },
+    })
   }
-  handleToCustomers = (element) => {
+  handleToCustomers = element => {
+    const {urlAvatar} = this.props.location.state
     let user = this.props.match.params.id
-    this.props.history.push(`/Customers/${user}`)
+    this.props.history.push({
+      pathname: `/Customers/${user}`,
+      state: {urlAvatar: urlAvatar },
+    })
   }
-  handleToDashboard = (element) => {
+  handleToDashboard = element => {
+    const {urlAvatar} = this.props.location.state
     let user = this.props.match.params.id
-    this.props.history.push(`/Dashboard/${user}`)
+    this.props.history.push({
+      pathname: `/Dashboard/${user}`,
+      state: {urlAvatar: urlAvatar },
+    })
   }
-  handleToDashReports = (element) => {
+  handleToDashReports = element => {
+    const {urlAvatar} = this.props.location.state
     let user = this.props.match.params.id
-    this.props.history.push(`/Reports/${user}`)
+    this.props.history.push({
+      pathname: `/Reports/${user}`,
+      state: {urlAvatar: urlAvatar },
+    })
   }
-  handleToAccounts = (element) => {
+  handleToAccounts = element => {
+    const {urlAvatar} = this.props.location.state
     let user = this.props.match.params.id
-    this.props.history.push(`/Accounts/${user}`)
+    this.props.history.push({
+      pathname: `/Accounts/${user}`,
+      state: {urlAvatar: urlAvatar },
+    })
   }
-  // handleToActivity = (element) => {
+  // handleToActivity = element => {
   //   let user = this.props.match.params.id
   //   this.props.history.push(`/Activity/${user}`)
   // }
-  handleToProducts = (element) => {
+  handleToProducts = element => {
+    const {urlAvatar} = this.props.location.state
     let user = this.props.match.params.id
-    this.props.history.push(`/Products/${user}`)
+    this.props.history.push({
+      pathname: `/Products/${user}`,
+      state: {urlAvatar: urlAvatar },
+    })
   }
-  handleToDeals = (element) => {
+  handleToDeals = element => {
+    const {urlAvatar} = this.props.location.state
     let user = this.props.match.params.id
-    this.props.history.push(`/Deals/${user}`)
+    this.props.history.push({
+      pathname: `/Deals/${user}`,
+      state: {urlAvatar: urlAvatar },
+    })
   }
-  handleToContacts = (element) => {
+  handleToContacts = element => {
+    const {urlAvatar} = this.props.location.state
     let user = this.props.match.params.id
-    this.props.history.push(`/Contacts/${user}`)
+    this.props.history.push({
+      pathname: `/Contacts/${user}`,
+      state: {urlAvatar: urlAvatar },
+    })
   }
   handleToMaketing = element => {
     window.location.reload()
@@ -175,24 +207,11 @@ class RecentMaketing extends Component {
     this.setState({
       dataMaketing: data
     })
-    // get url Avatar
-    let user = this.props.match.params.id
-    axios.defaults.headers.common['Authorization'] = token;
-    let URLAvatar = process.env.REACT_APP_BASE_URL + '/api/member/';
-    let dataMember = await (axios.get(URLAvatar))
-    let dataAvatar = _.get(dataMember, "data", [])
-    for (let i = 0; i < dataAvatar.length; i++) {
-      dataAvatar[i].role = dataAvatar[i].role.name
-      if(dataAvatar[i].username = user){
-        this.setState({
-          urlAvatar: dataAvatar[i].urlImage
-        })
-      }
-    }
   }
   render() {
+    const {urlAvatar} = this.props.location.state
     const user = this.props.match.params.id
-    const { open, urlAvatar } = this.state
+    const { open } = this.state
     const { classes } = this.props
     return (
       <div className={classes.root}>
@@ -265,6 +284,7 @@ class RecentMaketing extends Component {
                   data={this.state.dataMaketing}
                   link={this.props}
                   user = {user}
+                  urlAvatar = {urlAvatar}
                 />
               </Grid>
             </Grid>

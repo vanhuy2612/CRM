@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Avatar from '../Components/Avatar'
-import { IconButton, Tooltip, CssBaseline, Drawer, Box, AppBar, Toolbar, List, Typography, Divider, Badge, Container, Grid, Link, Paper } from '@material-ui/core';
+import { IconButton, Tooltip, CssBaseline, Drawer, AppBar, Toolbar, List, Typography, Divider, Container, Grid, Link, Paper } from '@material-ui/core';
 import { Login, Dashboard, Order, Customers, Reports, Products, Deals, Contacts, Accounts, Maketing } from '../Components/ListItems';
 import Chart from './Chart';
 import Deposits from './Deposits';
@@ -124,22 +124,34 @@ class DashboardToday extends Component {
   // rent to order or customer or ...
   handleToOrders = element => {
     let user = this.props.match.params.id
-    this.props.history.push(`/Orders/${user}`)
+    this.props.history.push({
+      pathname: `/Orders/${user}`,
+      state: {urlAvatar: this.state.urlAvatar },
+    })
   }
   handleToCustomers = element => {
     let user = this.props.match.params.id
-    this.props.history.push(`/Customers/${user}`)
+    this.props.history.push({
+      pathname: `/Customers/${user}`,
+      state: {urlAvatar: this.state.urlAvatar },
+    })
   }
   handleToDashboard = element => {
     window.location.reload()
   }
   handleToDashReports = element => {
     let user = this.props.match.params.id
-    this.props.history.push(`/Reports/${user}`)
+    this.props.history.push({
+      pathname: `/Reports/${user}`,
+      state: {urlAvatar: this.state.urlAvatar },
+    })
   }
   handleToAccounts = element => {
     let user = this.props.match.params.id
-    this.props.history.push(`/Accounts/${user}`)
+    this.props.history.push({
+      pathname: `/Accounts/${user}`,
+      state: {urlAvatar: this.state.urlAvatar },
+    })
   }
   // handleToActivity = element => {
   //   let user = this.props.match.params.id
@@ -147,19 +159,31 @@ class DashboardToday extends Component {
   // }
   handleToProducts = element => {
     let user = this.props.match.params.id
-    this.props.history.push(`/Products/${user}`)
+    this.props.history.push({
+      pathname: `/Products/${user}`,
+      state: {urlAvatar: this.state.urlAvatar },
+    })
   }
   handleToDeals = element => {
     let user = this.props.match.params.id
-    this.props.history.push(`/Deals/${user}`)
+    this.props.history.push({
+      pathname: `/Deals/${user}`,
+      state: {urlAvatar: this.state.urlAvatar },
+    })
   }
   handleToContacts = element => {
     let user = this.props.match.params.id
-    this.props.history.push(`/Contacts/${user}`)
+    this.props.history.push({
+      pathname: `/Contacts/${user}`,
+      state: {urlAvatar: this.state.urlAvatar },
+    })
   }
   handleToMaketing = element => {
     let user = this.props.match.params.id
-    this.props.history.push(`/Maketing/${user}`)
+    this.props.history.push({
+      pathname: `/Maketing/${user}`,
+      state: {urlAvatar: this.state.urlAvatar },
+    })
   }
 
   // get data thống kê doang thu theo khách hàng trong ngày and thống kê doanh thu trong ngày
