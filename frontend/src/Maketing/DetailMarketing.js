@@ -207,6 +207,13 @@ class DetailMarketing extends Component {
           state: {urlAvatar: urlAvatar },
         })
       }
+      BackToMarketing = element => {
+        const {urlAvatar, user} = this.props.location.state
+        this.props.history.push({
+            pathname: `/Maketing/${user}`,
+            state: {urlAvatar: urlAvatar },
+          })
+      }
     // Send Mail
     sendMail = element => {
         let to = this.props.location.state.data.from
@@ -322,7 +329,7 @@ class DetailMarketing extends Component {
                                 <PerformMarketing data={this.state.detail} />
                             </Grid>
                             <Grid item xs={12} className={classes.ButtonMail}>
-                                <Button type="primary" icon={<RollbackOutlined />} size={'large'} onClick={(element) => this.props.history.push(`/Maketing/${element}`)}>
+                                <Button type="primary" icon={<RollbackOutlined />} size={'large'} onClick={this.BackToMarketing}>
                                     Back
                                 </Button>
                                 <Button type="primary" icon={<HighlightOutlined />} size={'large'} style={{ marginLeft: 20 }} onClick={() => this.setState({ display: !this.state.display })}
