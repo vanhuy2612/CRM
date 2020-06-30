@@ -3,12 +3,12 @@ import clsx from 'clsx';
 import { withStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import NotificationsIcon from '@material-ui/icons/Notifications';
+import {Button} from 'antd'
 import AddIcon from '@material-ui/icons/Add'
 import Print from '@material-ui/icons/Print'
 import Avatar from '../Components/Avatar'
 import { IconButton, Tooltip, CssBaseline, Drawer, Box, AppBar, Toolbar, List, Typography, Divider, Badge, Container, Grid, Link } from '@material-ui/core';
-import { Login, Dashboard, Order, Customers, Reports,  Products, Deals, Contacts, Accounts, Maketing } from '../Components/ListItems';
+import { Login, Dashboard, Order, Customers, Reports, Products, Deals, Contacts, Accounts, Maketing } from '../Components/ListItems';
 import axios from 'axios'
 import _ from 'lodash'
 import moment from 'moment'
@@ -122,76 +122,76 @@ class RecentProduct extends Component {
 
     // login 
     handleToOrders = (element) => {
-        const {urlAvatar} = this.props.location.state
+        const { urlAvatar } = this.props.location.state
         let user = this.props.match.params.id
         this.props.history.push({
-          pathname: `/Orders/${user}`,
-          state: {urlAvatar: urlAvatar },
+            pathname: `/Orders/${user}`,
+            state: { urlAvatar: urlAvatar },
         })
-      }
-      handleToCustomers = element => {
-        const {urlAvatar} = this.props.location.state
+    }
+    handleToCustomers = element => {
+        const { urlAvatar } = this.props.location.state
         let user = this.props.match.params.id
         this.props.history.push({
-          pathname: `/Customers/${user}`,
-          state: {urlAvatar: urlAvatar },
+            pathname: `/Customers/${user}`,
+            state: { urlAvatar: urlAvatar },
         })
-      }
-      handleToDashboard = element => {
-        const {urlAvatar} = this.props.location.state
+    }
+    handleToDashboard = element => {
+        const { urlAvatar } = this.props.location.state
         let user = this.props.match.params.id
         this.props.history.push({
-          pathname: `/Dashboard/${user}`,
-          state: {urlAvatar: urlAvatar },
+            pathname: `/Dashboard/${user}`,
+            state: { urlAvatar: urlAvatar },
         })
-      }
-      handleToDashReports = element => {
-        const {urlAvatar} = this.props.location.state
+    }
+    handleToDashReports = element => {
+        const { urlAvatar } = this.props.location.state
         let user = this.props.match.params.id
         this.props.history.push({
-          pathname: `/Reports/${user}`,
-          state: {urlAvatar: urlAvatar },
+            pathname: `/Reports/${user}`,
+            state: { urlAvatar: urlAvatar },
         })
-      }
-      handleToAccounts = element => {
-        const {urlAvatar} = this.props.location.state
+    }
+    handleToAccounts = element => {
+        const { urlAvatar } = this.props.location.state
         let user = this.props.match.params.id
         this.props.history.push({
-          pathname: `/Accounts/${user}`,
-          state: {urlAvatar: urlAvatar },
+            pathname: `/Accounts/${user}`,
+            state: { urlAvatar: urlAvatar },
         })
-      }
-      // handleToActivity = element => {
-      //   let user = this.props.match.params.id
-      //   this.props.history.push(`/Activity/${user}`)
-      // }
-      handleToProducts = element => {
-       window.location.reload()
-      }
-      handleToDeals = element => {
-        const {urlAvatar} = this.props.location.state
+    }
+    // handleToActivity = element => {
+    //   let user = this.props.match.params.id
+    //   this.props.history.push(`/Activity/${user}`)
+    // }
+    handleToProducts = element => {
+        window.location.reload()
+    }
+    handleToDeals = element => {
+        const { urlAvatar } = this.props.location.state
         let user = this.props.match.params.id
         this.props.history.push({
-          pathname: `/Deals/${user}`,
-          state: {urlAvatar: urlAvatar },
+            pathname: `/Deals/${user}`,
+            state: { urlAvatar: urlAvatar },
         })
-      }
-      handleToContacts = element => {
-        const {urlAvatar} = this.props.location.state
+    }
+    handleToContacts = element => {
+        const { urlAvatar } = this.props.location.state
         let user = this.props.match.params.id
         this.props.history.push({
-          pathname: `/Contacts/${user}`,
-          state: {urlAvatar: urlAvatar },
+            pathname: `/Contacts/${user}`,
+            state: { urlAvatar: urlAvatar },
         })
-      }
-      handleToMaketing = element => {
-        const {urlAvatar} = this.props.location.state
+    }
+    handleToMaketing = element => {
+        const { urlAvatar } = this.props.location.state
         let user = this.props.match.params.id
         this.props.history.push({
-          pathname: `/Maketing/${user}`,
-          state: {urlAvatar: urlAvatar },
+            pathname: `/Maketing/${user}`,
+            state: { urlAvatar: urlAvatar },
         })
-      }
+    }
     // Print Table To Excel
     PrintTableToExcel = element => {
         let table = document.querySelector('table')
@@ -219,7 +219,7 @@ class RecentProduct extends Component {
     render() {
         const { open } = this.state
         const { classes } = this.props
-        const {urlAvatar} = this.props.location.state
+        const { urlAvatar } = this.props.location.state
         return (
             <div className={classes.root}>
                 <CssBaseline />
@@ -275,16 +275,10 @@ class RecentProduct extends Component {
                         <Grid container spacing={3}>
                             {/* Add item */}
                             <Grid item xs={12}>
-                                <Tooltip title="Add Item">
-                                    <IconButton>
-                                        <AddIcon />
-                                    </IconButton>
-                                </Tooltip>
-                                {/* print TableToExcel */}
                                 <Tooltip title="Print to Excel">
-                                    <IconButton onClick={this.PrintTableToExcel}>
-                                        <Print />
-                                    </IconButton>
+                                    <Button type="primary" icon={<Print />} size={'large'} style={{ borderRadius: 20, marginRight: 15 }} onClick={this.PrintTableToExcel}>
+                                        <span style={{ paddingBottom: 20, paddingLeft: 10 }}>Export Excel</span>
+                                    </Button>
                                 </Tooltip>
                             </Grid>
                             {/* Recent Item */}

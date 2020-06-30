@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import { withStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import NotificationsIcon from '@material-ui/icons/Notifications';
+import {Button} from 'antd'
 import Print from '@material-ui/icons/Print'
 import Avatar from '../Components/Avatar'
 import { IconButton, Tooltip, CssBaseline, Drawer, Box, AppBar, Toolbar, List, Typography, Divider, Badge, Container, Grid, Link } from '@material-ui/core';
@@ -11,7 +11,6 @@ import { Login, Dashboard, Order, Customers, Reports, Products, Deals, Contacts,
 import TblCustomers from './TblOrders'
 import axios from 'axios'
 import _ from 'lodash'
-import moment from 'moment'
 import NumberFormat from 'react-number-format';
 import TableToExcel from "@linways/table-to-excel"
 
@@ -125,35 +124,35 @@ class RecentOrder extends Component {
     window.location.reload()
   }
   handleToCustomers = element => {
-    const {urlAvatar} = this.props.location.state
+    const { urlAvatar } = this.props.location.state
     let user = this.props.match.params.id
     this.props.history.push({
       pathname: `/Customers/${user}`,
-      state: {urlAvatar: urlAvatar },
+      state: { urlAvatar: urlAvatar },
     })
   }
   handleToDashboard = element => {
-    const {urlAvatar} = this.props.location.state
+    const { urlAvatar } = this.props.location.state
     let user = this.props.match.params.id
     this.props.history.push({
       pathname: `/Dashboard/${user}`,
-      state: {urlAvatar: urlAvatar },
+      state: { urlAvatar: urlAvatar },
     })
   }
   handleToDashReports = element => {
-    const {urlAvatar} = this.props.location.state
+    const { urlAvatar } = this.props.location.state
     let user = this.props.match.params.id
     this.props.history.push({
       pathname: `/Reports/${user}`,
-      state: {urlAvatar: urlAvatar },
+      state: { urlAvatar: urlAvatar },
     })
   }
   handleToAccounts = element => {
-    const {urlAvatar} = this.props.location.state
+    const { urlAvatar } = this.props.location.state
     let user = this.props.match.params.id
     this.props.history.push({
       pathname: `/Accounts/${user}`,
-      state: {urlAvatar: urlAvatar },
+      state: { urlAvatar: urlAvatar },
     })
   }
   // handleToActivity = element => {
@@ -161,44 +160,44 @@ class RecentOrder extends Component {
   //   this.props.history.push(`/Activity/${user}`)
   // }
   handleToProducts = element => {
-    const {urlAvatar} = this.props.location.state
+    const { urlAvatar } = this.props.location.state
     let user = this.props.match.params.id
     this.props.history.push({
       pathname: `/Products/${user}`,
-      state: {urlAvatar: urlAvatar },
+      state: { urlAvatar: urlAvatar },
     })
   }
   handleToDeals = element => {
-    const {urlAvatar} = this.props.location.state
+    const { urlAvatar } = this.props.location.state
     let user = this.props.match.params.id
     this.props.history.push({
       pathname: `/Deals/${user}`,
-      state: {urlAvatar: urlAvatar },
+      state: { urlAvatar: urlAvatar },
     })
   }
   handleToContacts = element => {
-    const {urlAvatar} = this.props.location.state
+    const { urlAvatar } = this.props.location.state
     let user = this.props.match.params.id
     this.props.history.push({
       pathname: `/Contacts/${user}`,
-      state: {urlAvatar: urlAvatar },
+      state: { urlAvatar: urlAvatar },
     })
   }
   handleToMaketing = element => {
-    const {urlAvatar} = this.props.location.state
+    const { urlAvatar } = this.props.location.state
     let user = this.props.match.params.id
     this.props.history.push({
       pathname: `/Maketing/${user}`,
-      state: {urlAvatar: urlAvatar },
+      state: { urlAvatar: urlAvatar },
     })
   }
   // Print Table To Excel
   PrintTableToExcel = element => {
     let table = document.querySelector('table')
-    TableToExcel.convert(table ,{
+    TableToExcel.convert(table, {
       name: 'Order.xlsx'
     })
-}
+  }
 
   // lấy data order
   async componentDidMount() {
@@ -216,7 +215,7 @@ class RecentOrder extends Component {
   render() {
     const { open } = this.state
     const { classes } = this.props
-    const {urlAvatar} = this.props.location.state
+    const { urlAvatar } = this.props.location.state
     return (
       <div className={classes.root}>
         <CssBaseline />
@@ -234,7 +233,7 @@ class RecentOrder extends Component {
             <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
               Order
             </Typography>
-            <Avatar data = {urlAvatar} />
+            <Avatar data={urlAvatar} />
           </Toolbar>
         </AppBar>
         <Drawer
@@ -273,9 +272,9 @@ class RecentOrder extends Component {
               {/* print table to excel */}
               <Grid item xs={12}>
                 <Tooltip title="Print to Excel">
-                  <IconButton onClick={this.PrintTableToExcel}>
-                    <Print />
-                  </IconButton>
+                  <Button type="primary" icon={<Print />} size={'large'} style={{ borderRadius: 20, marginRight: 15 }} onClick={this.PrintTableToExcel}>
+                    <span style={{ paddingBottom: 20, paddingLeft: 10 }}>Export Excel</span>
+                  </Button>
                 </Tooltip>
               </Grid>
               {/* Recent Orders */}

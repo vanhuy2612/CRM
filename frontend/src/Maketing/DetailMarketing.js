@@ -9,7 +9,7 @@ import { Form, Input, Button, } from 'antd';
 import { RollbackOutlined, HighlightOutlined, SendOutlined } from '@ant-design/icons';
 import Avatar from '../Components/Avatar'
 import { IconButton, Tooltip, CssBaseline, Drawer, Box, AppBar, Toolbar, List, Typography, Divider, Badge, Container, Grid } from '@material-ui/core';
-import { Login, Dashboard, Order, Customers, Reports, Activity, Products, Deals, Contacts, Accounts, Maketing } from '../Components/ListItems';
+import { Login, Dashboard, Order, Customers, Reports, Products, Deals, Contacts, Accounts, Maketing } from '../Components/ListItems';
 import axios from 'axios'
 import _ from 'lodash'
 import PerformMarketing from './component/PerformMarketing'
@@ -209,6 +209,7 @@ class DetailMarketing extends Component {
       }
       BackToMarketing = element => {
         const {urlAvatar, user} = this.props.location.state
+        console.log('user', user)
         this.props.history.push({
             pathname: `/Maketing/${user}`,
             state: {urlAvatar: urlAvatar },
@@ -314,7 +315,6 @@ class DetailMarketing extends Component {
                     <List onClick={this.handleToDashReports}>{Reports}</List>
                     <Divider />
                     <List onClick={this.handleToMaketing}>{Maketing}</List>
-                    <List onClick={this.handleToActivity}>{Activity}</List>
                     <List onClick={this.handleToProducts}>{Products}</List>
                     <List onClick={this.handleToDeals}>{Deals}</List>
                     <List onClick={this.handleToContacts}>{Contacts}</List>
@@ -329,10 +329,10 @@ class DetailMarketing extends Component {
                                 <PerformMarketing data={this.state.detail} />
                             </Grid>
                             <Grid item xs={12} className={classes.ButtonMail}>
-                                <Button type="primary" icon={<RollbackOutlined />} size={'large'} onClick={this.BackToMarketing}>
+                                <Button type="primary" icon={<RollbackOutlined />} size={'large'} style={{borderRadius: 20}} onClick={this.BackToMarketing}>
                                     Back
                                 </Button>
-                                <Button type="primary" icon={<HighlightOutlined />} size={'large'} style={{ marginLeft: 20 }} onClick={() => this.setState({ display: !this.state.display })}
+                                <Button type="primary" icon={<HighlightOutlined />} size={'large'}  style={{ marginLeft: 20, borderRadius: 20 }} onClick={() => this.setState({ display: !this.state.display })}
                                 >
                                     Cập nhật
                                 </Button>
@@ -345,13 +345,6 @@ class DetailMarketing extends Component {
                                 />
                             </Grid>
                             {/* Danh sách member có trong chiến dịch Marketing đó */}
-                            <Grid item xs={12}>
-                                <Tooltip title="Add Member To Marketing">
-                                    <IconButton onClick={this.AddMemberToMarketing}>
-                                        <AddIcon />
-                                    </IconButton>
-                                </Tooltip>
-                            </Grid>
                             <Grid item xs={12}>
                                 <TableMember data={this.state.detail} />
                             </Grid>

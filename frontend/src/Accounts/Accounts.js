@@ -3,6 +3,7 @@ import clsx from 'clsx';
 import { withStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import { Button } from 'antd'
 import Print from '@material-ui/icons/Print'
 import Avatar from '../Components/Avatar'
 import { IconButton, Tooltip, CssBaseline, Drawer, Box, AppBar, Toolbar, List, Typography, Divider, Container, Grid, Link } from '@material-ui/core';
@@ -115,35 +116,35 @@ class RecentOrder extends Component {
   }
   // rent to order or dashboard or ...
   handleToOrders = (element) => {
-    const {urlAvatar} = this.props.location.state
+    const { urlAvatar } = this.props.location.state
     let user = this.props.match.params.id
     this.props.history.push({
       pathname: `/Orders/${user}`,
-      state: {urlAvatar: urlAvatar },
+      state: { urlAvatar: urlAvatar },
     })
   }
   handleToCustomers = element => {
-    const {urlAvatar} = this.props.location.state
+    const { urlAvatar } = this.props.location.state
     let user = this.props.match.params.id
     this.props.history.push({
       pathname: `/Customers/${user}`,
-      state: {urlAvatar: urlAvatar },
+      state: { urlAvatar: urlAvatar },
     })
   }
   handleToDashboard = element => {
-    const {urlAvatar} = this.props.location.state
+    const { urlAvatar } = this.props.location.state
     let user = this.props.match.params.id
     this.props.history.push({
       pathname: `/Dashboard/${user}`,
-      state: {urlAvatar: urlAvatar },
+      state: { urlAvatar: urlAvatar },
     })
   }
   handleToDashReports = element => {
-    const {urlAvatar} = this.props.location.state
+    const { urlAvatar } = this.props.location.state
     let user = this.props.match.params.id
     this.props.history.push({
       pathname: `/Reports/${user}`,
-      state: {urlAvatar: urlAvatar },
+      state: { urlAvatar: urlAvatar },
     })
   }
   handleToAccounts = element => {
@@ -154,34 +155,34 @@ class RecentOrder extends Component {
   //   this.props.history.push(`/Activity/${user}`)
   // }
   handleToProducts = element => {
-    const {urlAvatar} = this.props.location.state
+    const { urlAvatar } = this.props.location.state
     let user = this.props.match.params.id
     this.props.history.push({
       pathname: `/Products/${user}`,
-      state: {urlAvatar: urlAvatar },
+      state: { urlAvatar: urlAvatar },
     })
   }
   handleToDeals = element => {
-    const {urlAvatar} = this.props.location.state
+    const { urlAvatar } = this.props.location.state
     let user = this.props.match.params.id
     this.props.history.push({
       pathname: `/Deals/${user}`,
-      state: {urlAvatar: urlAvatar },
+      state: { urlAvatar: urlAvatar },
     })
   }
   handleToContacts = element => {
-    const {urlAvatar} = this.props.location.state
+    const { urlAvatar } = this.props.location.state
     let user = this.props.match.params.id
     this.props.history.push({
       pathname: `/Contacts/${user}`,
-      state: {urlAvatar: urlAvatar },
+      state: { urlAvatar: urlAvatar },
     })
   }
   handleToMaketing = element => {
     let user = this.props.match.params.id
     this.props.history.push({
       pathname: `/Maketing/${user}`,
-      state: {urlAvatar: this.state.urlAvatar },
+      state: { urlAvatar: this.state.urlAvatar },
     })
   }
   // Print Table To Excel
@@ -201,7 +202,7 @@ class RecentOrder extends Component {
     let data = _.get(dataCustomer, "data", [])
     for (let i = 0; i < data.length; i++) {
       data[i].role = data[i].role.name
-      if(data[i].username = user){
+      if (data[i].username = user) {
         this.setState({
           urlAvatar: data[i].urlImage
         })
@@ -210,7 +211,7 @@ class RecentOrder extends Component {
     this.setState({ dataUser: data })
   }
   render() {
-    const { open , urlAvatar} = this.state
+    const { open, urlAvatar } = this.state
     const { classes } = this.props
     return (
       <div className={classes.root}>
@@ -229,7 +230,7 @@ class RecentOrder extends Component {
             <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
               Accounts
             </Typography>
-            <Avatar data = {urlAvatar} />
+            <Avatar data={urlAvatar} />
           </Toolbar>
         </AppBar>
         <Drawer
@@ -268,9 +269,9 @@ class RecentOrder extends Component {
               {/* print table to excel */}
               <Grid item xs={12}>
                 <Tooltip title="Print to Excel">
-                  <IconButton onClick={this.PrintTableToExcel}>
-                    <Print />
-                  </IconButton>
+                  <Button type="primary" icon={<Print />} size={'large'} style={{ borderRadius: 20, marginRight: 15 }} onClick={this.PrintTableToExcel}>
+                    <span style={{ paddingBottom: 20, paddingLeft: 10 }}>Export Excel</span>
+                  </Button>
                 </Tooltip>
               </Grid>
               {/* Recent Orders */}

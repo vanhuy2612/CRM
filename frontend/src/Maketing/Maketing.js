@@ -3,10 +3,10 @@ import clsx from 'clsx';
 import { withStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import NotificationsIcon from '@material-ui/icons/Notifications';
+import {Button} from 'antd'
 import Avatar from '../Components/Avatar'
 import { IconButton, Tooltip, CssBaseline, Drawer, AppBar, Toolbar, List, Typography, Divider, Badge, Container, Grid, Link } from '@material-ui/core';
-import { Login, Dashboard, Order, Customers, Reports,  Products, Deals, Contacts, Accounts, Maketing } from '../Components/ListItems';
+import { Login, Dashboard, Order, Customers, Reports, Products, Deals, Contacts, Accounts, Maketing } from '../Components/ListItems';
 import axios from 'axios'
 import _ from 'lodash'
 import TblMaketing from './TblMaketing'
@@ -104,7 +104,7 @@ class RecentMaketing extends Component {
       showFormAddMarketing: true
     }
   }
- 
+
   handleDrawerOpen = () => {
     this.setState({
       open: true
@@ -126,43 +126,43 @@ class RecentMaketing extends Component {
   }
   // rent to order or dashboard or ...
   handleToOrders = (element) => {
-    const {urlAvatar} = this.props.location.state
+    const { urlAvatar } = this.props.location.state
     let user = this.props.match.params.id
     this.props.history.push({
       pathname: `/Orders/${user}`,
-      state: {urlAvatar: urlAvatar },
+      state: { urlAvatar: urlAvatar },
     })
   }
   handleToCustomers = element => {
-    const {urlAvatar} = this.props.location.state
+    const { urlAvatar } = this.props.location.state
     let user = this.props.match.params.id
     this.props.history.push({
       pathname: `/Customers/${user}`,
-      state: {urlAvatar: urlAvatar },
+      state: { urlAvatar: urlAvatar },
     })
   }
   handleToDashboard = element => {
-    const {urlAvatar} = this.props.location.state
+    const { urlAvatar } = this.props.location.state
     let user = this.props.match.params.id
     this.props.history.push({
       pathname: `/Dashboard/${user}`,
-      state: {urlAvatar: urlAvatar },
+      state: { urlAvatar: urlAvatar },
     })
   }
   handleToDashReports = element => {
-    const {urlAvatar} = this.props.location.state
+    const { urlAvatar } = this.props.location.state
     let user = this.props.match.params.id
     this.props.history.push({
       pathname: `/Reports/${user}`,
-      state: {urlAvatar: urlAvatar },
+      state: { urlAvatar: urlAvatar },
     })
   }
   handleToAccounts = element => {
-    const {urlAvatar} = this.props.location.state
+    const { urlAvatar } = this.props.location.state
     let user = this.props.match.params.id
     this.props.history.push({
       pathname: `/Accounts/${user}`,
-      state: {urlAvatar: urlAvatar },
+      state: { urlAvatar: urlAvatar },
     })
   }
   // handleToActivity = element => {
@@ -170,27 +170,27 @@ class RecentMaketing extends Component {
   //   this.props.history.push(`/Activity/${user}`)
   // }
   handleToProducts = element => {
-    const {urlAvatar} = this.props.location.state
+    const { urlAvatar } = this.props.location.state
     let user = this.props.match.params.id
     this.props.history.push({
       pathname: `/Products/${user}`,
-      state: {urlAvatar: urlAvatar },
+      state: { urlAvatar: urlAvatar },
     })
   }
   handleToDeals = element => {
-    const {urlAvatar} = this.props.location.state
+    const { urlAvatar } = this.props.location.state
     let user = this.props.match.params.id
     this.props.history.push({
       pathname: `/Deals/${user}`,
-      state: {urlAvatar: urlAvatar },
+      state: { urlAvatar: urlAvatar },
     })
   }
   handleToContacts = element => {
-    const {urlAvatar} = this.props.location.state
+    const { urlAvatar } = this.props.location.state
     let user = this.props.match.params.id
     this.props.history.push({
       pathname: `/Contacts/${user}`,
-      state: {urlAvatar: urlAvatar },
+      state: { urlAvatar: urlAvatar },
     })
   }
   handleToMaketing = element => {
@@ -209,7 +209,7 @@ class RecentMaketing extends Component {
     })
   }
   render() {
-    const {urlAvatar} = this.props.location.state
+    const { urlAvatar } = this.props.location.state
     const user = this.props.match.params.id
     const { open } = this.state
     const { classes } = this.props
@@ -269,9 +269,9 @@ class RecentMaketing extends Component {
               {/* Form Add Marketing */}
               <Grid item xs={12}>
                 <Tooltip title="Add Marketing">
-                  <IconButton onClick={() => this.setState({ showFormAddMarketing: !this.state.showFormAddMarketing })}>
-                    <AddIcon />
-                  </IconButton>
+                  <Button type="primary" icon={<AddIcon />} size={'large'} style={{ borderRadius: 20, marginRight: 15 }} onClick={() => this.setState({ showFormAddMarketing: !this.state.showFormAddMarketing })}>
+                    <span style={{ paddingBottom: 20, paddingLeft: 10 }}>Add Marketing</span>
+                  </Button>
                 </Tooltip>
                 <Grid item xs={12} hidden={this.state.showFormAddMarketing}>
                   <FormAddMarketing />
@@ -283,8 +283,8 @@ class RecentMaketing extends Component {
                 <BoardTrello
                   data={this.state.dataMaketing}
                   link={this.props}
-                  user = {user}
-                  urlAvatar = {urlAvatar}
+                  user={user}
+                  urlAvatar={urlAvatar}
                 />
               </Grid>
             </Grid>

@@ -3,10 +3,11 @@ import clsx from 'clsx';
 import { withStyles } from '@material-ui/core/styles';
 import {IconButton, Tooltip, CssBaseline, Drawer,Box, AppBar,Toolbar, List, Typography,Divider, Badge, Container, Grid, Link} from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
+import { Form, Input, Button, } from 'antd';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import NotificationsIcon from '@material-ui/icons/Notifications';
 import AddIcon from '@material-ui/icons/Add'
 import Print from '@material-ui/icons/Print'
+import Upload from '@material-ui/icons/Publish'
 import Avatar from '../Components/Avatar'
 import TableToExcel from "@linways/table-to-excel"
 import { Login, Dashboard, Order, Customers, Reports,  Products, Deals, Contacts, Accounts, Maketing } from '../Components/ListItems';
@@ -205,7 +206,10 @@ class RecentCustomers extends Component {
             name: 'Customer.xlsx'
         })
     }
-
+    // Upload Excel
+    UploadExcel = element => {
+        console.log('upload excel')
+    } 
     // lấy data customers
     async componentDidMount() {
         let token = localStorage.getItem('token')
@@ -285,14 +289,19 @@ class RecentCustomers extends Component {
                         <Grid container spacing={3}>
                             <Grid item xs={12}>
                                 <Tooltip title="Add Customer">
-                                    <IconButton onClick={this.AddCustomer}>
-                                        <AddIcon />
-                                    </IconButton>
+                                    <Button type="primary" icon={<AddIcon />} size={'large'} style={{borderRadius: 20, marginRight: 15}} onClick={this.AddCustomer}>
+                                        <span style={{paddingBottom: 20, paddingLeft: 10}}>Add Customer</span>
+                                    </Button>
                                 </Tooltip>
                                 <Tooltip title="Print to Excel">
-                                    <IconButton onClick={this.PrintTableToExcel}>
-                                        <Print />
-                                    </IconButton>
+                                    <Button type="primary" icon={<Print />} size={'large'} style={{borderRadius: 20, marginRight: 15}} onClick={this.PrintTableToExcel}>
+                                        <span style={{paddingBottom: 20, paddingLeft: 10}}>Export Excel</span>
+                                    </Button>
+                                </Tooltip>
+                                <Tooltip title="Upload data Excel">
+                                    <Button type="primary" icon={<Upload />} size={'large'} style={{borderRadius: 20, marginRight: 15}} onClick={this.UploadExcel}>
+                                        <span style={{paddingBottom: 20, paddingLeft: 10}}>Upload Excel</span>
+                                    </Button>
                                 </Tooltip>
                             </Grid>
                             {/* Recent Customers */}

@@ -266,7 +266,7 @@ class TblCustomers extends Component {
                             })
                         }
                     </Select>
-                    <Button type="primary" icon={<SendOutlined />} size={'large'} onClick={this.onAddCustomerToMarketing}>
+                    <Button type="primary" icon={<SendOutlined />} size={'large'} style={{borderRadius: 20}} onClick={this.onAddCustomerToMarketing}>
                         Store
                     </Button>
                 </Grid>
@@ -310,10 +310,10 @@ class TblCustomers extends Component {
                 />
                 {/* Button show form send mail */}
                 <Grid item xs={12} className={classes.ButtonMail}>
-                    <Button type="primary" icon={<RollbackOutlined />} size={'large'} onClick={(element) => this.props.history.push(`/Contacts/${element}`)}>
+                    <Button type="primary" icon={<RollbackOutlined />} size={'large'} style={{borderRadius: 20}} onClick={(element) => this.props.history.push(`/Contacts/${element}`)}>
                         Back
                                 </Button>
-                    <Button type="primary" icon={<HighlightOutlined />} size={'large'} style={{ marginLeft: 20 }}
+                    <Button type="primary" icon={<HighlightOutlined />} size={'large'} style={{ marginLeft: 20, borderRadius: 20 }}
                         onClick={this.showSendMailForm}
                     >
                         Gửi mail cho khách hàng
@@ -360,7 +360,7 @@ class TblCustomers extends Component {
                             />
                         </Form.Item>
                         <Form.Item {...tailLayout}>
-                            <Button type="primary" htmlType="submit" icon={<SendOutlined />}
+                            <Button type="primary" htmlType="submit" icon={<SendOutlined />} style={{borderRadius: 20}}
                                 onClick={this.sendMail}
                             >
                                 Gửi

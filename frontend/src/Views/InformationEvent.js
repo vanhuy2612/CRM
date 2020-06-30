@@ -49,7 +49,7 @@ export default function Blog(props) {
           link={props}
         />
         <main>
-            <p>Tin tức sự kiện</p>
+            <p>Hiện Chưa Update</p>
         </main>
       </Container>
       <Footer title="Footer" description="Something here to give the footer a purpose!" />

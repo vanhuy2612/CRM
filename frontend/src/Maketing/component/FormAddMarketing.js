@@ -163,7 +163,7 @@ class FormAddMarketing extends Component {
                                 />
                             }
                             <Form.Item {...tailLayout}>
-                                <Button type="primary" htmlType="submit" icon={<SendOutlined />}
+                                <Button type="primary" htmlType="submit" icon={<SendOutlined />} style={{borderRadius: 20}}
                                     onClick={this.onStoreMarketing}
                                 >
                                     Save

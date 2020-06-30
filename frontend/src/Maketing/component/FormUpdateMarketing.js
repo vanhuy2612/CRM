@@ -158,7 +158,7 @@ class FormUpdateMarketing extends Component {
                                         />
                                     </Form.Item>
                                     <Form.Item {...tailLayout}>
-                                        <Button type="primary" htmlType="submit" icon={<SendOutlined />}
+                                        <Button type="primary" htmlType="submit" icon={<SendOutlined />} style={{borderRadius: 20}}
                                             onClick={this.UpdateDetailMarketing}
                                         >
                                             Update 

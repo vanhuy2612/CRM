@@ -52,7 +52,7 @@ export default function Blog(props) {
                 <Grid container spacing={0} className={classes.grid}>
                     <Grid item xs={6} >
                         <h2>Thông tin về CRM </h2>
-                        <p>Về CRM đây là 8.	Hệ thống quản trị quan hệ khách hàng (CRMCustomer Relationship Management)
+                        <p>Về CRM đây là Hệ thống quản trị quan hệ khách hàng (CRMCustomer Relationship Management)
                         Là hệ thống tích hợp giúp quản lý và liên kết toàn diện các
                         quan hệ với khách hàng thông qua nhiều kênh và bộ phận chức năng khác nhau</p>
                     </Grid>

@@ -210,7 +210,7 @@ class TblAccounts extends Component {
                             })
                         }
                     </Select>
-                    <Button type="primary" icon={<SendOutlined />} size={'large'} onClick={this.onAddMemberToMarketing}>
+                    <Button type="primary" icon={<SendOutlined />} size={'large'} style={{borderRadius: 20}} onClick={this.onAddMemberToMarketing}>
                         Store
                     </Button>
                 </Grid>
