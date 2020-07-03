@@ -196,8 +196,12 @@ class RecentCustomers extends Component {
     
     // Add Customer
     AddCustomer = element => {
+        const {urlAvatar} = this.props.location.state
         let user = this.props.match.params.id
-        this.props.history.push(`/AddCustomer/${user}`)
+        this.props.history.push({
+            pathname: `/AddCustomer/${user}`,
+            state: {urlAvatar: urlAvatar },
+          })
     }
     // Print Table To Excel
     PrintTableToExcel = element => {

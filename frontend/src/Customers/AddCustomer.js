@@ -53,6 +53,7 @@ class AddCustomer extends Component {
     }
 
     handleSignUp = element => {
+        const {urlAvatar} = this.props.location.state
         let user = this.props.match.params.id
         let { address, job, sex, type, phone, email, selectedFile, name, branchId, birthDate, country } = this.state
         let dem = 0
@@ -224,7 +225,10 @@ class AddCustomer extends Component {
                     console.log(error);
                 });
             window.location.reload(
-                this.props.history.push(`/Customers/${user}`)
+                this.props.history.push({
+                    pathname: `/Customers/${user}`,
+                    state: {urlAvatar: urlAvatar },
+                  })
             )
         }
     }
