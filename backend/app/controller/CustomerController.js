@@ -36,6 +36,7 @@ class CustomerController extends BaseController {
                 }, {
                     raw: true, transaction: t
                 })
+                console.log(lastCustomer)
                 if (lastCustomer.length != 0) {
                     lastCustomer = lastCustomer[0].dataValues;
                     let stringId = lastCustomer.id;
@@ -51,7 +52,7 @@ class CustomerController extends BaseController {
 
                 // insert to db customers:
                 let insertedCus = await db.customers.create(data, {transaction: t});
-                //console.log(insertedCus)
+                console.log(insertedCus)
                 message.insertedCus = "Faild"
                 if (insertedCus != null) {
                     message.insertedCus = "OK"
@@ -61,6 +62,7 @@ class CustomerController extends BaseController {
                     console.log("finding id .........")
                     // find last contacts:
                     let lastContact = await db.contacts.findAll({
+                        where: { id: { [Op.like]: local } },
                         order: [['createdAt', 'DESC']],
                         limit: 1, offset: 0
                     }, {
